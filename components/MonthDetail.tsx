@@ -311,6 +311,7 @@ export const MonthDetail: React.FC<MonthDetailProps> = ({ data, hideCancelled = 
       <motion.section variants={item}>
         <NotesSection
           monthId={data.id}
+          monthName={data.name}
           notes={data.notes || []}
           onAddNote={addNote}
           onDeleteNote={deleteNote}
