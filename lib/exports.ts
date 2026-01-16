@@ -3,34 +3,42 @@ import html2canvas from 'html2canvas';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, Table, TableCell, TableRow, WidthType } from 'docx';
 import { MonthData } from '../types';
 
-// Generate PDF Export - Light Report Style (jsPDF native)
+// Modern, aesthetic PDF Export matching YearOverview styling
 export async function exportToPDF(data: MonthData[], scope: 'current' | 'all', currentMonth?: MonthData) {
   const exportData = scope === 'current' && currentMonth ? [currentMonth] : data;
 
   const pdf = new jsPDF('p', 'mm', 'a4');
   const pageWidth = 210;
   const pageHeight = 297;
-  const margin = 18;
+  const margin = 20;
   const contentWidth = pageWidth - margin * 2;
 
-  // Light theme palette
+  // Modern color palette (matching YearOverview)
   const colors = {
-    ink: [20, 23, 28] as const,
-    muted: [92, 99, 110] as const,
-    rule: [215, 220, 228] as const,
-    softRule: [235, 238, 243] as const,
-    accent: [150, 116, 58] as const, // warm gold-brown
-    accentSoft: [247, 242, 233] as const,
+    primary: [147, 51, 234] as const,      // Purple-600 (#9333EA)
+    primaryLight: [243, 232, 255] as const, // Purple-100
+    secondary: [79, 70, 229] as const,     // Indigo-600
+    success: [16, 185, 129] as const,      // Green-500
+    successLight: [209, 250, 229] as const, // Green-100
+    ink: [17, 24, 39] as const,            // Gray-900
+    muted: [107, 114, 128] as const,       // Gray-500
+    light: [156, 163, 175] as const,       // Gray-400
+    rule: [229, 231, 235] as const,        // Gray-200
+    softBg: [249, 250, 251] as const,      // Gray-50
+    white: [255, 255, 255] as const,
+    brand: [192, 38, 211] as const,        // Fuchsia-600
+    brandLight: [250, 232, 255] as const,  // Fuchsia-50
+    blue: [59, 130, 246] as const,         // Blue-500
+    blueLight: [219, 234, 254] as const,   // Blue-100
   };
 
   const setTextColor = (c: readonly [number, number, number]) => pdf.setTextColor(c[0], c[1], c[2]);
   const setDrawColor = (c: readonly [number, number, number]) => pdf.setDrawColor(c[0], c[1], c[2]);
   const setFillColor = (c: readonly [number, number, number]) => pdf.setFillColor(c[0], c[1], c[2]);
 
-  const line = (y: number, soft: boolean = false) => {
-    setDrawColor(soft ? colors.softRule : colors.rule);
-    pdf.setLineWidth(0.35);
-    pdf.line(margin, y, pageWidth - margin, y);
+  // Helper to draw rounded rectangle
+  const roundedRect = (x: number, y: number, w: number, h: number, r: number) => {
+    pdf.roundedRect(x, y, w, h, r, r, 'F');
   };
 
   const toNumberUnits = (v: unknown): number => {
@@ -45,12 +53,10 @@ export async function exportToPDF(data: MonthData[], scope: 'current' | 'all', c
   const formatINRCompact = (value: number): string => {
     const abs = Math.abs(value);
     const sign = value < 0 ? '-' : '';
-
     const fmt = (n: number) => {
       const rounded = Math.round(n * 10) / 10;
       return rounded % 1 === 0 ? String(Math.round(rounded)) : String(rounded);
     };
-
     if (abs >= 1e7) return `${sign}₹${fmt(abs / 1e7)} Cr`;
     if (abs >= 1e5) return `${sign}₹${fmt(abs / 1e5)} L`;
     if (abs >= 1e3) return `${sign}₹${fmt(abs / 1e3)} K`;
@@ -60,13 +66,10 @@ export async function exportToPDF(data: MonthData[], scope: 'current' | 'all', c
   const parseINRCompact = (input?: string): number | null => {
     if (!input) return null;
     const raw = input.replace(/,/g, '').trim();
-
     const m = raw.match(/(-?[0-9]*\.?[0-9]+)\s*(cr|crore|l|lac|lakh|k|thousand)?/i);
     if (!m) return null;
-
     const num = parseFloat(m[1]);
     if (!Number.isFinite(num)) return null;
-
     const unit = (m[2] || '').toLowerCase();
     const mult = unit === 'cr' || unit === 'crore' ? 1e7 : unit === 'l' || unit === 'lac' || unit === 'lakh' ? 1e5 : unit === 'k' || unit === 'thousand' ? 1e3 : 1;
     return num * mult;
@@ -74,353 +77,390 @@ export async function exportToPDF(data: MonthData[], scope: 'current' | 'all', c
 
   const safeText = (text: string | undefined | null) => (text || '').toString().trim();
 
-  const writeWrapped = (opts: {
-    text: string;
-    x: number;
-    y: number;
-    maxWidth: number;
-    font: 'times' | 'helvetica';
-    style: 'normal' | 'bold' | 'italic';
-    size: number;
-    lineHeight: number;
-    color?: readonly [number, number, number];
-  }) => {
-    const lines = pdf.splitTextToSize(opts.text, opts.maxWidth);
-    pdf.setFont(opts.font, opts.style);
-    pdf.setFontSize(opts.size);
-    setTextColor(opts.color || colors.ink);
-    pdf.text(lines, opts.x, opts.y);
-    return opts.y + lines.length * opts.lineHeight;
-  };
+  // Calculate stats
+  const totalOffers = exportData.reduce((acc, m) => acc + m.offers.length, 0);
+  const totalActiveOffers = exportData.reduce((acc, m) => acc + m.offers.filter(o => !o.cancelled).length, 0);
 
-  const bullet = (y: number) => {
-    setTextColor(colors.accent);
-    pdf.setFont('helvetica', 'bold');
-    pdf.setFontSize(10);
-    pdf.text('•', margin, y);
-  };
-
-  // ---------------- Title page (light) ----------------
-  setFillColor([255, 255, 255]);
+  // ================== COVER PAGE ==================
+  // White background
+  setFillColor(colors.white);
   pdf.rect(0, 0, pageWidth, pageHeight, 'F');
 
-  setTextColor(colors.accent);
-  pdf.setFont('times', 'bold');
-  pdf.setFontSize(10);
-  pdf.text('PHYSIQUE 57 INDIA', margin, 28);
+  // Top accent bar with gradient effect
+  setFillColor(colors.primary);
+  pdf.rect(0, 0, pageWidth, 6, 'F');
 
+  // Brand label
+  let y = 40;
+  setTextColor(colors.brand);
+  pdf.setFont('helvetica', 'bold');
+  pdf.setFontSize(11);
+  pdf.text('PHYSIQUE 57 INDIA', margin, y);
+
+  // Main title
+  y += 14;
   setTextColor(colors.ink);
-  pdf.setFont('times', 'bold');
-  pdf.setFontSize(28);
-  pdf.text('2026 Sales Masterplan', margin, 45);
+  pdf.setFont('helvetica', 'bold');
+  pdf.setFontSize(36);
+  pdf.text('2026 Sales', margin, y);
+  
+  y += 14;
+  // Gradient text effect (simulated with purple)
+  setTextColor(colors.primary);
+  pdf.text('Masterplan', margin, y);
 
+  // Subtitle
+  y += 12;
   setTextColor(colors.muted);
-  pdf.setFont('times', 'italic');
-  pdf.setFontSize(12);
-  pdf.text('Strategic monthly report', margin, 55);
+  pdf.setFont('helvetica', 'normal');
+  pdf.setFontSize(14);
+  pdf.text('Complete overview of strategic sales initiatives', margin, y);
 
-  line(63);
+  // Divider line
+  y += 16;
+  setDrawColor(colors.rule);
+  pdf.setLineWidth(0.5);
+  pdf.line(margin, y, pageWidth - margin, y);
 
-  const subtitle = 'Monthly plan with offers, pricing, targets, and operational notes.';
-  writeWrapped({
-    text: subtitle,
-    x: margin,
-    y: 74,
-    maxWidth: 150,
-    font: 'helvetica',
-    style: 'normal',
-    size: 10,
-    lineHeight: 5,
-    color: colors.muted,
-  });
+  // Stats cards section
+  y += 20;
+  
+  const cardWidth = (contentWidth - 12) / 3;
+  const cardHeight = 32;
+  const cardSpacing = 6;
 
-  const totalOffers = exportData.reduce((acc, m) => acc + m.offers.filter(o => !o.cancelled).length, 0);
-  const statsY = 110;
-
+  // Card 1: Total Offers
+  setFillColor(colors.white);
+  setDrawColor(colors.rule);
+  pdf.setLineWidth(0.3);
+  pdf.roundedRect(margin, y, cardWidth, cardHeight, 3, 3, 'FD');
+  
+  // Icon circle
+  setFillColor(colors.brandLight);
+  pdf.circle(margin + 12, y + cardHeight / 2, 6, 'F');
+  setTextColor(colors.brand);
+  pdf.setFont('helvetica', 'bold');
+  pdf.setFontSize(10);
+  pdf.text('P', margin + 10.5, y + cardHeight / 2 + 2);
+  
+  setTextColor(colors.muted);
+  pdf.setFont('helvetica', 'normal');
+  pdf.setFontSize(9);
+  pdf.text('Total Offers', margin + 22, y + 12);
   setTextColor(colors.ink);
-  pdf.setFont('times', 'bold');
-  pdf.setFontSize(12);
-  pdf.text('Report Summary', margin, statsY);
+  pdf.setFont('helvetica', 'bold');
+  pdf.setFontSize(18);
+  pdf.text(String(totalOffers), margin + 22, y + 24);
 
-  line(statsY + 4, true);
+  // Card 2: Active Offers
+  const card2X = margin + cardWidth + cardSpacing;
+  setFillColor(colors.white);
+  pdf.roundedRect(card2X, y, cardWidth, cardHeight, 3, 3, 'FD');
+  
+  setFillColor(colors.successLight);
+  pdf.circle(card2X + 12, y + cardHeight / 2, 6, 'F');
+  setTextColor(colors.success);
+  pdf.setFont('helvetica', 'bold');
+  pdf.setFontSize(10);
+  pdf.text('✓', card2X + 9.5, y + cardHeight / 2 + 2);
+  
+  setTextColor(colors.muted);
+  pdf.setFont('helvetica', 'normal');
+  pdf.setFontSize(9);
+  pdf.text('Active Offers', card2X + 22, y + 12);
+  setTextColor(colors.ink);
+  pdf.setFont('helvetica', 'bold');
+  pdf.setFontSize(18);
+  pdf.text(String(totalActiveOffers), card2X + 22, y + 24);
 
-  const summaryLeftX = margin;
-  const summaryRightX = margin + 92;
+  // Card 3: Months Planned
+  const card3X = margin + (cardWidth + cardSpacing) * 2;
+  setFillColor(colors.white);
+  pdf.roundedRect(card3X, y, cardWidth, cardHeight, 3, 3, 'FD');
+  
+  setFillColor(colors.primaryLight);
+  pdf.circle(card3X + 12, y + cardHeight / 2, 6, 'F');
+  setTextColor(colors.primary);
+  pdf.setFont('helvetica', 'bold');
+  pdf.setFontSize(10);
+  pdf.text('$', card3X + 10, y + cardHeight / 2 + 2);
+  
+  setTextColor(colors.muted);
+  pdf.setFont('helvetica', 'normal');
+  pdf.setFontSize(9);
+  pdf.text('Months Planned', card3X + 22, y + 12);
+  setTextColor(colors.ink);
+  pdf.setFont('helvetica', 'bold');
+  pdf.setFontSize(18);
+  pdf.text(String(exportData.length), card3X + 22, y + 24);
 
+  // Report info section
+  y += cardHeight + 24;
+  
+  setFillColor(colors.softBg);
+  pdf.roundedRect(margin, y, contentWidth, 36, 4, 4, 'F');
+  
+  setTextColor(colors.muted);
   pdf.setFont('helvetica', 'normal');
   pdf.setFontSize(10);
-  setTextColor(colors.muted);
-  pdf.text(`Scope: ${scope === 'all' ? 'Full year' : 'Current month'}`, summaryLeftX, statsY + 15);
-  pdf.text(`Months included: ${exportData.length}`, summaryLeftX, statsY + 22);
-  pdf.text(`Active offers: ${totalOffers}`, summaryLeftX, statsY + 29);
-
-  pdf.text('Generated:', summaryRightX, statsY + 15);
+  pdf.text('Report Details', margin + 12, y + 12);
+  
+  setDrawColor(colors.rule);
+  pdf.line(margin + 12, y + 16, margin + contentWidth - 12, y + 16);
+  
+  pdf.setFontSize(9);
+  pdf.text(`Scope: ${scope === 'all' ? 'Full Year' : 'Current Month'}`, margin + 12, y + 26);
+  pdf.text(`Generated: ${new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}`, margin + 80, y + 26);
   setTextColor(colors.ink);
-  pdf.text(new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' }), summaryRightX + 20, statsY + 15);
+  pdf.setFont('helvetica', 'bold');
+  pdf.text('Confidential', margin + contentWidth - 32, y + 26);
 
-  setTextColor(colors.muted);
-  pdf.text('Document:', summaryRightX, statsY + 22);
-  setTextColor(colors.ink);
-  pdf.text('Confidential', summaryRightX + 20, statsY + 22);
+  // Footer on cover
+  setTextColor(colors.light);
+  pdf.setFont('helvetica', 'normal');
+  pdf.setFontSize(9);
+  pdf.text('Physique 57 India — Premium Fitness Studios', pageWidth / 2, pageHeight - 20, { align: 'center' });
 
-  // ---------------- Month pages ----------------
-  exportData.forEach((month) => {
+  // ================== MONTH PAGES ==================
+  exportData.forEach((month, monthIndex) => {
     pdf.addPage();
-    setFillColor([255, 255, 255]);
+    setFillColor(colors.white);
     pdf.rect(0, 0, pageWidth, pageHeight, 'F');
 
-    let y = 22;
+    // Top accent bar
+    setFillColor(colors.primary);
+    pdf.rect(0, 0, pageWidth, 4, 'F');
 
-    // Header
-    setTextColor(colors.accent);
-    pdf.setFont('times', 'bold');
+    let y = 24;
+
+    // Month badge
+    setTextColor(colors.brand);
+    pdf.setFont('helvetica', 'bold');
     pdf.setFontSize(10);
-    pdf.text('MONTHLY SECTION', margin, y);
+    pdf.text(`MONTH ${monthIndex + 1}`, margin, y);
 
+    // Month name
+    y += 10;
     setTextColor(colors.ink);
-    pdf.setFont('times', 'bold');
-    pdf.setFontSize(22);
-    pdf.text(month.name, margin, y + 14);
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(26);
+    pdf.text(month.name, margin, y);
 
-    setTextColor(colors.muted);
-    pdf.setFont('times', 'italic');
-    pdf.setFontSize(11);
-    pdf.text(month.theme, margin, y + 22);
-
-    // April special note
-    if (month.name.toLowerCase() === 'april') {
-      setTextColor(colors.accent);
-      pdf.setFont('helvetica', 'bold');
-      pdf.setFontSize(10);
-      pdf.text('Celebrating Year 8 in India', margin, y + 30);
-      y += 8;
-    }
-
-    y += 30;
-    line(y);
+    // Theme (gradient text simulated)
+    y += 10;
+    setTextColor(colors.primary);
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(14);
+    const themeLines = pdf.splitTextToSize(month.theme, contentWidth);
+    pdf.text(themeLines, margin, y);
+    y += themeLines.length * 6;
 
     // Summary
-    y += 8;
-    y = writeWrapped({
-      text: safeText(month.summary),
-      x: margin,
-      y,
-      maxWidth: contentWidth,
-      font: 'helvetica',
-      style: 'normal',
-      size: 10,
-      lineHeight: 5,
-      color: colors.ink,
-    });
-
-    // Revenue target (formatted)
     y += 4;
-    line(y, true);
-    y += 8;
-
-    const parsedTarget = parseINRCompact(safeText(month.revenueTargetTotal).replace(/[₹]/g, ''));
-    const targetDisplay = parsedTarget != null ? formatINRCompact(parsedTarget) : (month.revenueTargetTotal || 'TBD');
-
     setTextColor(colors.muted);
-    pdf.setFont('helvetica', 'bold');
-    pdf.setFontSize(9);
-    pdf.text('Revenue Target:', margin, y);
+    pdf.setFont('helvetica', 'normal');
+    pdf.setFontSize(10);
+    const summaryLines = pdf.splitTextToSize(safeText(month.summary), contentWidth);
+    pdf.text(summaryLines.slice(0, 3), margin, y);
+    y += Math.min(3, summaryLines.length) * 5 + 4;
 
+    // Stats row
+    const activeOffers = month.offers.filter(o => !o.cancelled).length;
+    const cancelledOffers = month.offers.filter(o => o.cancelled).length;
+    const parsedTarget = parseINRCompact(safeText(month.revenueTargetTotal).replace(/[₹]/g, ''));
+    const targetDisplay = parsedTarget != null ? formatINRCompact(parsedTarget) : month.revenueTargetTotal;
+
+    // Stats chips
+    setFillColor(colors.softBg);
+    pdf.roundedRect(margin, y, contentWidth, 14, 3, 3, 'F');
+    
+    y += 9;
+    // Active dot
+    setFillColor(colors.brand);
+    pdf.circle(margin + 8, y - 3, 2, 'F');
+    setTextColor(colors.muted);
+    pdf.setFont('helvetica', 'normal');
+    pdf.setFontSize(9);
+    pdf.text(`${activeOffers} Active Offers`, margin + 13, y);
+    
+    // Cancelled dot
+    setFillColor(colors.light);
+    pdf.circle(margin + 60, y - 3, 2, 'F');
+    pdf.text(`${cancelledOffers} Cancelled`, margin + 65, y);
+    
+    // Revenue target
+    setTextColor(colors.success);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text(`Target: ${targetDisplay}`, margin + 110, y);
+
+    y += 14;
+
+    // ---- OFFERS SECTION ----
     setTextColor(colors.ink);
     pdf.setFont('helvetica', 'bold');
-    pdf.setFontSize(11);
-    pdf.text(String(targetDisplay), margin + 35, y);
+    pdf.setFontSize(14);
+    pdf.text('Offers Overview', margin, y);
+    
+    y += 8;
+    setDrawColor(colors.rule);
+    pdf.setLineWidth(0.3);
+    pdf.line(margin, y, pageWidth - margin, y);
+    y += 8;
 
-    y += 12;
+    const activeOffersList = month.offers.filter(o => !o.cancelled);
+    
+    // Offer cards - 2 column layout simulation
+    const cardW = (contentWidth - 6) / 2;
+    const offerCardH = 44;
 
-    // Offers section
-    const activeOffers = month.offers.filter(o => !o.cancelled);
-
-    setTextColor(colors.accent);
-    pdf.setFont('times', 'bold');
-    pdf.setFontSize(12);
-    pdf.text(`Offers (${activeOffers.length})`, margin, y);
-
-    y += 6;
-    line(y, true);
-    y += 10;
-
-    const ensureSpace = (minSpace: number) => {
-      if (y + minSpace <= pageHeight - margin) return;
-      pdf.addPage();
-      setFillColor([255, 255, 255]);
-      pdf.rect(0, 0, pageWidth, pageHeight, 'F');
-
-      y = 22;
-      setTextColor(colors.muted);
-      pdf.setFont('helvetica', 'bold');
-      pdf.setFontSize(9);
-      pdf.text(`${month.name} — Offers (continued)`, margin, y);
-      y += 8;
-      line(y, true);
-      y += 12;
+    const ensureSpace = (space: number) => {
+      if (y + space > pageHeight - 25) {
+        pdf.addPage();
+        setFillColor(colors.white);
+        pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+        setFillColor(colors.primary);
+        pdf.rect(0, 0, pageWidth, 4, 'F');
+        y = 20;
+        setTextColor(colors.muted);
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(10);
+        pdf.text(`${month.name} — Offers (continued)`, margin, y);
+        y += 12;
+      }
     };
 
-    const sectionStartX = margin + 2;
-    const sectionLeftRuleX = margin;
-
-    activeOffers.forEach((offer, idx) => {
-      // Try to keep each offer together; if it doesn't fit, start a new page.
-      ensureSpace(70);
-
-      const startY = y;
-
-      // Top border
-      setDrawColor(colors.rule);
-      pdf.setLineWidth(0.35);
-      pdf.line(margin, startY - 4, pageWidth - margin, startY - 4);
-
-      // Offer heading
+    for (let i = 0; i < activeOffersList.length; i += 2) {
+      ensureSpace(offerCardH + 8);
+      
+      // Left card
+      const offer1 = activeOffersList[i];
+      setFillColor(colors.softBg);
+      pdf.roundedRect(margin, y, cardW, offerCardH, 3, 3, 'F');
+      
+      // Type badge
+      const getTypeBadgeColor = (type: string) => {
+        switch(type) {
+          case 'Hero': return colors.primaryLight;
+          case 'New': return colors.blueLight;
+          case 'Retention': return colors.successLight;
+          default: return colors.softBg;
+        }
+      };
+      const getTypeTextColor = (type: string) => {
+        switch(type) {
+          case 'Hero': return colors.primary;
+          case 'New': return colors.blue;
+          case 'Retention': return colors.success;
+          default: return colors.muted;
+        }
+      };
+      
+      setFillColor(getTypeBadgeColor(offer1.type));
+      pdf.roundedRect(margin + 4, y + 4, 28, 8, 2, 2, 'F');
+      setTextColor(getTypeTextColor(offer1.type));
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(6);
+      pdf.text(offer1.type.toUpperCase(), margin + 6, y + 9);
+      
+      // Title
       setTextColor(colors.ink);
       pdf.setFont('helvetica', 'bold');
-      pdf.setFontSize(12);
-      const heading = `${idx + 1}. ${offer.title}`;
-      const headingLines = pdf.splitTextToSize(heading, contentWidth);
-      pdf.text(headingLines, margin, y);
-      y += headingLines.length * 6;
-
+      pdf.setFontSize(10);
+      const title1Lines = pdf.splitTextToSize(offer1.title, cardW - 12);
+      pdf.text(title1Lines.slice(0, 1), margin + 4, y + 20);
+      
+      // Description
       setTextColor(colors.muted);
       pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(8);
+      const desc1Lines = pdf.splitTextToSize(offer1.description, cardW - 12);
+      pdf.text(desc1Lines.slice(0, 2), margin + 4, y + 28);
+      
+      // Pricing
+      setTextColor(colors.brand);
+      pdf.setFont('helvetica', 'bold');
       pdf.setFontSize(9);
-      pdf.text(`Type: ${offer.type}${offer.promoteOnAds ? ' • Promote on Ads: Yes' : ' • Promote on Ads: No'}`, margin, y);
-      y += 7;
+      pdf.text(offer1.pricing, margin + 4, y + 40);
 
-      // Bullets
-      const writeBulletKV = (label: string, value: string) => {
-        const v = safeText(value);
-        if (!v) return;
-
-        ensureSpace(14);
-        bullet(y);
+      // Right card (if exists)
+      if (i + 1 < activeOffersList.length) {
+        const offer2 = activeOffersList[i + 1];
+        const rightX = margin + cardW + 6;
+        
+        setFillColor(colors.softBg);
+        pdf.roundedRect(rightX, y, cardW, offerCardH, 3, 3, 'F');
+        
+        setFillColor(getTypeBadgeColor(offer2.type));
+        pdf.roundedRect(rightX + 4, y + 4, 28, 8, 2, 2, 'F');
+        setTextColor(getTypeTextColor(offer2.type));
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(6);
+        pdf.text(offer2.type.toUpperCase(), rightX + 6, y + 9);
+        
         setTextColor(colors.ink);
         pdf.setFont('helvetica', 'bold');
-        pdf.setFontSize(9);
-        pdf.text(`${label}:`, sectionStartX, y);
-
-        const labelW = pdf.getTextWidth(`${label}: `);
-        const xValue = sectionStartX + labelW + 1;
-        const maxW = pageWidth - margin - xValue;
-
-        const lines = pdf.splitTextToSize(v, maxW);
-        pdf.setFont('helvetica', 'normal');
-        setTextColor(colors.ink);
-        pdf.text(lines, xValue, y);
-        y += Math.max(1, lines.length) * 5.2;
-      };
-
-      writeBulletKV('Description', safeText(offer.description));
-      writeBulletKV('Pricing display', safeText(offer.pricing));
-
-      const discountText = offer.discountPercent != null ? `${offer.discountPercent}%` : '';
-      writeBulletKV('Discount', discountText);
-      writeBulletKV('Savings', safeText(offer.savings));
-
-      // Location numbers + projected revenue
-      const mumbaiUnits = toNumberUnits(offer.targetUnitsMumbai ?? offer.targetUnits);
-      const blrUnits = toNumberUnits(offer.targetUnitsBengaluru ?? offer.targetUnits);
-
-      const mumbaiPrice = offer.finalPriceMumbai ?? offer.priceMumbai;
-      const blrPrice = offer.finalPriceBengaluru ?? offer.priceBengaluru;
-
-      const mumbaiRevenue = mumbaiPrice && mumbaiUnits ? mumbaiPrice * mumbaiUnits : 0;
-      const blrRevenue = blrPrice && blrUnits ? blrPrice * blrUnits : 0;
-
-      if (offer.priceMumbai || offer.finalPriceMumbai || offer.targetUnitsMumbai || offer.targetUnits) {
-        const mumbaiLine = `Mumbai — Price: ${mumbaiPrice != null ? formatINRCompact(mumbaiPrice) : 'N/A'} | Units: ${mumbaiUnits || 0} | Projected: ${mumbaiRevenue ? formatINRCompact(mumbaiRevenue) : '₹0'}`;
-        writeBulletKV('Mumbai', mumbaiLine);
-      }
-
-      if (offer.priceBengaluru || offer.finalPriceBengaluru || offer.targetUnitsBengaluru || offer.targetUnits) {
-        const blrLine = `Bengaluru — Price: ${blrPrice != null ? formatINRCompact(blrPrice) : 'N/A'} | Units: ${blrUnits || 0} | Projected: ${blrRevenue ? formatINRCompact(blrRevenue) : '₹0'}`;
-        writeBulletKV('Bengaluru', blrLine);
-      }
-
-      writeBulletKV('Why it works', safeText(offer.whyItWorks));
-      writeBulletKV('Marketing collateral', safeText(offer.marketingCollateral));
-      writeBulletKV('Operational support', safeText(offer.operationalSupport));
-
-      // Collateral selections (channels/types)
-      const channels = offer.collateralChannels
-        ? Object.entries(offer.collateralChannels)
-            .filter(([, v]) => v)
-            .map(([k]) => k)
-        : [];
-      const types = offer.collateralTypes
-        ? Object.entries(offer.collateralTypes)
-            .filter(([, v]) => v)
-            .map(([k]) => k)
-        : [];
-
-      if (channels.length) writeBulletKV('Collateral channels', channels.join(', '));
-      if (types.length) writeBulletKV('Collateral types', types.join(', '));
-
-      // Bottom border + left rule
-      const endY = y + 3;
-      setDrawColor(colors.softRule);
-      pdf.setLineWidth(0.35);
-      pdf.line(margin, endY, pageWidth - margin, endY);
-
-      setDrawColor(colors.accent);
-      pdf.setLineWidth(0.6);
-      pdf.line(sectionLeftRuleX, startY - 2, sectionLeftRuleX, endY);
-
-      y = endY + 10;
-    });
-
-    // Financial targets (report-style)
-    if (month.financialTargets && month.financialTargets.length > 0) {
-      ensureSpace(40);
-      setTextColor(colors.accent);
-      pdf.setFont('times', 'bold');
-      pdf.setFontSize(12);
-      pdf.text('Studio Targets', margin, y);
-      y += 6;
-      line(y, true);
-      y += 10;
-
-      month.financialTargets.forEach((t) => {
-        ensureSpace(18);
-
-        const parsed = parseINRCompact(safeText(t.revenueTarget).replace(/[₹]/g, ''));
-        const rev = parsed != null ? formatINRCompact(parsed) : t.revenueTarget;
-
-        setTextColor(colors.ink);
-        pdf.setFont('helvetica', 'bold');
-        pdf.setFontSize(9);
-        pdf.text(`${t.location}`, margin, y);
-
+        pdf.setFontSize(10);
+        const title2Lines = pdf.splitTextToSize(offer2.title, cardW - 12);
+        pdf.text(title2Lines.slice(0, 1), rightX + 4, y + 20);
+        
         setTextColor(colors.muted);
         pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(8);
+        const desc2Lines = pdf.splitTextToSize(offer2.description, cardW - 12);
+        pdf.text(desc2Lines.slice(0, 2), rightX + 4, y + 28);
+        
+        setTextColor(colors.brand);
+        pdf.setFont('helvetica', 'bold');
         pdf.setFontSize(9);
-        pdf.text(`Target: ${rev}  •  Units: ${t.targetUnits}  •  Ticket: ${t.estTicketSize}`, margin, y + 6);
+        pdf.text(offer2.pricing, rightX + 4, y + 40);
+      }
 
-        const logic = safeText(t.logic);
-        if (logic) {
-          const nextY = y + 12;
-          const maxW = contentWidth;
-          const lines = pdf.splitTextToSize(logic, maxW);
-          setTextColor(colors.muted);
-          pdf.setFont('helvetica', 'italic');
-          pdf.setFontSize(8.5);
-          pdf.text(lines.slice(0, 2), margin, nextY);
-          y = nextY + Math.min(2, lines.length) * 4.8 + 6;
-        } else {
-          y += 18;
-        }
+      y += offerCardH + 6;
+    }
 
-        setDrawColor(colors.softRule);
-        pdf.setLineWidth(0.25);
-        pdf.line(margin, y - 3, pageWidth - margin, y - 3);
+    // ---- FINANCIAL TARGETS SECTION ----
+    if (month.financialTargets && month.financialTargets.length > 0) {
+      ensureSpace(50);
+      
+      y += 6;
+      setTextColor(colors.ink);
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(14);
+      pdf.text('Financial Targets', margin, y);
+      
+      y += 8;
+      setDrawColor(colors.rule);
+      pdf.line(margin, y, pageWidth - margin, y);
+      y += 8;
+
+      month.financialTargets.forEach((target, idx) => {
+        ensureSpace(24);
+        
+        setFillColor(colors.blueLight);
+        pdf.roundedRect(margin, y, contentWidth, 20, 3, 3, 'F');
+        
+        setTextColor(colors.blue);
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(9);
+        pdf.text(target.location, margin + 6, y + 8);
+        
+        setTextColor(colors.muted);
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(8);
+        pdf.text(target.category || '', margin + 60, y + 8);
+        
+        setTextColor(colors.ink);
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(8);
+        pdf.text(`Target: ${target.targetUnits} units`, margin + 6, y + 16);
+        pdf.text(`Revenue: ${target.revenueTarget}`, margin + 60, y + 16);
+        
+        y += 24;
       });
     }
 
-    // Footer
-    setTextColor(colors.muted);
+    // Page footer
+    setTextColor(colors.light);
     pdf.setFont('helvetica', 'normal');
     pdf.setFontSize(8);
     pdf.text('Physique 57 India — 2026 Sales Masterplan', margin, pageHeight - 12);
@@ -456,7 +496,6 @@ export async function exportToWord(data: MonthData[], scope: 'current' | 'all', 
   ];
   
   exportData.forEach(month => {
-    // Month header
     children.push(
       new Paragraph({
         text: month.name,
@@ -484,7 +523,6 @@ export async function exportToWord(data: MonthData[], scope: 'current' | 'all', 
       })
     );
     
-    // Strategic Offers
     children.push(
       new Paragraph({
         text: `Strategic Offers (${month.offers.filter(o => !o.cancelled).length} Active)`,
@@ -589,7 +627,6 @@ export async function exportToWord(data: MonthData[], scope: 'current' | 'all', 
       }
     });
     
-    // Financial Targets
     if (month.financialTargets && month.financialTargets.length > 0) {
       children.push(
         new Paragraph({
@@ -653,7 +690,6 @@ export async function exportToWord(data: MonthData[], scope: 'current' | 'all', 
 export async function exportToImage(data: MonthData[], scope: 'current' | 'all', currentMonth?: MonthData) {
   const exportData = scope === 'current' && currentMonth ? [currentMonth] : data;
   
-  // Create a temporary container
   const container = document.createElement('div');
   container.style.width = '1200px';
   container.style.padding = '60px';
@@ -706,7 +742,6 @@ export async function exportToImage(data: MonthData[], scope: 'current' | 'all',
   
   document.body.removeChild(container);
   
-  // Download as PNG
   const url = canvas.toDataURL('image/png');
   const link = document.createElement('a');
   link.href = url;
@@ -719,9 +754,10 @@ export async function exportToImage(data: MonthData[], scope: 'current' | 'all',
   document.body.removeChild(link);
 }
 
-// Generate Email Body HTML
+// Generate professional email HTML body
 export function generateEmailBody(data: MonthData[], scope: 'current' | 'all', currentMonth?: MonthData): string {
   const exportData = scope === 'current' && currentMonth ? [currentMonth] : data;
+  const totalActiveOffers = exportData.reduce((sum, m) => sum + m.offers.filter(o => !o.cancelled).length, 0);
   
   let html = `
 <!DOCTYPE html>
@@ -731,54 +767,108 @@ export function generateEmailBody(data: MonthData[], scope: 'current' | 'all', c
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Physique 57 India - 2026 Sales Masterplan</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f9fafb;">
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f9fafb;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb;">
     <tr>
       <td align="center" style="padding: 40px 20px;">
-        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <table width="640" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); overflow: hidden;">
+          
           <!-- Header -->
           <tr>
-            <td style="background: linear-gradient(135deg, #c026d3 0%, #7c3aed 100%); padding: 40px; text-align: center; border-radius: 12px 12px 0 0;">
-              <h1 style="color: #ffffff; font-size: 32px; margin: 0 0 10px 0;">Physique 57 India</h1>
-              <h2 style="color: #fdf4ff; font-size: 20px; margin: 0;">2026 Sales Masterplan</h2>
+            <td style="background: linear-gradient(135deg, #9333EA 0%, #7C3AED 50%, #C026D3 100%); padding: 48px 40px; text-align: center;">
+              <p style="color: rgba(255,255,255,0.8); font-size: 12px; letter-spacing: 2px; margin: 0 0 8px 0; text-transform: uppercase;">Physique 57 India</p>
+              <h1 style="color: #ffffff; font-size: 32px; margin: 0 0 8px 0; font-weight: 700;">2026 Sales Masterplan</h1>
+              <p style="color: rgba(255,255,255,0.9); font-size: 14px; margin: 0;">${scope === 'all' ? 'Complete Annual Overview' : `${currentMonth?.name} Overview`}</p>
+            </td>
+          </tr>
+          
+          <!-- Stats Bar -->
+          <tr>
+            <td style="padding: 24px 40px; background: #faf5ff; border-bottom: 1px solid #e9d5ff;">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="text-align: center; padding: 0 10px;">
+                    <p style="color: #9333EA; font-size: 28px; font-weight: 700; margin: 0;">${exportData.length}</p>
+                    <p style="color: #7c3aed; font-size: 11px; margin: 4px 0 0 0; text-transform: uppercase; letter-spacing: 1px;">Months</p>
+                  </td>
+                  <td style="text-align: center; padding: 0 10px; border-left: 1px solid #e9d5ff;">
+                    <p style="color: #10B981; font-size: 28px; font-weight: 700; margin: 0;">${totalActiveOffers}</p>
+                    <p style="color: #059669; font-size: 11px; margin: 4px 0 0 0; text-transform: uppercase; letter-spacing: 1px;">Active Offers</p>
+                  </td>
+                  <td style="text-align: center; padding: 0 10px; border-left: 1px solid #e9d5ff;">
+                    <p style="color: #C026D3; font-size: 28px; font-weight: 700; margin: 0;">${new Date().getFullYear()}</p>
+                    <p style="color: #a21caf; font-size: 11px; margin: 4px 0 0 0; text-transform: uppercase; letter-spacing: 1px;">Plan Year</p>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
           
           <!-- Content -->
-          ${exportData.map(month => `
+          ${exportData.map((month, idx) => `
           <tr>
-            <td style="padding: 30px;">
-              <h3 style="color: #c026d3; font-size: 24px; margin: 0 0 10px 0;">${month.name}: ${month.theme}</h3>
-              <p style="color: #6b7280; font-size: 14px; line-height: 1.6; margin: 0 0 15px 0;">${month.summary}</p>
-              <p style="color: #059669; font-weight: bold; font-size: 16px; margin: 0 0 20px 0;">💰 Revenue Target: ${month.revenueTargetTotal}</p>
+            <td style="padding: ${idx === 0 ? '32px' : '0'} 40px 32px 40px;">
+              ${idx > 0 ? '<div style="height: 1px; background: linear-gradient(90deg, transparent, #e5e7eb, transparent); margin-bottom: 32px;"></div>' : ''}
               
-              <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 20px;">
-                ${month.offers.filter(o => !o.cancelled).map(offer => `
+              <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td style="padding: 15px; background: #f9fafb; border-radius: 8px; margin-bottom: 10px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                      <strong style="color: #111827; font-size: 16px;">${offer.title}</strong>
-                      <span style="background: #ddd6fe; color: #7c3aed; padding: 4px 10px; border-radius: 12px; font-size: 11px;">${offer.type}</span>
-                    </div>
-                    <p style="color: #6b7280; font-size: 13px; margin: 5px 0;">${offer.description}</p>
-                    <p style="color: #c026d3; font-weight: bold; font-size: 14px;">${offer.pricing}</p>
+                  <td>
+                    <p style="color: #9333EA; font-size: 11px; font-weight: 700; letter-spacing: 2px; margin: 0 0 8px 0; text-transform: uppercase;">Month ${idx + 1}</p>
+                    <h2 style="color: #111827; font-size: 24px; margin: 0 0 4px 0; font-weight: 700;">${month.name}</h2>
+                    <p style="color: #9333EA; font-size: 16px; font-weight: 600; margin: 0 0 12px 0;">${month.theme}</p>
+                    <p style="color: #6b7280; font-size: 14px; line-height: 1.6; margin: 0 0 16px 0;">${month.summary}</p>
+                    
+                    <table cellpadding="0" cellspacing="0" style="margin-bottom: 20px;">
+                      <tr>
+                        <td style="background: #dcfce7; color: #059669; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600;">
+                          💰 Target: ${month.revenueTargetTotal}
+                        </td>
+                        <td width="12"></td>
+                        <td style="background: #faf5ff; color: #9333EA; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600;">
+                          📦 ${month.offers.filter(o => !o.cancelled).length} Offers
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
-                <tr><td style="height: 10px;"></td></tr>
+              </table>
+              
+              <!-- Offers Grid -->
+              <table width="100%" cellpadding="0" cellspacing="0">
+                ${month.offers.filter(o => !o.cancelled).map((offer, oIdx) => `
+                <tr>
+                  <td style="padding: 16px; background: #f9fafb; border-radius: 12px; margin-bottom: 12px; ${oIdx < month.offers.filter(o => !o.cancelled).length - 1 ? 'border-bottom: 8px solid white;' : ''}">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td>
+                          <span style="display: inline-block; background: ${offer.type === 'Hero' ? '#f3e8ff' : offer.type === 'New' ? '#dbeafe' : offer.type === 'Retention' ? '#dcfce7' : '#f3f4f6'}; color: ${offer.type === 'Hero' ? '#9333ea' : offer.type === 'New' ? '#3b82f6' : offer.type === 'Retention' ? '#10b981' : '#6b7280'}; padding: 4px 10px; border-radius: 12px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">${offer.type}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-top: 8px;">
+                          <p style="color: #111827; font-size: 15px; font-weight: 600; margin: 0 0 6px 0;">${offer.title}</p>
+                          <p style="color: #6b7280; font-size: 13px; line-height: 1.5; margin: 0 0 8px 0;">${offer.description}</p>
+                          <p style="color: #C026D3; font-size: 14px; font-weight: 700; margin: 0;">${offer.pricing}</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
                 `).join('')}
               </table>
             </td>
           </tr>
-          <tr><td style="height: 1px; background: #e5e7eb;"></td></tr>
           `).join('')}
           
           <!-- Footer -->
           <tr>
-            <td style="padding: 30px; text-align: center; background: #f9fafb; border-radius: 0 0 12px 12px;">
-              <p style="color: #9ca3af; font-size: 12px; margin: 0;">Generated: ${new Date().toLocaleDateString()}</p>
-              <p style="color: #6b7280; font-size: 14px; margin: 10px 0 0 0;">Physique 57 India - Premium Fitness Studios</p>
+            <td style="padding: 32px 40px; background: #f9fafb; text-align: center; border-top: 1px solid #e5e7eb;">
+              <p style="color: #9ca3af; font-size: 12px; margin: 0 0 8px 0;">Generated on ${new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+              <p style="color: #6b7280; font-size: 14px; font-weight: 600; margin: 0;">Physique 57 India — Premium Fitness Studios</p>
+              <p style="color: #9ca3af; font-size: 11px; margin: 12px 0 0 0;">This is a confidential document intended for internal use only.</p>
             </td>
           </tr>
+          
         </table>
       </td>
     </tr>
@@ -797,7 +887,6 @@ export async function copyEmailToClipboard(data: MonthData[], scope: 'current' |
   try {
     await navigator.clipboard.writeText(emailHtml);
   } catch (error) {
-    // Fallback for older browsers
     const textArea = document.createElement('textarea');
     textArea.value = emailHtml;
     document.body.appendChild(textArea);
@@ -805,4 +894,54 @@ export async function copyEmailToClipboard(data: MonthData[], scope: 'current' |
     document.execCommand('copy');
     document.body.removeChild(textArea);
   }
+}
+
+// Generate notes email HTML
+export function generateNotesEmailBody(notes: Array<{ content: string; userName: string; createdAt: string }>, monthName: string): string {
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; background-color: #f9fafb;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb;">
+    <tr>
+      <td align="center" style="padding: 40px 20px;">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); overflow: hidden;">
+          
+          <tr>
+            <td style="background: linear-gradient(135deg, #9333EA 0%, #C026D3 100%); padding: 40px; text-align: center;">
+              <p style="color: rgba(255,255,255,0.8); font-size: 11px; letter-spacing: 2px; margin: 0 0 8px 0; text-transform: uppercase;">Physique 57 India</p>
+              <h1 style="color: #ffffff; font-size: 28px; margin: 0; font-weight: 700;">📝 ${monthName} Notes</h1>
+            </td>
+          </tr>
+          
+          <tr>
+            <td style="padding: 32px 40px;">
+              ${notes.map((note, idx) => `
+              <div style="padding: 20px; background: #faf5ff; border-radius: 12px; border-left: 4px solid #9333EA; ${idx < notes.length - 1 ? 'margin-bottom: 16px;' : ''}">
+                <p style="color: #111827; font-size: 14px; line-height: 1.6; margin: 0 0 12px 0;">${note.content}</p>
+                <p style="color: #9ca3af; font-size: 12px; margin: 0;">
+                  <strong style="color: #9333EA;">${note.userName}</strong> • ${new Date(note.createdAt).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                </p>
+              </div>
+              `).join('')}
+            </td>
+          </tr>
+          
+          <tr>
+            <td style="padding: 24px 40px; background: #f9fafb; text-align: center; border-top: 1px solid #e5e7eb;">
+              <p style="color: #6b7280; font-size: 13px; margin: 0;">Physique 57 India — 2026 Sales Masterplan</p>
+            </td>
+          </tr>
+          
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `;
 }
