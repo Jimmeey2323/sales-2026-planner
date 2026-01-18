@@ -26,7 +26,11 @@ interface SalesContextType {
   addNote: (monthId: string, content: string, userName: string) => Promise<void>;
   deleteNote: (monthId: string, noteId: string) => void;
   resetData: () => void;
+  saveAllChanges: () => Promise<void>;
   isLoading: boolean;
+  hasUnsavedChanges: boolean;
+  saveStatus: 'idle' | 'saving' | 'saved' | 'error';
+  lastSavedTime: string | null;
 }
 
 const SalesContext = createContext<SalesContextType | undefined>(undefined);
@@ -87,6 +91,9 @@ const normalizeSalesData = (input: MonthData[], opts?: { forcePromoteOff?: boole
 export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [data, setData] = useState<MonthData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [lastSavedTime, setLastSavedTime] = useState<string | null>(null);
 
   // Initialize database and load data on mount
   useEffect(() => {
@@ -178,17 +185,74 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     loadData();
   }, []);
 
-  // Save to both local storage and Neon whenever data changes
+  // Save to localStorage whenever data changes (but not Neon)
   useEffect(() => {
     if (!isLoading && data.length > 0) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      console.log('💾 Saved to localStorage');
-      // Async save to Neon (non-blocking)
-      saveSalesData(data).catch(err => {
-        console.error('Failed to save to Neon:', err);
-      });
+      setHasUnsavedChanges(true);
+      console.log('💾 Saved to localStorage (unsaved changes)');
     }
   }, [data, isLoading]);
+
+  // Warn before closing/refreshing with unsaved changes
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (hasUnsavedChanges) {
+        e.preventDefault();
+        e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+        return e.returnValue;
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [hasUnsavedChanges]);
+
+  // Manual save function
+  const saveAllChanges = async () => {
+    if (!hasUnsavedChanges) {
+      console.log('ℹ️ No unsaved changes to save');
+      return;
+    }
+
+    setSaveStatus('saving');
+    console.log('📊 Save status set to: saving');
+
+    try {
+      const result = await saveSalesData(data);
+      console.log('✅ Neon save result:', result);
+      
+      if (result.success) {
+        setSaveStatus('saved');
+        setHasUnsavedChanges(false);
+        const timeStr = new Date().toLocaleTimeString('en-US', { 
+          hour: '2-digit', 
+          minute: '2-digit',
+          second: '2-digit'
+        });
+        setLastSavedTime(timeStr);
+        console.log('📊 Save status set to: saved at', timeStr);
+        
+        // Auto-reset to idle after 3 seconds
+        setTimeout(() => {
+          setSaveStatus('idle');
+          console.log('📊 Save status reset to: idle');
+        }, 3000);
+      } else {
+        throw new Error('Save failed');
+      }
+    } catch (err) {
+      console.error('❌ Failed to save to Neon:', err);
+      setSaveStatus('error');
+      console.log('📊 Save status set to: error');
+      
+      // Auto-reset to idle after 5 seconds
+      setTimeout(() => {
+        setSaveStatus('idle');
+        console.log('📊 Save status reset to: idle (after error)');
+      }, 5000);
+    }
+  };
 
   const addOffer = (monthId: string, offer: Omit<Offer, 'id'>) => {
     const newOffer = normalizeOffer({
@@ -206,7 +270,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const updateOffer = (monthId: string, offerId: string, updates: Partial<Offer>) => {
@@ -221,7 +284,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const deleteOffer = (monthId: string, offerId: string) => {
@@ -235,7 +297,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const toggleCancelled = (monthId: string, offerId: string) => {
@@ -250,7 +311,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const updateMarketingCollateral = (monthId: string, id: string, updates: Partial<MarketingCollateral>) => {
@@ -265,7 +325,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const updateCRMTimeline = (monthId: string, id: string, updates: Partial<CRMTimeline>) => {
@@ -280,7 +339,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const setMonthMarketingCollateral = (monthId: string, items: MarketingCollateral[]) => {
@@ -293,7 +351,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const setMonthCRMTimeline = (monthId: string, items: CRMTimeline[]) => {
@@ -306,7 +363,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const addMarketingCollateral = (monthId: string, item: Omit<MarketingCollateral, 'id'>) => {
@@ -319,7 +375,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const deleteMarketingCollateral = (monthId: string, id: string) => {
@@ -333,7 +388,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const deleteAllMarketingCollateral = (monthId: string) => {
@@ -347,7 +401,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const addCRMTimeline = (monthId: string, item: Omit<CRMTimeline, 'id'>) => {
@@ -360,7 +413,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const deleteCRMTimeline = (monthId: string, id: string) => {
@@ -374,7 +426,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const deleteAllCRMTimeline = (monthId: string) => {
@@ -388,7 +439,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const addCustomSection = (monthId: string, sectionName: string, items: any[]) => {
@@ -404,7 +454,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const updateCustomSection = (monthId: string, sectionName: string, items: any[]) => {
@@ -420,7 +469,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const deleteCustomSection = (monthId: string, sectionName: string) => {
@@ -435,7 +483,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const removeDuplicateCRMEvents = (monthId: string) => {
@@ -463,7 +510,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const addNote = async (monthId: string, content: string, userName: string): Promise<void> => {
@@ -520,7 +566,6 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
     setData(newData);
     // Save to Neon
-    saveSalesData(newData).catch(console.error);
   };
 
   const resetData = () => {
@@ -556,11 +601,15 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       addCustomSection, 
       updateCustomSection, 
       deleteCustomSection, 
-      removeDuplicateCRMEvents,
-      addNote,
-      deleteNote,
+      removeDuplicateCRMEvents, 
+      addNote, 
+      deleteNote, 
       resetData, 
-      isLoading 
+      saveAllChanges,
+      isLoading,
+      hasUnsavedChanges,
+      saveStatus,
+      lastSavedTime
     }}>
       {children}
     </SalesContext.Provider>

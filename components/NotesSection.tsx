@@ -3,7 +3,6 @@ import { Note } from '../types';
 import { MessageSquarePlus, Send, Calendar, User, Trash2, Mail, Loader2 } from 'lucide-react';
 import { useAdmin } from '../context/AdminContext';
 import { generateNotesEmailBody } from '../lib/exports';
-import { supabase } from '../src/integrations/supabase/client';
 
 interface NotesSectionProps {
   monthId: string;
@@ -64,15 +63,23 @@ export const NotesSection: React.FC<NotesSectionProps> = ({
       
       const htmlBody = generateNotesEmailBody(notesData, monthName);
 
-      const { data, error } = await supabase.functions.invoke('send-email', {
-        body: {
+      // Send email by POSTing to configured email function endpoint.
+      const SEND_EMAIL_URL = import.meta.env.VITE_SEND_EMAIL_URL || '/api/send-email';
+
+      const res = await fetch(SEND_EMAIL_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           to: emailTo.trim(),
           subject: `📝 ${monthName} Notes - Physique 57 India`,
           html: htmlBody
-        }
+        })
       });
 
-      if (error) throw error;
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || 'Failed to send email');
+      }
 
       setEmailSuccess(true);
       setTimeout(() => {

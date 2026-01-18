@@ -105,7 +105,7 @@ const AprilHeroSection: React.FC<{ data: MonthData }> = ({ data }) => {
                 <Trophy className="w-12 h-12 mb-3 mx-auto" />
                 <div className="text-center">
                   <p className="text-sm font-medium opacity-90">Celebrating</p>
-                  <p className="text-3xl font-bold">Year 1</p>
+                  <p className="text-3xl font-bold">Year 8</p>
                   <p className="text-sm font-medium opacity-90">in India</p>
                 </div>
               </div>
