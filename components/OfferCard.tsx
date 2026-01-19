@@ -61,8 +61,9 @@ export const OfferCard: React.FC<OfferCardProps> = ({ offer, monthId }) => {
     <>
       <div 
         onClick={() => setShowDetailModal(true)}
-        className={`bg-white rounded-xl p-6 shadow-sm border transition-all duration-300 flex flex-col h-full relative group cursor-pointer
+        className={`bg-white rounded-xl p-6 shadow-sm border transition-all duration-300 flex flex-col relative group cursor-pointer
         ${offer.cancelled ? 'border-gray-200 bg-gray-50' : 'border-gray-100 hover:shadow-md'}`}
+        style={{ minHeight: '450px' }}
       >
         {/* Actions Menu - Admin Only */}
         {isAdmin && (
@@ -214,18 +215,23 @@ export const OfferCard: React.FC<OfferCardProps> = ({ offer, monthId }) => {
           {offer.title}
         </h3>
         
-        <p className={`text-sm mb-4 flex-grow ${offer.cancelled ? 'text-gray-400' : 'text-gray-600'}`}>
-          {offer.description}
-        </p>
+        <div className="flex-grow">
+          <p className={`text-sm mb-4 ${offer.cancelled ? 'text-gray-400' : 'text-gray-600'}`}>
+            {offer.description}
+          </p>
+        </div>
 
-        <div className={`mt-auto space-y-3 ${offer.cancelled ? 'opacity-50' : ''}`}>
+        <div className={`space-y-3 ${offer.cancelled ? 'opacity-50' : ''}`}>
           {/* Location Tabs */}
           {(offer.priceMumbai || offer.priceBengaluru) ? (
-            <div className="space-y-3">
+            <div className="space-y-3" onClick={(e) => e.stopPropagation()}>
               {/* Tab Navigation */}
               <div className="flex rounded-lg bg-gray-100 p-1">
                 <button
-                  onClick={() => setActiveLocationTab('mumbai')}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveLocationTab('mumbai');
+                  }}
                   className={`flex-1 py-2 px-3 rounded-md text-xs font-semibold transition-all ${
                     activeLocationTab === 'mumbai'
                       ? 'bg-white text-brand-600 shadow-sm'
@@ -235,7 +241,10 @@ export const OfferCard: React.FC<OfferCardProps> = ({ offer, monthId }) => {
                   Mumbai
                 </button>
                 <button
-                  onClick={() => setActiveLocationTab('bengaluru')}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveLocationTab('bengaluru');
+                  }}
                   className={`flex-1 py-2 px-3 rounded-md text-xs font-semibold transition-all ${
                     activeLocationTab === 'bengaluru'
                       ? 'bg-white text-brand-600 shadow-sm'

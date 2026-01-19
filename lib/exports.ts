@@ -213,281 +213,250 @@ export async function exportToPDF(data: MonthData[], scope: 'current' | 'all', c
   
   addPageNumber();
 
-
   // ================== MONTH PAGES ==================
   exportData.forEach((month, monthIndex) => {
     pdf.addPage();
     setFillColor(colors.white);
     pdf.rect(0, 0, pageWidth, pageHeight, 'F');
-    
-    drawPageBorder();
 
     // Top accent bar
     setFillColor(colors.primary);
-    pdf.rect(borderMargin, borderMargin, pageWidth - borderMargin * 2, 5, 'F');
+    pdf.rect(0, 0, pageWidth, 4, 'F');
 
-    let y = borderMargin + 16;
+    let y = 24;
 
-    // Month header
-    setFillColor(colors.primary);
-    pdf.roundedRect(margin, y, contentWidth, 22, 2, 2, 'F');
-    
-    setTextColor(colors.white);
+    // Month badge
+    setTextColor(colors.brand);
     pdf.setFont('helvetica', 'bold');
-    pdf.setFontSize(9);
-    pdf.text(`MONTH ${monthIndex + 1} OF ${exportData.length}`, margin + 4, y + 6);
-    
-    pdf.setFontSize(16);
-    pdf.text(month.name.toUpperCase(), margin + 4, y + 16);
+    pdf.setFontSize(10);
+    pdf.text(`MONTH ${monthIndex + 1}`, margin, y);
 
-    // Theme
-    y += 26;
-    setTextColor(colors.accent);
+    // Month name
+    y += 10;
+    setTextColor(colors.ink);
     pdf.setFont('helvetica', 'bold');
-    pdf.setFontSize(12);
+    pdf.setFontSize(26);
+    pdf.text(month.name, margin, y);
+
+    // Theme (gradient text simulated)
+    y += 10;
+    setTextColor(colors.primary);
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(14);
     const themeLines = pdf.splitTextToSize(month.theme, contentWidth);
     pdf.text(themeLines, margin, y);
-    y += themeLines.length * 5 + 2;
+    y += themeLines.length * 6;
 
     // Summary
-    setTextColor(colors.text);
+    y += 4;
+    setTextColor(colors.muted);
     pdf.setFont('helvetica', 'normal');
-    pdf.setFontSize(9);
+    pdf.setFontSize(10);
     const summaryLines = pdf.splitTextToSize(safeText(month.summary), contentWidth);
     pdf.text(summaryLines.slice(0, 3), margin, y);
-    y += Math.min(3, summaryLines.length) * 4 + 4;
+    y += Math.min(3, summaryLines.length) * 5 + 4;
 
-    // Stats bar
+    // Stats row
     const activeOffers = month.offers.filter(o => !o.cancelled).length;
     const cancelledOffers = month.offers.filter(o => o.cancelled).length;
     const parsedTarget = parseINRCompact(safeText(month.revenueTargetTotal).replace(/[₹]/g, ''));
     const targetDisplay = parsedTarget != null ? formatINRCompact(parsedTarget) : month.revenueTargetTotal;
 
-    setFillColor(colors.bg);
-    pdf.roundedRect(margin, y, contentWidth, 10, 1, 1, 'F');
+    // Stats chips
+    setFillColor(colors.softBg);
+    pdf.roundedRect(margin, y, contentWidth, 14, 3, 3, 'F');
     
-    setTextColor(colors.text);
-    pdf.setFont('helvetica', 'bold');
-    pdf.setFontSize(8);
-    pdf.text(`✓ ${activeOffers} Active`, margin + 3, y + 6);
-    pdf.text(`✕ ${cancelledOffers} Cancelled`, margin + 40, y + 6);
+    y += 9;
+    // Active dot
+    setFillColor(colors.brand);
+    pdf.circle(margin + 8, y - 3, 2, 'F');
+    setTextColor(colors.muted);
+    pdf.setFont('helvetica', 'normal');
+    pdf.setFontSize(9);
+    pdf.text(`${activeOffers} Active Offers`, margin + 13, y);
     
+    // Cancelled dot
+    setFillColor(colors.light);
+    pdf.circle(margin + 60, y - 3, 2, 'F');
+    pdf.text(`${cancelledOffers} Cancelled`, margin + 65, y);
+    
+    // Revenue target
     setTextColor(colors.success);
-    pdf.text(`Target: ${targetDisplay}`, margin + 85, y + 6);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text(`Target: ${targetDisplay}`, margin + 110, y);
 
     y += 14;
 
-    // Section divider
-    setDrawColor(colors.border);
-    pdf.setLineWidth(0.5);
-    pdf.line(margin, y, pageWidth - margin, y);
-    
-    y += 6;
-    setTextColor(colors.primary);
+    // ---- OFFERS SECTION ----
+    setTextColor(colors.ink);
     pdf.setFont('helvetica', 'bold');
-    pdf.setFontSize(11);
-    pdf.text('OFFER DETAILS', margin, y);
+    pdf.setFontSize(14);
+    pdf.text('Offers Overview', margin, y);
     
-    y += 7;
-
-    const ensureSpace = (space: number) => {
-      if (y + space > pageHeight - 22) {
-        addPageNumber();
-        pdf.addPage();
-        setFillColor(colors.white);
-        pdf.rect(0, 0, pageWidth, pageHeight, 'F');
-        drawPageBorder();
-        setFillColor(colors.primary);
-        pdf.rect(borderMargin, borderMargin, pageWidth - borderMargin * 2, 5, 'F');
-        y = borderMargin + 16;
-        setTextColor(colors.textMuted);
-        pdf.setFont('helvetica', 'bold');
-        pdf.setFontSize(9);
-        pdf.text(`${month.name} — Continued`, margin, y);
-        y += 8;
-      }
-    };
+    y += 8;
+    setDrawColor(colors.rule);
+    pdf.setLineWidth(0.3);
+    pdf.line(margin, y, pageWidth - margin, y);
+    y += 8;
 
     const activeOffersList = month.offers.filter(o => !o.cancelled);
     
-    activeOffersList.forEach((offer, idx) => {
-      const offerHeight = 58; // Increased height for location details
-      ensureSpace(offerHeight);
+    // Offer cards - 2 column layout simulation
+    const cardW = (contentWidth - 6) / 2;
+    const offerCardH = 44;
+
+    const ensureSpace = (space: number) => {
+      if (y + space > pageHeight - 25) {
+        pdf.addPage();
+        setFillColor(colors.white);
+        pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+        setFillColor(colors.primary);
+        pdf.rect(0, 0, pageWidth, 4, 'F');
+        y = 20;
+        setTextColor(colors.muted);
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(10);
+        pdf.text(`${month.name} — Offers (continued)`, margin, y);
+        y += 12;
+      }
+    };
+
+    for (let i = 0; i < activeOffersList.length; i += 2) {
+      ensureSpace(offerCardH + 8);
       
-      // Offer container
-      setFillColor(colors.bg);
-      pdf.roundedRect(margin, y, contentWidth, offerHeight, 2, 2, 'F');
+      // Left card
+      const offer1 = activeOffersList[i];
+      setFillColor(colors.softBg);
+      pdf.roundedRect(margin, y, cardW, offerCardH, 3, 3, 'F');
       
       // Type badge
-      const getTypeBgColor = (type: string) => {
+      const getTypeBadgeColor = (type: string) => {
+        switch(type) {
+          case 'Hero': return colors.primaryLight;
+          case 'New': return colors.blueLight;
+          case 'Retention': return colors.successLight;
+          default: return colors.softBg;
+        }
+      };
+      const getTypeTextColor = (type: string) => {
         switch(type) {
           case 'Hero': return colors.primary;
-          case 'New': return colors.accent;
+          case 'New': return colors.blue;
           case 'Retention': return colors.success;
-          default: return colors.textMuted;
+          default: return colors.muted;
         }
       };
       
-      setFillColor(getTypeBgColor(offer.type));
-      pdf.roundedRect(margin + 2, y + 2, 22, 6, 1, 1, 'F');
-      setTextColor(colors.white);
+      setFillColor(getTypeBadgeColor(offer1.type));
+      pdf.roundedRect(margin + 4, y + 4, 28, 8, 2, 2, 'F');
+      setTextColor(getTypeTextColor(offer1.type));
       pdf.setFont('helvetica', 'bold');
       pdf.setFontSize(6);
-      pdf.text(offer.type.toUpperCase(), margin + 13, y + 5.5, { align: 'center' });
-      
-      // Offer number badge
-      setDrawColor(colors.accent);
-      pdf.setLineWidth(0.3);
-      pdf.circle(pageWidth - margin - 6, y + 5, 4, 'D');
-      setTextColor(colors.accent);
-      pdf.setFontSize(7);
-      pdf.text(String(idx + 1), pageWidth - margin - 6, y + 6.5, { align: 'center' });
+      pdf.text(offer1.type.toUpperCase(), margin + 6, y + 9);
       
       // Title
-      setTextColor(colors.text);
+      setTextColor(colors.ink);
       pdf.setFont('helvetica', 'bold');
       pdf.setFontSize(10);
-      const titleLines = pdf.splitTextToSize(offer.title, contentWidth - 10);
-      pdf.text(titleLines.slice(0, 1), margin + 2, y + 12);
+      const title1Lines = pdf.splitTextToSize(offer1.title, cardW - 12);
+      pdf.text(title1Lines.slice(0, 1), margin + 4, y + 20);
       
       // Description
-      setTextColor(colors.textMuted);
+      setTextColor(colors.muted);
       pdf.setFont('helvetica', 'normal');
       pdf.setFontSize(8);
-      const descLines = pdf.splitTextToSize(offer.description, contentWidth - 8);
-      pdf.text(descLines.slice(0, 2), margin + 2, y + 18);
+      const desc1Lines = pdf.splitTextToSize(offer1.description, cardW - 12);
+      pdf.text(desc1Lines.slice(0, 2), margin + 4, y + 28);
       
-      // Pricing headline
-      setTextColor(colors.accent);
+      // Pricing
+      setTextColor(colors.brand);
       pdf.setFont('helvetica', 'bold');
       pdf.setFontSize(9);
-      pdf.text(offer.pricing, margin + 2, y + 28);
-      
-      // Divider
-      setDrawColor(colors.borderLight);
-      pdf.setLineWidth(0.2);
-      pdf.line(margin + 2, y + 32, pageWidth - margin - 2, y + 32);
-      
-      // LOCATION DETAILS - BENGALURU
-      y += 34;
-      setFillColor(colors.accentLight);
-      pdf.roundedRect(margin + 2, y, (contentWidth - 6) / 2, 20, 1, 1, 'F');
-      
-      setTextColor(colors.primary);
-      pdf.setFont('helvetica', 'bold');
-      pdf.setFontSize(7);
-      pdf.text('📍 BENGALURU', margin + 4, y + 4);
-      
-      setTextColor(colors.text);
-      pdf.setFont('helvetica', 'normal');
-      pdf.setFontSize(7);
-      const bengaluruOriginal = offer.priceBengaluru ? `₹${offer.priceBengaluru.toLocaleString('en-IN')}` : 'N/A';
-      const bengaluruFinal = offer.finalPriceBengaluru ? `₹${offer.finalPriceBengaluru.toLocaleString('en-IN')}` : 'N/A';
-      pdf.text(`Price: ${bengaluruOriginal}`, margin + 4, y + 9);
-      
-      setTextColor(colors.success);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text(`Final: ${bengaluruFinal}`, margin + 4, y + 13);
-      
-      setTextColor(colors.textMuted);
-      pdf.setFont('helvetica', 'normal');
-      pdf.setFontSize(6);
-      pdf.text(`Discount: ${offer.discountPercent}%`, margin + 4, y + 17);
-      
-      // LOCATION DETAILS - MUMBAI
-      const mumbaiX = margin + 4 + (contentWidth - 6) / 2;
-      setFillColor(colors.successLight);
-      pdf.roundedRect(mumbaiX, y - 34, (contentWidth - 6) / 2, 20, 1, 1, 'F');
-      
-      setTextColor(colors.primary);
-      pdf.setFont('helvetica', 'bold');
-      pdf.setFontSize(7);
-      pdf.text('📍 MUMBAI', mumbaiX + 2, y - 30);
-      
-      setTextColor(colors.text);
-      pdf.setFont('helvetica', 'normal');
-      pdf.setFontSize(7);
-      const mumbaiOriginal = offer.priceMumbai ? `₹${offer.priceMumbai.toLocaleString('en-IN')}` : 'N/A';
-      const mumbaiFinal = offer.finalPriceMumbai ? `₹${offer.finalPriceMumbai.toLocaleString('en-IN')}` : 'N/A';
-      pdf.text(`Price: ${mumbaiOriginal}`, mumbaiX + 2, y - 25);
-      
-      setTextColor(colors.success);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text(`Final: ${mumbaiFinal}`, mumbaiX + 2, y - 21);
-      
-      setTextColor(colors.textMuted);
-      pdf.setFont('helvetica', 'normal');
-      pdf.setFontSize(6);
-      pdf.text(`Savings: ${offer.savings || 'N/A'}`, mumbaiX + 2, y - 17);
-      
-      // Additional details on same line as Bengaluru
-      setTextColor(colors.warning);
-      pdf.setFont('helvetica', 'bold');
-      pdf.text(`Units: ${offer.targetUnits || 'N/A'}`, mumbaiX + 2, y + 17);
-      
-      y += 24;
-    });
+      pdf.text(offer1.pricing, margin + 4, y + 40);
+
+      // Right card (if exists)
+      if (i + 1 < activeOffersList.length) {
+        const offer2 = activeOffersList[i + 1];
+        const rightX = margin + cardW + 6;
+        
+        setFillColor(colors.softBg);
+        pdf.roundedRect(rightX, y, cardW, offerCardH, 3, 3, 'F');
+        
+        setFillColor(getTypeBadgeColor(offer2.type));
+        pdf.roundedRect(rightX + 4, y + 4, 28, 8, 2, 2, 'F');
+        setTextColor(getTypeTextColor(offer2.type));
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(6);
+        pdf.text(offer2.type.toUpperCase(), rightX + 6, y + 9);
+        
+        setTextColor(colors.ink);
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(10);
+        const title2Lines = pdf.splitTextToSize(offer2.title, cardW - 12);
+        pdf.text(title2Lines.slice(0, 1), rightX + 4, y + 20);
+        
+        setTextColor(colors.muted);
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(8);
+        const desc2Lines = pdf.splitTextToSize(offer2.description, cardW - 12);
+        pdf.text(desc2Lines.slice(0, 2), rightX + 4, y + 28);
+        
+        setTextColor(colors.brand);
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(9);
+        pdf.text(offer2.pricing, rightX + 4, y + 40);
+      }
+
+      y += offerCardH + 6;
+    }
 
     // ---- FINANCIAL TARGETS SECTION ----
     if (month.financialTargets && month.financialTargets.length > 0) {
-      ensureSpace(30);
-      
-      y += 4;
-      setDrawColor(colors.border);
-      pdf.setLineWidth(0.5);
-      pdf.line(margin, y, pageWidth - margin, y);
+      ensureSpace(50);
       
       y += 6;
-      setTextColor(colors.primary);
+      setTextColor(colors.ink);
       pdf.setFont('helvetica', 'bold');
-      pdf.setFontSize(11);
-      pdf.text('FINANCIAL TARGETS', margin, y);
+      pdf.setFontSize(14);
+      pdf.text('Financial Targets', margin, y);
       
-      y += 7;
+      y += 8;
+      setDrawColor(colors.rule);
+      pdf.line(margin, y, pageWidth - margin, y);
+      y += 8;
 
       month.financialTargets.forEach((target, idx) => {
-        ensureSpace(18);
+        ensureSpace(24);
         
-        setFillColor(colors.accentLight);
-        pdf.roundedRect(margin, y, contentWidth, 16, 1, 1, 'F');
+        setFillColor(colors.blueLight);
+        pdf.roundedRect(margin, y, contentWidth, 20, 3, 3, 'F');
         
-        setTextColor(colors.primary);
+        setTextColor(colors.blue);
         pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(9);
+        pdf.text(target.location, margin + 6, y + 8);
+        
+        setTextColor(colors.muted);
+        pdf.setFont('helvetica', 'normal');
         pdf.setFontSize(8);
-        pdf.text(`📍 ${target.location}`, margin + 2, y + 5);
+        pdf.text(target.category || '', margin + 60, y + 8);
         
-        setTextColor(colors.text);
+        setTextColor(colors.ink);
         pdf.setFont('helvetica', 'normal');
-        pdf.setFontSize(7);
-        pdf.text(target.category || '', margin + 40, y + 5);
+        pdf.setFontSize(8);
+        pdf.text(`Target: ${target.targetUnits} units`, margin + 6, y + 16);
+        pdf.text(`Revenue: ${target.revenueTarget}`, margin + 60, y + 16);
         
-        setTextColor(colors.text);
-        pdf.setFontSize(7);
-        pdf.text(`${target.targetUnits} units`, margin + 2, y + 10);
-        
-        setTextColor(colors.success);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text(target.revenueTarget, margin + 25, y + 10);
-        
-        setTextColor(colors.textMuted);
-        pdf.setFont('helvetica', 'normal');
-        pdf.setFontSize(6);
-        const logicLines = pdf.splitTextToSize(target.logic, contentWidth - 6);
-        pdf.text(logicLines.slice(0, 1), margin + 2, y + 14);
-        
-        y += 18;
+        y += 24;
       });
     }
 
     // Page footer
-    setTextColor(colors.textLight);
+    setTextColor(colors.light);
     pdf.setFont('helvetica', 'normal');
-    pdf.setFontSize(7);
-    pdf.text(`${month.name} — 2026 Sales Plan`, margin, pageHeight - 10);
-    setTextColor(colors.accent);
-    pdf.text('Physique 57 India', pageWidth - margin, pageHeight - 10, { align: 'right' });
-    
-    addPageNumber();
+    pdf.setFontSize(8);
+    pdf.text('Physique 57 India — 2026 Sales Masterplan', margin, pageHeight - 12);
+    pdf.text(month.name, pageWidth - margin, pageHeight - 12, { align: 'right' });
   });
 
   pdf.save(`Physique57_Sales_Plan_${scope === 'all' ? 'Full' : currentMonth?.name || 'Current'}_${new Date().toISOString().split('T')[0]}.pdf`);

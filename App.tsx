@@ -5,6 +5,10 @@ import { SalesProvider, useSalesData } from './context/SalesContext';
 import { AdminProvider, useAdmin } from './context/AdminContext';
 import { AdminLoginModal } from './components/AdminLoginModal';
 import { AdminStatusBar } from './components/AdminStatusBar';
+import { SimplePDFExporter } from './components/SimplePDFExporter';
+import { ProfessionalPDFExporter } from './components/ReactPDFExporter';
+import { pdf } from '@react-pdf/renderer';
+import { ReactPDFDocument } from './components/ReactPDFExporter';
 import { 
   ChevronRight,
   ChevronLeft,
@@ -42,7 +46,7 @@ const ExportModal: React.FC<{
 }> = ({ isOpen, onClose, data, selectedMonthId }) => {
   const [scope, setScope] = useState<'current' | 'all'>('all');
   const [includeCancelled, setIncludeCancelled] = useState(false);
-  const [format, setFormat] = useState<'json' | 'csv' | 'clipboard' | 'pdf' | 'word' | 'image' | 'email'>('pdf');
+  const [format, setFormat] = useState<'json' | 'csv' | 'clipboard' | 'pdf' | 'word' | 'image' | 'email' | 'quickpdf' | 'professionalpdf'>('pdf');
   const [copied, setCopied] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
 
@@ -66,7 +70,123 @@ const ExportModal: React.FC<{
       }
 
       // 3. Handle Formats
-      if (format === 'pdf') {
+      if (format === 'quickpdf') {
+        // Trigger Quick PDF export using SimplePDFExporter logic
+        const element = document.getElementById('yearly-content-wrapper');
+        if (!element) {
+          alert('Cannot find yearly content. Please switch to yearly view first.');
+          setIsExporting(false);
+          return;
+        }
+
+        try {
+          element.scrollIntoView({ behavior: 'auto', block: 'start' });
+          await new Promise(resolve => setTimeout(resolve, 800));
+          await document.fonts.ready;
+
+          const html2canvas = (await import('html2canvas')).default;
+          const { jsPDF } = await import('jspdf');
+          
+          const canvas = await html2canvas(element, {
+            scale: 2.5,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: '#ffffff',
+            logging: false,
+            width: element.scrollWidth,
+            height: element.scrollHeight,
+            imageTimeout: 0,
+            removeContainer: true,
+            onclone: (clonedDoc) => {
+              const clonedEl = clonedDoc.getElementById('yearly-content-wrapper');
+              if (clonedEl) {
+                clonedEl.querySelectorAll('.print\\:hidden, [class*="print:hidden"]').forEach(el => el.remove());
+              }
+            }
+          });
+          
+          if (canvas.width === 0 || canvas.height === 0) {
+            throw new Error('Canvas has zero dimensions');
+          }
+
+          const imgData = canvas.toDataURL('image/jpeg', 0.95);
+          
+          if (!imgData || imgData === 'data:,' || imgData.length < 100) {
+            throw new Error('Failed to generate image from canvas');
+          }
+          
+          const pdf = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'a4'
+          });
+
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = pdf.internal.pageSize.getHeight();
+          const imgWidth = pdfWidth - 20;
+          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+          let heightLeft = imgHeight;
+          let position = 10;
+
+          pdf.addImage(imgData, 'JPEG', 10, position, imgWidth, imgHeight);
+          heightLeft -= (pdfHeight - 20);
+
+          while (heightLeft > 0) {
+            position = heightLeft - imgHeight + 10;
+            pdf.addPage();
+            pdf.addImage(imgData, 'JPEG', 10, position, imgWidth, imgHeight);
+            heightLeft -= (pdfHeight - 20);
+          }
+          
+          pdf.save('sales-plan-2026-quick.pdf');
+        } catch (error) {
+          console.error('PDF generation failed:', error);
+          alert(`PDF generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        }
+        setTimeout(() => onClose(), 500);
+      } else if (format === 'professionalpdf') {
+        // Trigger Professional PDF export using React-PDF
+        try {
+          const { Document, Page, Text, View, StyleSheet } = await import('@react-pdf/renderer');
+          const { pdf } = await import('@react-pdf/renderer');
+          
+          // Calculate yearly stats
+          const totalOffers = exportData.reduce((sum, m) => sum + m.offers.length, 0);
+          const activeOffers = exportData.reduce((sum, m) => sum + m.offers.filter(o => !o.cancelled).length, 0);
+          
+          const yearlyStats = {
+            totalOffers,
+            activeOffers,
+            totalRevenue: 0,
+            mumbaiRevenue: 0,
+            bengaluruRevenue: 0,
+            growthPercent: 0
+          };
+          
+          // Dynamically import and create the PDF document
+          const { ReactPDFDocument } = await import('./components/ReactPDFExporter');
+          const doc = <ReactPDFDocument data={exportData} yearlyStats={yearlyStats} />;
+          
+          // Generate PDF blob
+          const asPdf = pdf(doc);
+          const blob = await asPdf.toBlob();
+          
+          // Download the PDF
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `sales-masterplan-2026-professional-${new Date().toISOString().split('T')[0]}.pdf`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+        } catch (error) {
+          console.error('Professional PDF generation failed:', error);
+          alert(`Professional PDF generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        }
+        setTimeout(() => onClose(), 500);
+      } else if (format === 'pdf') {
         await exportToPDF(exportData, scope, selectedMonth);
         setTimeout(() => onClose(), 500);
       } else if (format === 'word') {
@@ -236,6 +356,8 @@ const ExportModal: React.FC<{
             </label>
             <div className="grid grid-cols-2 gap-3">
               {[
+                { value: 'quickpdf', label: 'Quick PDF', icon: FileText },
+                { value: 'professionalpdf', label: 'Pro PDF', icon: FileText },
                 { value: 'pdf', label: 'PDF', icon: FileText },
                 { value: 'word', label: 'Word', icon: FileText },
                 { value: 'image', label: 'Image', icon: Image },
@@ -566,18 +688,15 @@ const DashboardContent: React.FC = () => {
 
           <button 
             onClick={async () => {
-              if (confirm('⚠️ This will clear ALL cached data (localStorage + database) and reload from constants.ts with updated pricing. Continue?')) {
+              if (confirm('🔄 Clear localStorage cache and reload from database?\n\nThis will NOT delete your database data, just refresh the app from the database.')) {
                 try {
-                  // Clear localStorage
+                  // Clear localStorage only - database remains intact
                   localStorage.clear();
-                  // Clear Neon database
-                  await clearSalesData();
-                  // Force reload
+                  // Reload app to fetch fresh data from database
                   window.location.reload();
                 } catch (error) {
-                  console.error('Error clearing data:', error);
-                  // Still reload even if database clear fails
-                  window.location.reload();
+                  console.error('Error clearing localStorage:', error);
+                  alert('Error clearing cache. Please try again.');
                 }
               }
             }}

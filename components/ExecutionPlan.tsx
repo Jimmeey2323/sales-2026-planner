@@ -402,27 +402,32 @@ export const ExecutionPlan: React.FC<ExecutionPlanProps> = ({ month }) => {
   
   // Watch for changes in offer collateral selections and regenerate both marketing and CRM
   useEffect(() => {
-    if (month.marketingCollateral !== undefined) {
-      const newCollateral = regenerateMarketingCollateral();
-      // Only update if there are actual changes
-      const currentCollateralStr = JSON.stringify(month.marketingCollateral.map(c => ({offer: c.offer, type: c.type, collateralNeeded: c.collateralNeeded})));
-      const newCollateralStr = JSON.stringify(newCollateral.map(c => ({offer: c.offer, type: c.type, collateralNeeded: c.collateralNeeded})));
-      
-      if (currentCollateralStr !== newCollateralStr) {
-        setMonthMarketingCollateral(month.id, newCollateral);
+    // Delay state updates to avoid updating during render
+    const timeoutId = setTimeout(() => {
+      if (month.marketingCollateral !== undefined) {
+        const newCollateral = regenerateMarketingCollateral();
+        // Only update if there are actual changes
+        const currentCollateralStr = JSON.stringify(month.marketingCollateral.map(c => ({offer: c.offer, type: c.type, collateralNeeded: c.collateralNeeded})));
+        const newCollateralStr = JSON.stringify(newCollateral.map(c => ({offer: c.offer, type: c.type, collateralNeeded: c.collateralNeeded})));
+        
+        if (currentCollateralStr !== newCollateralStr) {
+          setMonthMarketingCollateral(month.id, newCollateral);
+        }
       }
-    }
+      
+      if (month.crmTimeline !== undefined) {
+        const newCrmTimeline = regenerateCRMTimeline();
+        // Only update if there are actual changes
+        const currentCrmStr = JSON.stringify(month.crmTimeline.map(c => ({offer: c.offer, content: c.content, sendDate: c.sendDate})));
+        const newCrmStr = JSON.stringify(newCrmTimeline.map(c => ({offer: c.offer, content: c.content, sendDate: c.sendDate})));
+        
+        if (currentCrmStr !== newCrmStr) {
+          setMonthCRMTimeline(month.id, newCrmTimeline);
+        }
+      }
+    }, 0);
     
-    if (month.crmTimeline !== undefined) {
-      const newCrmTimeline = regenerateCRMTimeline();
-      // Only update if there are actual changes
-      const currentCrmStr = JSON.stringify(month.crmTimeline.map(c => ({offer: c.offer, content: c.content, sendDate: c.sendDate})));
-      const newCrmStr = JSON.stringify(newCrmTimeline.map(c => ({offer: c.offer, content: c.content, sendDate: c.sendDate})));
-      
-      if (currentCrmStr !== newCrmStr) {
-        setMonthCRMTimeline(month.id, newCrmTimeline);
-      }
-    }
+    return () => clearTimeout(timeoutId);
   }, [JSON.stringify(activeOffers.map(o => ({ id: o.id, collateralChannels: o.collateralChannels, collateralTypes: o.collateralTypes })))]);
   
   // Use stored marketing collateral or generate from offers
@@ -461,8 +466,13 @@ export const ExecutionPlan: React.FC<ExecutionPlanProps> = ({ month }) => {
   // Auto-cleanup: If we found duplicates, update the stored data
   useEffect(() => {
     if (rawCrmTimeline.length > crmTimeline.length) {
-      console.log(`Removed ${rawCrmTimeline.length - crmTimeline.length} duplicate CRM events`);
-      setMonthCRMTimeline(month.id, crmTimeline);
+      // Delay state updates to avoid updating during render
+      const timeoutId = setTimeout(() => {
+        console.log(`Removed ${rawCrmTimeline.length - crmTimeline.length} duplicate CRM events`);
+        setMonthCRMTimeline(month.id, crmTimeline);
+      }, 0);
+      
+      return () => clearTimeout(timeoutId);
     }
   }, [rawCrmTimeline.length, crmTimeline.length, month.id]);
   

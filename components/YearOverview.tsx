@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MonthData, Offer } from '../types';
 import { motion } from 'framer-motion';
-import { Calendar, TrendingUp, DollarSign, Package, CalendarDays, Target, Users, Sparkles, Trophy } from 'lucide-react';
+import { Calendar, TrendingUp, DollarSign, Package, CalendarDays, Target, Users, Sparkles, Trophy, MapPin } from 'lucide-react';
 import { OfferCard } from './OfferCard';
+import { SimplePDFExporter } from './SimplePDFExporter';
+import { ProfessionalPDFExporter } from './ReactPDFExporter';
 
 interface YearOverviewProps {
   data: MonthData[];
@@ -83,6 +85,8 @@ const getMonthStrategy = (monthId: string, type: 'focus' | 'offers'): string[] =
 };
 
 export const YearOverview: React.FC<YearOverviewProps> = ({ data, hideCancelled = false }) => {
+  const [locationFilter, setLocationFilter] = useState<'both' | 'mumbai' | 'bengaluru'>('both');
+  
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -195,6 +199,35 @@ export const YearOverview: React.FC<YearOverviewProps> = ({ data, hideCancelled 
   };
 
   const yearlyRevenue = calculateYearlyRevenue();
+
+  // Calculate location-filtered revenue for display
+  const getDisplayRevenue = () => {
+    if (locationFilter === 'mumbai') {
+      return {
+        total2025: yearlyRevenue.mumbai2025,
+        total2026: yearlyRevenue.mumbai2026,
+        growthPercent: yearlyRevenue.mumbai2025 > 0 
+          ? ((yearlyRevenue.mumbai2026 - yearlyRevenue.mumbai2025) / yearlyRevenue.mumbai2025 * 100) 
+          : 0
+      };
+    } else if (locationFilter === 'bengaluru') {
+      return {
+        total2025: yearlyRevenue.bengaluru2025,
+        total2026: yearlyRevenue.bengaluru2026,
+        growthPercent: yearlyRevenue.bengaluru2025 > 0 
+          ? ((yearlyRevenue.bengaluru2026 - yearlyRevenue.bengaluru2025) / yearlyRevenue.bengaluru2025 * 100) 
+          : 0
+      };
+    } else {
+      return {
+        total2025: yearlyRevenue.total2025,
+        total2026: yearlyRevenue.total2026,
+        growthPercent: yearlyRevenue.growthPercent
+      };
+    }
+  };
+
+  const displayRevenue = getDisplayRevenue();
 
   return (
     <motion.div 
@@ -430,6 +463,48 @@ export const YearOverview: React.FC<YearOverviewProps> = ({ data, hideCancelled 
         }
       `}</style>
 
+      {/* Location Filter Toggle */}
+      <motion.div variants={item} className="flex justify-center mb-6 print:hidden">
+        <div className="inline-flex items-center gap-2 bg-white rounded-lg shadow-md p-1.5 border border-gray-200">
+          <button
+            onClick={() => setLocationFilter('both')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all font-medium ${
+              locationFilter === 'both'
+                ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-sm'
+                : 'text-gray-600 hover:bg-gray-100'
+            }`}
+          >
+            <MapPin className="w-4 h-4" />
+            Both Locations
+          </button>
+          <button
+            onClick={() => setLocationFilter('mumbai')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all font-medium ${
+              locationFilter === 'mumbai'
+                ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-sm'
+                : 'text-gray-600 hover:bg-gray-100'
+            }`}
+          >
+            <MapPin className="w-4 h-4" />
+            Mumbai Only
+          </button>
+          <button
+            onClick={() => setLocationFilter('bengaluru')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all font-medium ${
+              locationFilter === 'bengaluru'
+                ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-sm'
+                : 'text-gray-600 hover:bg-gray-100'
+            }`}
+          >
+            <MapPin className="w-4 h-4" />
+            Bengaluru Only
+          </button>
+        </div>
+      </motion.div>
+
+      {/* Content Wrapper for PDF Export */}
+      <div id="yearly-content-wrapper">
+
       {/* Hero Section - styled like MonthDetail */}
       <motion.div variants={item} className="yearly-overview space-y-4 print:space-y-2">
         <div className="flex items-center gap-3 text-brand-600 print:text-black">
@@ -449,8 +524,8 @@ export const YearOverview: React.FC<YearOverviewProps> = ({ data, hideCancelled 
         {[
           { label: 'Total Offers', value: totalOffers.toString(), icon: '🎁' },
           { label: 'Active Offers', value: totalActiveOffers.toString(), icon: '✨' },
-          { label: 'Revenue Target', value: formatIndianCurrency(yearlyRevenue.total2026), icon: '💰' },
-          { label: 'Growth Target', value: `${yearlyRevenue.growthPercent.toFixed(1)}%`, icon: '📈' },
+          { label: `Revenue Target${locationFilter !== 'both' ? ` (${locationFilter === 'mumbai' ? 'Mumbai' : 'Bengaluru'})` : ''}`, value: formatIndianCurrency(displayRevenue.total2026), icon: '💰' },
+          { label: 'Growth Target', value: `${displayRevenue.growthPercent.toFixed(1)}%`, icon: '📈' },
         ].map((stat, i) => (
           <div key={i} className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 border border-brand-100 shadow-sm print:bg-white print:shadow-none print:border-gray-400">
             <span className="text-2xl print:text-lg">{stat.icon}</span>
@@ -461,7 +536,8 @@ export const YearOverview: React.FC<YearOverviewProps> = ({ data, hideCancelled 
       </motion.div>
 
       {/* Financial Overview - Mumbai and Bengaluru Side by Side */}
-      <motion.section variants={item} className="print:break-inside-avoid">
+      {locationFilter === 'both' && (
+      <motion.div variants={item} className="print:break-inside-avoid">
         <div className="flex items-center gap-3 mb-6">
           <h2 className="text-2xl font-serif font-bold text-gray-900 print:text-black print:text-xl">Annual Financial Overview</h2>
           <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 print:text-black print:bg-transparent print:border print:border-gray-400">
@@ -549,15 +625,17 @@ export const YearOverview: React.FC<YearOverviewProps> = ({ data, hideCancelled 
             </div>
           </div>
         </div>
-      </motion.section>
+      </motion.div>
+      )}
 
       {/* All Strategic Offers Grid - styled like MonthDetail */}
-      <motion.section variants={item}>
+      <motion.div variants={item}>
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <h2 className="text-2xl font-serif font-bold text-gray-900">All Strategic Offers</h2>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
               {displayOffers.length} {hideCancelled ? 'Active' : 'Total'} Across All Months
+              {locationFilter !== 'both' && ` • ${locationFilter === 'mumbai' ? 'Mumbai' : 'Bengaluru'} Only`}
             </span>
           </div>
         </div>
@@ -699,7 +777,12 @@ export const YearOverview: React.FC<YearOverviewProps> = ({ data, hideCancelled 
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-indigo-100 print:divide-gray-400">
-                            {month.financialTargets.map((target, idx) => (
+                            {month.financialTargets.filter((target) => {
+                              if (locationFilter === 'both') return true;
+                              if (locationFilter === 'mumbai') return target.location?.toLowerCase().includes('mum');
+                              if (locationFilter === 'bengaluru') return target.location?.toLowerCase().includes('blr') || target.location?.toLowerCase().includes('kenkere');
+                              return true;
+                            }).map((target, idx) => (
                               <tr key={idx} className="hover:bg-indigo-50 transition-colors print:hover:bg-white">
                                 <td className="px-4 py-3">
                                   <div className="flex items-center gap-2">
@@ -734,7 +817,16 @@ export const YearOverview: React.FC<YearOverviewProps> = ({ data, hideCancelled 
 
                 {/* Offers Grid */}
                 <div className="offers-grid grid grid-cols-1 lg:grid-cols-2 gap-6 print:gap-4 print:grid-cols-1">
-                  {monthOffers.map((offer) => (
+                  {monthOffers.map((offer) => {
+                    // Filter offers based on location selection
+                    const showMumbai = locationFilter === 'both' || locationFilter === 'mumbai';
+                    const showBengaluru = locationFilter === 'both' || locationFilter === 'bengaluru';
+                    
+                    // Skip offers that don't have pricing for selected location
+                    if (locationFilter === 'mumbai' && !offer.priceMumbai) return null;
+                    if (locationFilter === 'bengaluru' && !offer.priceBengaluru) return null;
+                    
+                    return (
                     <div key={`${offer.monthId}-${offer.id}`} className={`offer-card bg-white rounded-xl border-2 border-indigo-200 shadow-sm transition-all duration-300 hover:shadow-md hover:border-indigo-300 print:shadow-none print:border-gray-400 print:break-inside-avoid ${offer.cancelled ? 'opacity-60' : ''}`}>
                       <div className="p-6">
                         {/* Offer Header */}
@@ -755,12 +847,12 @@ export const YearOverview: React.FC<YearOverviewProps> = ({ data, hideCancelled 
                           {offer.description}
                         </p>
 
-                        {/* Pricing Information - Side by Side */}
+                        {/* Pricing Information - Side by Side or Single Based on Filter */}
                         <div className={`space-y-4 ${offer.cancelled ? 'opacity-50' : ''}`}>
                           {(offer.priceMumbai || offer.priceBengaluru) ? (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className={`grid gap-4 ${locationFilter === 'both' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`}>
                               {/* Mumbai Pricing */}
-                              {offer.priceMumbai && (
+                              {offer.priceMumbai && showMumbai && (
                                 <div className="bg-indigo-50 rounded-lg p-4 border-2 border-indigo-200 print:bg-white print:border-gray-400">
                                   <div className="flex items-center gap-2 mb-3">
                                     <div className="w-2 h-2 bg-indigo-500 rounded-full print:bg-gray-600"></div>
@@ -807,7 +899,7 @@ export const YearOverview: React.FC<YearOverviewProps> = ({ data, hideCancelled 
                               )}
 
                               {/* Bengaluru Pricing */}
-                              {offer.priceBengaluru && (
+                              {offer.priceBengaluru && showBengaluru && (
                                 <div className="bg-purple-50 rounded-lg p-4 border-2 border-purple-200 print:bg-white print:border-gray-400">
                                   <div className="flex items-center gap-2 mb-3">
                                     <div className="w-2 h-2 bg-purple-600 rounded-full print:bg-gray-800"></div>
@@ -876,7 +968,8 @@ export const YearOverview: React.FC<YearOverviewProps> = ({ data, hideCancelled 
                         </div>
                       </div>
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
                 {/* Strategy Section */}
@@ -938,7 +1031,9 @@ export const YearOverview: React.FC<YearOverviewProps> = ({ data, hideCancelled 
             );
           })}
         </div>
-      </motion.section>
+      </motion.div>
+
+      </div>
     </motion.div>
   );
 };

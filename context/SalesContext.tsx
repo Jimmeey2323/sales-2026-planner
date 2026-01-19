@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { MonthData, Offer, MarketingCollateral, CRMTimeline, Note } from '../types';
 import { MONTHS_DATA } from '../constants';
 import { initializeDatabase, loadSalesData, saveSalesData } from '../lib/neon';
+import { updateConstantsFile } from '../lib/updateConstants';
 
 interface SalesContextType {
   data: MonthData[];
@@ -219,10 +220,29 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     console.log('📊 Save status set to: saving');
 
     try {
-      const result = await saveSalesData(data);
-      console.log('✅ Neon save result:', result);
-      
-      if (result.success) {
+      // Save to both database and constants file
+      const [dbResult, fileResult] = await Promise.allSettled([
+        saveSalesData(data),
+        updateConstantsFile(data)
+      ]);
+
+      // Check database save result
+      if (dbResult.status === 'fulfilled' && dbResult.value.success) {
+        console.log('✅ Neon database save result:', dbResult.value);
+      } else {
+        console.error('❌ Database save failed:', dbResult.status === 'rejected' ? dbResult.reason : 'Unknown error');
+      }
+
+      // Check constants file save result
+      if (fileResult.status === 'fulfilled') {
+        console.log('✅ Constants file updated successfully');
+      } else {
+        // Only log as warning since this is optional
+        console.warn('⚠️ Constants file update skipped (server not running). Database save successful.');
+      }
+
+      // Consider save successful if database save worked (file is optional)
+      if (dbResult.status === 'fulfilled' && dbResult.value.success) {
         setSaveStatus('saved');
         setHasUnsavedChanges(false);
         const timeStr = new Date().toLocaleTimeString('en-US', { 
@@ -239,10 +259,10 @@ export const SalesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           console.log('📊 Save status reset to: idle');
         }, 3000);
       } else {
-        throw new Error('Save failed');
+        throw new Error('Database save failed');
       }
     } catch (err) {
-      console.error('❌ Failed to save to Neon:', err);
+      console.error('❌ Failed to save:', err);
       setSaveStatus('error');
       console.log('📊 Save status set to: error');
       

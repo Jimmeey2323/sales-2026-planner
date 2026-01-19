@@ -17,17 +17,33 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "One month unlimited for newcomers who swear THIS January will be different—32% off because we know you need the financial nudge to stop lying to yourself about those resolutions.",
         "priceMumbai": 17750,
         "targetUnits": 45,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 13900,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 32,
         "finalPriceMumbai": 11999,
+        "targetUnitsMumbai": 30,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Welcome kit with branded water bottle and resistance band",
         "finalPriceBengaluru": 10499,
         "marketingCollateral": "Email campaign, WhatsApp blasts, Instagram stories with testimonials",
-        "targetUnitsMumbai": 30,
-        "targetUnitsBengaluru": 15,
-        "collateralChannels": { "whatsapp": true, "email": true, "inStudio": true },
-        "collateralTypes": { "tentCards": true, "imageCreative": true, "emailTemplate": true }
+        "targetUnitsBengaluru": 15
       },
       {
         "id": "jan_offer_2",
@@ -40,14 +56,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "Pay for 3 months, get the 4th free because your brain thinks in quarters but your attendance thinks in excuses—commitment for people who negotiate with themselves.",
         "priceMumbai": 71000,
         "targetUnits": 15,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 55600,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 25,
         "finalPriceMumbai": 53250,
+        "targetUnitsMumbai": 10,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "21-Day Challenge Kit with progress tracker",
         "finalPriceBengaluru": 41700,
         "marketingCollateral": "Landing page, Meta ads creative highlighting habit formation science",
-        "targetUnitsMumbai": 10,
         "targetUnitsBengaluru": 5
       }
     ],
@@ -74,7 +108,32 @@ export const MONTHS_DATA: MonthData[] = [
         "details": "Community: 21-Day Challenge. Referrals: \"Bring a Buddy\" passes."
       }
     ],
-    "crmTimeline": [],
+    "crmTimeline": [
+      {
+        "id": "pm1e9brt9",
+        "offer": "The Clean Slate Conspiracy",
+        "content": "Subject line highlighting new offer. Feature the resolution reset theme imagery. Clear CTA button. Include offer details without specific pricing.",
+        "sendDate": "Jan 10, 2026"
+      },
+      {
+        "id": "23px4ztzh",
+        "offer": "The Clean Slate Conspiracy",
+        "content": "Short, engaging message with the resolution reset theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
+        "sendDate": "Jan 15, 2026"
+      },
+      {
+        "id": "spzgcn1gt",
+        "offer": "The Optimist's Math",
+        "content": "Subject line highlighting hero offer. Feature the resolution reset theme imagery. Clear CTA button. Include offer details without specific pricing.",
+        "sendDate": "Jan 10, 2026"
+      },
+      {
+        "id": "84o6wgxav",
+        "offer": "The Optimist's Math",
+        "content": "Short, engaging message with the resolution reset theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
+        "sendDate": "Jan 15, 2026"
+      }
+    ],
     "executionPlan": [],
     "financialTargets": [
       {
@@ -103,7 +162,68 @@ export const MONTHS_DATA: MonthData[] = [
       }
     ],
     "revenueTargetTotal": "₹54,30,000",
-    "marketingCollateral": []
+    "marketingCollateral": [
+      {
+        "id": "misjyvqz4",
+        "type": "WhatsApp Campaign",
+        "notes": "Turn your New Year's promises into actual progress with unlimited classes for newcomers who are finally ready to stop lying to themselves.",
+        "offer": "The Clean Slate Conspiracy",
+        "medium": "WhatsApp Broadcast",
+        "dueDate": "Jan 10, 2026",
+        "messaging": "Short, engaging message with the resolution reset theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
+        "collateralNeeded": "WhatsApp Image Creative"
+      },
+      {
+        "id": "xdnxlftkx",
+        "type": "Email Campaign",
+        "notes": "Turn your New Year's promises into actual progress with unlimited classes for newcomers who are finally ready to stop lying to themselves.",
+        "offer": "The Clean Slate Conspiracy",
+        "medium": "Email Marketing",
+        "dueDate": "Jan 10, 2026",
+        "messaging": "Subject line highlighting new offer. Feature the resolution reset theme imagery. Clear CTA button. Include offer details without specific pricing.",
+        "collateralNeeded": "Email Template"
+      },
+      {
+        "id": "v78wzusuu",
+        "type": "In-Studio Materials",
+        "notes": "Turn your New Year's promises into actual progress with unlimited classes for newcomers who are finally ready to stop lying to themselves.",
+        "offer": "The Clean Slate Conspiracy",
+        "medium": "Physical Display",
+        "dueDate": "Jan 10, 2026",
+        "messaging": "Bold headline with the resolution reset visuals. Highlight key benefit of new offer. Large, easy-to-read text. QR code for booking.",
+        "collateralNeeded": "Tent Cards Easel Standee"
+      },
+      {
+        "id": "8a6ko4fn3",
+        "type": "WhatsApp Campaign",
+        "notes": "Commit to three months and get the fourth free—perfect for building consistency even if your actual attendance tells a different story.",
+        "offer": "The Optimist's Math",
+        "medium": "WhatsApp Broadcast",
+        "dueDate": "Jan 10, 2026",
+        "messaging": "Short, engaging message with the resolution reset theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
+        "collateralNeeded": "WhatsApp Image Creative"
+      },
+      {
+        "id": "a695p93hx",
+        "type": "Email Campaign",
+        "notes": "Commit to three months and get the fourth free—perfect for building consistency even if your actual attendance tells a different story.",
+        "offer": "The Optimist's Math",
+        "medium": "Email Marketing",
+        "dueDate": "Jan 10, 2026",
+        "messaging": "Subject line highlighting hero offer. Feature the resolution reset theme imagery. Clear CTA button. Include offer details without specific pricing.",
+        "collateralNeeded": "Email Template"
+      },
+      {
+        "id": "rtk0qv8hg",
+        "type": "In-Studio Materials",
+        "notes": "Commit to three months and get the fourth free—perfect for building consistency even if your actual attendance tells a different story.",
+        "offer": "The Optimist's Math",
+        "medium": "Physical Display",
+        "dueDate": "Jan 10, 2026",
+        "messaging": "Bold headline with the resolution reset visuals. Highlight key benefit of hero offer. Large, easy-to-read text. QR code for booking.",
+        "collateralNeeded": "Tent Cards Easel Standee"
+      }
+    ]
   },
   {
     "id": "feb",
@@ -119,58 +239,73 @@ export const MONTHS_DATA: MonthData[] = [
         "cancelled": false,
         "whyItWorks": "Drag a friend into fitness hell with you where neither of you can bail without disappointing the other—misery loves company, and so does accountability.",
         "description": "Bring a friend, get 50% off their membership, and create a legally binding friendship where neither can bail without disappointing the other—misery loves company at 50% savings.",
-        "priceMumbai": 17750,
+        "priceMumbai": 35500,
         "targetUnits": 40,
-        "promoteOnAds": true,
-        "priceBengaluru": 13900,
+        "promoteOnAds": false,
+        "priceBengaluru": 27800,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 50,
-        "finalPriceMumbai": 8875,
-        "operationalSupport": "Partner welcome kits with matching grip socks",
-        "finalPriceBengaluru": 6950,
-        "marketingCollateral": "Valentine's Day couples campaign, Instagram duo workout videos",
+        "finalPriceMumbai": 26625,
         "targetUnitsMumbai": 25,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
+        "operationalSupport": "Partner welcome kits with matching grip socks",
+        "finalPriceBengaluru": 20850,
+        "marketingCollateral": "Valentine's Day couples campaign, Instagram duo workout videos",
         "targetUnitsBengaluru": 15
-      },
-      {
-        "id": "feb_offer_2",
-        "type": "New",
-        "title": "The Commitment-Phobe's Alibi",
-        "pricing": "Intro Offer",
-        "savings": "₹ 3676 (Mumbai) / ₹ 2836 (Bengaluru)",
-        "cancelled": true,
-        "whyItWorks": "Test the waters with a short-term commitment that's just long enough to see if this relationship with fitness has any future.",
-        "description": "3 classes for ₹1,838 to test if this relationship with fitness has potential before you ghost us like you did your New Year's gym.",
-        "priceMumbai": 5514,
-        "targetUnits": 0,
-        "promoteOnAds": true,
-        "priceBengaluru": 4254,
-        "discountPercent": 67,
-        "finalPriceMumbai": 1838,
-        "operationalSupport": "Free grip socks inventory (150 pairs)",
-        "finalPriceBengaluru": 1418,
-        "marketingCollateral": "Email to prospects, Instagram Stories with trial testimonials",
-        "targetUnitsMumbai": 0,
-        "targetUnitsBengaluru": 0
       },
       {
         "id": "feb_offer_3",
         "type": "Event",
-        "title": "The Suffragette Sweat Session",
+        "title": "Luxury on Rent - The Studio Book Out Programme",
         "pricing": "Flat ₹35,000",
         "savings": "Exclusive Event Package",
         "cancelled": false,
         "whyItWorks": "Where empowerment meets endorphins in a curated studio takeover proving that strong women don't need permission to take up space.",
-        "description": "A curated studio takeover where empowerment meets endorphins—flat-rate event proving strong women don't need permission OR a man's validation.",
+        "description": "A curated studio takeover with refreshments where empowerment meets endorphins and everyone pretends they're not dying inside.",
         "priceMumbai": 35000,
         "targetUnits": 20,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 25000,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 0,
         "finalPriceMumbai": 35000,
+        "targetUnitsMumbai": 10,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Mimosa bar setup, party decorations, photographer",
         "finalPriceBengaluru": 25000,
         "marketingCollateral": "Social media event teasers, private invitations",
-        "targetUnitsMumbai": 10,
         "targetUnitsBengaluru": 10
       },
       {
@@ -184,14 +319,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "6 weeks of unlimited classes designed to make your ex regret everything while you regret nothing except that last burpee—architectural plans for petty revenge.",
         "priceMumbai": 34950,
         "targetUnits": 16,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 26584,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 28,
         "finalPriceMumbai": 25000,
+        "targetUnitsMumbai": 10,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Custom revenge body tanks, empowerment playlist curation",
         "finalPriceBengaluru": 20,
         "marketingCollateral": "Anti-Valentine's social campaign, \"Revenge Body\" content series",
-        "targetUnitsMumbai": 10,
         "targetUnitsBengaluru": 6
       },
       {
@@ -205,14 +358,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "4 months unlimited + 4 private sessions + ₹2,000 credit for those investing in themselves instead of disappointing dating apps—because self-partnership includes deadlifts and your cat's unconditional support.",
         "priceMumbai": 91000,
         "targetUnits": 7,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 71300,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 29,
         "finalPriceMumbai": 65000,
+        "targetUnitsMumbai": 5,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "₹2,000 retail credit vouchers, personalized wellness plans",
         "finalPriceBengaluru": 52000,
         "marketingCollateral": "Self-love campaign, solo empowerment messaging, Instagram self-care series",
-        "targetUnitsMumbai": 5,
         "targetUnitsBengaluru": 2
       }
     ],
@@ -239,7 +410,56 @@ export const MONTHS_DATA: MonthData[] = [
         "details": "Partner stretches in class."
       }
     ],
-    "crmTimeline": [],
+    "crmTimeline": [
+      {
+        "id": "7u5r4ue9w",
+        "offer": "The Peer Pressure Pact",
+        "content": "Subject line highlighting hero offer. Feature heart-health & self love theme imagery. Clear CTA button. Include offer details without specific pricing.",
+        "sendDate": "Feb 5, 2026"
+      },
+      {
+        "id": "mprozhrvs",
+        "offer": "The Peer Pressure Pact",
+        "content": "Short, engaging message with heart-health & self love theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
+        "sendDate": "Feb 10, 2026"
+      },
+      {
+        "id": "vbv6ovrrk",
+        "offer": "The Suffragette Sweat Session",
+        "content": "Subject line highlighting event offer. Feature heart-health & self love theme imagery. Clear CTA button. Include offer details without specific pricing.",
+        "sendDate": "Feb 5, 2026"
+      },
+      {
+        "id": "8iiri4uo4",
+        "offer": "The Suffragette Sweat Session",
+        "content": "Short, engaging message with heart-health & self love theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
+        "sendDate": "Feb 10, 2026"
+      },
+      {
+        "id": "95ddkuva8",
+        "offer": "The Breakup Blueprint",
+        "content": "Subject line highlighting flash offer. Feature heart-health & self love theme imagery. Clear CTA button. Include offer details without specific pricing.",
+        "sendDate": "Feb 5, 2026"
+      },
+      {
+        "id": "5ovfqi5db",
+        "offer": "The Breakup Blueprint",
+        "content": "Short, engaging message with heart-health & self love theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
+        "sendDate": "Feb 10, 2026"
+      },
+      {
+        "id": "lfvi25rf7",
+        "offer": "The Self-Love Syndicate",
+        "content": "Subject line highlighting hero offer. Feature heart-health & self love theme imagery. Clear CTA button. Include offer details without specific pricing.",
+        "sendDate": "Feb 5, 2026"
+      },
+      {
+        "id": "vrb92qz16",
+        "offer": "The Self-Love Syndicate",
+        "content": "Short, engaging message with heart-health & self love theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
+        "sendDate": "Feb 10, 2026"
+      }
+    ],
     "financialTargets": [
       {
         "logic": "Valentine + Anti-Valentine revenue focus",
@@ -267,7 +487,128 @@ export const MONTHS_DATA: MonthData[] = [
       }
     ],
     "revenueTargetTotal": "₹1,12,29,860",
-    "marketingCollateral": []
+    "marketingCollateral": [
+      {
+        "id": "yo78d8xxr",
+        "offer": "The Peer Pressure Pact",
+        "collateralNeeded": "WhatsApp Image Creative",
+        "type": "WhatsApp Campaign",
+        "medium": "WhatsApp Broadcast",
+        "messaging": "Short, engaging message with heart-health & self love theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
+        "dueDate": "Feb 5, 2026",
+        "notes": "Drag a friend into fitness hell with you where neither of you can bail without disappointing the other—misery loves company, and so does accountability."
+      },
+      {
+        "id": "9owe5jggb",
+        "offer": "The Peer Pressure Pact",
+        "collateralNeeded": "Email Template",
+        "type": "Email Campaign",
+        "medium": "Email Marketing",
+        "messaging": "Subject line highlighting hero offer. Feature heart-health & self love theme imagery. Clear CTA button. Include offer details without specific pricing.",
+        "dueDate": "Feb 5, 2026",
+        "notes": "Drag a friend into fitness hell with you where neither of you can bail without disappointing the other—misery loves company, and so does accountability."
+      },
+      {
+        "id": "3w5f70fnz",
+        "offer": "The Peer Pressure Pact",
+        "collateralNeeded": "Tent Cards Easel Standee",
+        "type": "In-Studio Materials",
+        "medium": "Physical Display",
+        "messaging": "Bold headline with heart-health & self love visuals. Highlight key benefit of hero offer. Large, easy-to-read text. QR code for booking.",
+        "dueDate": "Feb 5, 2026",
+        "notes": "Drag a friend into fitness hell with you where neither of you can bail without disappointing the other—misery loves company, and so does accountability."
+      },
+      {
+        "id": "ozd70l0mq",
+        "offer": "The Suffragette Sweat Session",
+        "collateralNeeded": "WhatsApp Image Creative",
+        "type": "WhatsApp Campaign",
+        "medium": "WhatsApp Broadcast",
+        "messaging": "Short, engaging message with heart-health & self love theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
+        "dueDate": "Feb 5, 2026",
+        "notes": "Where empowerment meets endorphins in a curated studio takeover proving that strong women don't need permission to take up space."
+      },
+      {
+        "id": "0nvi8h9w8",
+        "offer": "The Suffragette Sweat Session",
+        "collateralNeeded": "Email Template",
+        "type": "Email Campaign",
+        "medium": "Email Marketing",
+        "messaging": "Subject line highlighting event offer. Feature heart-health & self love theme imagery. Clear CTA button. Include offer details without specific pricing.",
+        "dueDate": "Feb 5, 2026",
+        "notes": "Where empowerment meets endorphins in a curated studio takeover proving that strong women don't need permission to take up space."
+      },
+      {
+        "id": "pqcvvx8vy",
+        "offer": "The Suffragette Sweat Session",
+        "collateralNeeded": "Tent Cards Easel Standee",
+        "type": "In-Studio Materials",
+        "medium": "Physical Display",
+        "messaging": "Bold headline with heart-health & self love visuals. Highlight key benefit of event offer. Large, easy-to-read text. QR code for booking.",
+        "dueDate": "Feb 5, 2026",
+        "notes": "Where empowerment meets endorphins in a curated studio takeover proving that strong women don't need permission to take up space."
+      },
+      {
+        "id": "fg1kcxkom",
+        "offer": "The Breakup Blueprint",
+        "collateralNeeded": "WhatsApp Image Creative",
+        "type": "WhatsApp Campaign",
+        "medium": "WhatsApp Broadcast",
+        "messaging": "Short, engaging message with heart-health & self love theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
+        "dueDate": "Feb 5, 2026",
+        "notes": "Six weeks of unlimited torture designed to make your ex regret everything while you regret nothing except maybe that last burpee."
+      },
+      {
+        "id": "mc0fp9toe",
+        "offer": "The Breakup Blueprint",
+        "collateralNeeded": "Email Template",
+        "type": "Email Campaign",
+        "medium": "Email Marketing",
+        "messaging": "Subject line highlighting flash offer. Feature heart-health & self love theme imagery. Clear CTA button. Include offer details without specific pricing.",
+        "dueDate": "Feb 5, 2026",
+        "notes": "Six weeks of unlimited torture designed to make your ex regret everything while you regret nothing except maybe that last burpee."
+      },
+      {
+        "id": "hwrjs4m6o",
+        "offer": "The Breakup Blueprint",
+        "collateralNeeded": "Tent Cards Easel Standee",
+        "type": "In-Studio Materials",
+        "medium": "Physical Display",
+        "messaging": "Bold headline with heart-health & self love visuals. Highlight key benefit of flash offer. Large, easy-to-read text. QR code for booking.",
+        "dueDate": "Feb 5, 2026",
+        "notes": "Six weeks of unlimited torture designed to make your ex regret everything while you regret nothing except maybe that last burpee."
+      },
+      {
+        "id": "b8qcy0ktm",
+        "offer": "The Self-Love Syndicate",
+        "collateralNeeded": "WhatsApp Image Creative",
+        "type": "WhatsApp Campaign",
+        "medium": "WhatsApp Broadcast",
+        "messaging": "Short, engaging message with heart-health & self love theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
+        "dueDate": "Feb 5, 2026",
+        "notes": "For those investing in themselves instead of disappointing dating apps—because self-love includes deadlifts and your cat's unconditional support."
+      },
+      {
+        "id": "qkp5qrmu1",
+        "offer": "The Self-Love Syndicate",
+        "collateralNeeded": "Email Template",
+        "type": "Email Campaign",
+        "medium": "Email Marketing",
+        "messaging": "Subject line highlighting hero offer. Feature heart-health & self love theme imagery. Clear CTA button. Include offer details without specific pricing.",
+        "dueDate": "Feb 5, 2026",
+        "notes": "For those investing in themselves instead of disappointing dating apps—because self-love includes deadlifts and your cat's unconditional support."
+      },
+      {
+        "id": "hdr0l0qet",
+        "offer": "The Self-Love Syndicate",
+        "collateralNeeded": "Tent Cards Easel Standee",
+        "type": "In-Studio Materials",
+        "medium": "Physical Display",
+        "messaging": "Bold headline with heart-health & self love visuals. Highlight key benefit of hero offer. Large, easy-to-read text. QR code for booking.",
+        "dueDate": "Feb 5, 2026",
+        "notes": "For those investing in themselves instead of disappointing dating apps—because self-love includes deadlifts and your cat's unconditional support."
+      }
+    ]
   },
   {
     "id": "mar",
@@ -285,14 +626,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "3-month unlimited membership bundled with 3 private training sessions and complete strength toolkit (resistance bands, foam roller, guide) for professionals who treat their glutes like quarterly earnings.",
         "priceMumbai": 69038,
         "targetUnits": 15,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 54573,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 20,
         "finalPriceMumbai": 55230,
+        "targetUnitsMumbai": 10,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Strength toolkit with bands, foam roller, and guide",
         "finalPriceBengaluru": 43658,
         "marketingCollateral": "Women's Day campaign emails, LinkedIn posts",
-        "targetUnitsMumbai": 10,
         "targetUnitsBengaluru": 5
       },
       {
@@ -306,14 +665,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "Purchase a 12-class pack and receive 3 additional classes FREE (15 total)—perfect for squad fitness goals where accountability is disguised as friendship.",
         "priceMumbai": 21270,
         "targetUnits": 40,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 21270,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 26,
         "finalPriceMumbai": 15803,
+        "targetUnitsMumbai": 25,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Squad tracking cards for progress",
         "finalPriceBengaluru": 13125,
         "marketingCollateral": "Instagram squad challenge campaign",
-        "targetUnitsMumbai": 25,
         "targetUnitsBengaluru": 15
       },
       {
@@ -329,12 +706,30 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnits": 0,
         "promoteOnAds": false,
         "priceBengaluru": 148800,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 25,
         "finalPriceMumbai": 144375,
+        "targetUnitsMumbai": 0,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Corporate onboarding kits with branded merch",
         "finalPriceBengaluru": 111600,
         "marketingCollateral": "Corporate partnership emails, LinkedIn outreach",
-        "targetUnitsMumbai": 0,
         "targetUnitsBengaluru": 0
       },
       {
@@ -348,14 +743,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "Limited-time flash sale: 15% discount on ALL membership types (1-month, 3-month, annual) PLUS ₹1,000 gift voucher for retail/services. Confidence is the best asset class.",
         "priceMumbai": 17750,
         "targetUnits": 60,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 13900,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 15,
         "finalPriceMumbai": 15088,
+        "targetUnitsMumbai": 30,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Gift voucher distribution at front desk",
         "finalPriceBengaluru": 11815,
         "marketingCollateral": "Bold, empowering social media campaign",
-        "targetUnitsMumbai": 30,
         "targetUnitsBengaluru": 30
       },
       {
@@ -369,14 +782,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "Women's Day special (March 8 only): 8-class pack with 45-day validity, 1 private training session, and complimentary grip socks for ₹13,999 (MUM) / ₹9,999 (BLR). Live your transformation montage.",
         "priceMumbai": 20054,
         "targetUnits": 50,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 15539,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 30,
         "finalPriceMumbai": 13999,
+        "targetUnitsMumbai": 25,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Grip socks inventory (150+ pairs), Women's Day celebration activities",
         "finalPriceBengaluru": 9999,
         "marketingCollateral": "Women's Day flash campaign, 24-hour countdown, empowerment messaging",
-        "targetUnitsMumbai": 25,
         "targetUnitsBengaluru": 25
       }
     ],
@@ -495,58 +926,76 @@ export const MONTHS_DATA: MonthData[] = [
         "title": "The Anniversary Ransom",
         "pricing": "Purchase 8 months unlimited, pay ₹8 for the 8th month",
         "savings": "Save ₹17,750 (Mumbai) / ₹13,900 (Bengaluru)",
+        "packages": [
+          {
+            "tax": 5,
+            "name": "Studio 1 Month Unlimited Membership",
+            "price": 17750,
+            "hostId": 13752,
+            "studio": "Kwality House & Supreme HQ",
+            "location": "Mumbai",
+            "validity": 30,
+            "noOfSessions": 999,
+            "validityUnit": "days",
+            "priceAfterTax": 18638,
+            "freezeAttempts": 1,
+            "freezeDuration": 30
+          },
+          {
+            "tax": 5,
+            "name": "Studio 1 Month Unlimited Membership",
+            "price": 13900,
+            "hostId": 33905,
+            "studio": "Kenkere House",
+            "location": "Bengaluru",
+            "validity": 30,
+            "noOfSessions": 999,
+            "validityUnit": "days",
+            "priceAfterTax": 14595,
+            "freezeAttempts": 1,
+            "freezeDuration": 30
+          }
+        ],
         "cancelled": false,
         "whyItWorks": "Lock in unlimited access for 8 months at the lowest commitment rate—perfect for members ready to make a serious fitness bet on their 2026 transformation.",
         "description": "Pay for 7 months, the 8th is ₹8—our anniversary gift where commitment gets rewarded and excuses get expensive.",
         "priceMumbai": 123250,
         "targetUnits": 60,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
+        "freezeAttempts": 8,
         "priceBengaluru": 96450,
+        "validityPeriod": "8 months",
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 0,
+        "revenueForecast": {
+          "total": "₹68.59L",
+          "mumbai": "₹49.3L",
+          "bengaluru": "₹19.29L"
+        },
         "finalPriceMumbai": 123250,
+        "validitySessions": 999,
+        "targetUnitsMumbai": 40,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Monthly milestone check-ins + progress tracking",
         "finalPriceBengaluru": 96450,
         "marketingCollateral": "Email campaign, WhatsApp announcements, Instagram stories",
-        "targetUnitsMumbai": 40,
-        "targetUnitsBengaluru": 20,
-        "validityPeriod": "8 months",
-        "validitySessions": 999,
-        "freezeAttempts": 8,
-        "revenueForecast": {
-          "mumbai": "₹49.3L",
-          "bengaluru": "₹19.29L",
-          "total": "₹68.59L"
-        },
-        "packages": [
-          {
-            "name": "Studio 1 Month Unlimited Membership",
-            "hostId": 13752,
-            "price": 17750,
-            "validity": 30,
-            "validityUnit": "days",
-            "noOfSessions": 999,
-            "freezeAttempts": 1,
-            "freezeDuration": 30,
-            "tax": 5,
-            "priceAfterTax": 18638,
-            "location": "Mumbai",
-            "studio": "Kwality House & Supreme HQ"
-          },
-          {
-            "name": "Studio 1 Month Unlimited Membership",
-            "hostId": 33905,
-            "price": 13900,
-            "validity": 30,
-            "validityUnit": "days",
-            "noOfSessions": 999,
-            "freezeAttempts": 1,
-            "freezeDuration": 30,
-            "tax": 5,
-            "priceAfterTax": 14595,
-            "location": "Bengaluru",
-            "studio": "Kenkere House"
-          }
-        ]
+        "targetUnitsBengaluru": 20
       },
       {
         "id": "apr_offer_2",
@@ -554,86 +1003,104 @@ export const MONTHS_DATA: MonthData[] = [
         "title": "The Punctuality Payoff",
         "pricing": "20% OFF all packs at 8:08 AM & 8:08 PM (8 units/slot, FCFS)",
         "savings": "20% OFF on all pack types - Examples: 1M ₹14,200 (MUM) / ₹11,120 (BLR)",
+        "packages": [
+          {
+            "tax": 5,
+            "name": "Studio 1 Month Unlimited Membership",
+            "price": 17750,
+            "hostId": 13752,
+            "studio": "Kwality House & Supreme HQ",
+            "location": "Mumbai",
+            "validity": 30,
+            "noOfSessions": 999,
+            "validityUnit": "days",
+            "priceAfterTax": 18638,
+            "freezeAttempts": 1,
+            "freezeDuration": 30
+          },
+          {
+            "tax": 5,
+            "name": "Studio 1 Month Unlimited Membership",
+            "price": 13900,
+            "hostId": 33905,
+            "studio": "Kenkere House",
+            "location": "Bengaluru",
+            "validity": 30,
+            "noOfSessions": 999,
+            "validityUnit": "days",
+            "priceAfterTax": 14595,
+            "freezeAttempts": 1,
+            "freezeDuration": 30
+          },
+          {
+            "tax": 5,
+            "name": "Studio 10 Single Class Pack",
+            "price": 15000,
+            "hostId": 13752,
+            "studio": "Kwality House & Supreme HQ",
+            "location": "Mumbai",
+            "validity": 70,
+            "noOfSessions": 10,
+            "validityUnit": "days",
+            "priceAfterTax": 15750,
+            "freezeAttempts": 2,
+            "freezeDuration": 70
+          },
+          {
+            "tax": 5,
+            "name": "Studio 10 Single Class Pack",
+            "price": 12000,
+            "hostId": 33905,
+            "studio": "Kenkere House",
+            "location": "Bengaluru",
+            "validity": 70,
+            "noOfSessions": 10,
+            "validityUnit": "days",
+            "priceAfterTax": 12600,
+            "freezeAttempts": 2,
+            "freezeDuration": 70
+          }
+        ],
         "cancelled": false,
         "whyItWorks": "Two precise daily moments of intensity where urgency meets value—set your alarm and join the morning/evening power plays throughout April.",
         "description": "Every day at 8:08 AM and 8:08 PM: 20% off all packs (unlimited, 10-class, 20-class) for the first 8 buyers only. Set your alarm—timing is everything, 448 units available throughout April.",
         "priceMumbai": 17750,
         "targetUnits": 224,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
+        "freezeAttempts": 0,
         "priceBengaluru": 13900,
+        "validityPeriod": "1 month",
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 20,
+        "revenueForecast": {
+          "total": "₹29.22L",
+          "mumbai": "₹19.88L",
+          "bengaluru": "₹9.34L"
+        },
         "finalPriceMumbai": 14200,
+        "validitySessions": 1,
+        "targetUnitsMumbai": 140,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Front desk alerts, app notifications, inventory management",
         "finalPriceBengaluru": 11120,
         "marketingCollateral": "WhatsApp daily alerts at 8:08, Instagram Stories, in-studio signage",
-        "targetUnitsMumbai": 140,
-        "targetUnitsBengaluru": 84,
-        "validityPeriod": "1 month",
-        "validitySessions": 1,
-        "freezeAttempts": 0,
-        "revenueForecast": {
-          "mumbai": "₹19.88L",
-          "bengaluru": "₹9.34L",
-          "total": "₹29.22L"
-        },
-        "packages": [
-          {
-            "name": "Studio 1 Month Unlimited Membership",
-            "hostId": 13752,
-            "price": 17750,
-            "validity": 30,
-            "validityUnit": "days",
-            "noOfSessions": 999,
-            "freezeAttempts": 1,
-            "freezeDuration": 30,
-            "tax": 5,
-            "priceAfterTax": 18638,
-            "location": "Mumbai",
-            "studio": "Kwality House & Supreme HQ"
-          },
-          {
-            "name": "Studio 1 Month Unlimited Membership",
-            "hostId": 33905,
-            "price": 13900,
-            "validity": 30,
-            "validityUnit": "days",
-            "noOfSessions": 999,
-            "freezeAttempts": 1,
-            "freezeDuration": 30,
-            "tax": 5,
-            "priceAfterTax": 14595,
-            "location": "Bengaluru",
-            "studio": "Kenkere House"
-          },
-          {
-            "name": "Studio 10 Single Class Pack",
-            "hostId": 13752,
-            "price": 15000,
-            "validity": 70,
-            "validityUnit": "days",
-            "noOfSessions": 10,
-            "freezeAttempts": 2,
-            "freezeDuration": 70,
-            "tax": 5,
-            "priceAfterTax": 15750,
-            "location": "Mumbai",
-            "studio": "Kwality House & Supreme HQ"
-          },
-          {
-            "name": "Studio 10 Single Class Pack",
-            "hostId": 33905,
-            "price": 12000,
-            "validity": 70,
-            "validityUnit": "days",
-            "noOfSessions": 10,
-            "freezeAttempts": 2,
-            "freezeDuration": 70,
-            "tax": 5,
-            "priceAfterTax": 12600,
-            "location": "Bengaluru",
-            "studio": "Kenkere House"
-          }
-        ]
+        "targetUnitsBengaluru": 84
       },
       {
         "id": "apr_offer_3",
@@ -641,58 +1108,76 @@ export const MONTHS_DATA: MonthData[] = [
         "title": "The Lifetime Insider",
         "pricing": "Annual unlimited + LIFETIME 8% discount on all future purchases",
         "savings": "Compounds over lifetime - Estimated ₹23,330/year value",
+        "packages": [
+          {
+            "tax": 5,
+            "name": "Studio Annual Unlimited Membership",
+            "price": 192500,
+            "hostId": 13752,
+            "studio": "Kwality House & Supreme HQ",
+            "location": "Mumbai",
+            "validity": 365,
+            "noOfSessions": 999,
+            "validityUnit": "days",
+            "priceAfterTax": 202125,
+            "freezeAttempts": 12,
+            "freezeDuration": 365
+          },
+          {
+            "tax": 5,
+            "name": "Studio Annual Unlimited Membership",
+            "price": 148800,
+            "hostId": 33905,
+            "studio": "Kenkere House",
+            "location": "Bengaluru",
+            "validity": 365,
+            "noOfSessions": 999,
+            "validityUnit": "days",
+            "priceAfterTax": 156240,
+            "freezeAttempts": 12,
+            "freezeDuration": 365
+          }
+        ],
         "cancelled": false,
         "whyItWorks": "The ultimate power move for committed members—lock in an annual rate and get 8% off everything forever, compounding your savings indefinitely.",
         "description": "Purchase annual unlimited membership (12 months) and receive LIFETIME 8% discount on all future purchases—packs, privates, retail, workshops. An investment that compounds forever.",
         "priceMumbai": 192500,
         "targetUnits": 40,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
+        "freezeAttempts": 12,
         "priceBengaluru": 148800,
+        "validityPeriod": "365 days",
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 0,
+        "revenueForecast": {
+          "total": "₹70.445L",
+          "mumbai": "₹48.125L",
+          "bengaluru": "₹22.32L"
+        },
         "finalPriceMumbai": 192500,
+        "validitySessions": 999,
+        "targetUnitsMumbai": 25,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Lifetime CRM tagging, automated discount application",
         "finalPriceBengaluru": 148800,
         "marketingCollateral": "Email to existing members, trainer scripts, social media deep-dive",
-        "targetUnitsMumbai": 25,
-        "targetUnitsBengaluru": 15,
-        "validityPeriod": "365 days",
-        "validitySessions": 999,
-        "freezeAttempts": 12,
-        "revenueForecast": {
-          "mumbai": "₹48.125L",
-          "bengaluru": "₹22.32L",
-          "total": "₹70.445L"
-        },
-        "packages": [
-          {
-            "name": "Studio Annual Unlimited Membership",
-            "hostId": 13752,
-            "price": 192500,
-            "validity": 365,
-            "validityUnit": "days",
-            "noOfSessions": 999,
-            "freezeAttempts": 12,
-            "freezeDuration": 365,
-            "tax": 5,
-            "priceAfterTax": 202125,
-            "location": "Mumbai",
-            "studio": "Kwality House & Supreme HQ"
-          },
-          {
-            "name": "Studio Annual Unlimited Membership",
-            "hostId": 33905,
-            "price": 148800,
-            "validity": 365,
-            "validityUnit": "days",
-            "noOfSessions": 999,
-            "freezeAttempts": 12,
-            "freezeDuration": 365,
-            "tax": 5,
-            "priceAfterTax": 156240,
-            "location": "Bengaluru",
-            "studio": "Kenkere House"
-          }
-        ]
+        "targetUnitsBengaluru": 15
       },
       {
         "id": "apr_offer_4",
@@ -700,58 +1185,76 @@ export const MONTHS_DATA: MonthData[] = [
         "title": "The Accomplice Advantage",
         "pricing": "Refer a friend who purchases ANY pack → BOTH receive 8 free classes",
         "savings": "Referrer: ₹12,600 value (Mumbai) / ₹10,080 (Bengaluru) FREE",
+        "packages": [
+          {
+            "tax": 5,
+            "name": "Studio 8 Class Package",
+            "price": 10200,
+            "hostId": 13752,
+            "studio": "Kwality House & Supreme HQ",
+            "location": "Mumbai",
+            "validity": 30,
+            "noOfSessions": 8,
+            "validityUnit": "days",
+            "priceAfterTax": 10710,
+            "freezeAttempts": 1,
+            "freezeDuration": 30
+          },
+          {
+            "tax": 5,
+            "name": "Studio 8 Class Package",
+            "price": 8300,
+            "hostId": 33905,
+            "studio": "Kenkere House",
+            "location": "Bengaluru",
+            "validity": 30,
+            "noOfSessions": 8,
+            "validityUnit": "days",
+            "priceAfterTax": 8715,
+            "freezeAttempts": 1,
+            "freezeDuration": 30
+          }
+        ],
         "cancelled": false,
         "whyItWorks": "Turn your existing members into recruiting machines—both parties get 8 bonus classes, creating a viral loop of community growth and loyalty.",
         "description": "Existing member refers 1 friend who purchases ANY pack → BOTH receive 8 free classes instantly. Unlimited referrals per member—turn your workout buddy into your partner in crime.",
         "priceMumbai": 17750,
         "targetUnits": 150,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
+        "freezeAttempts": 0,
         "priceBengaluru": 13900,
+        "validityPeriod": "30 days",
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 0,
+        "revenueForecast": {
+          "total": "₹24.7L",
+          "mumbai": "₹17.75L",
+          "bengaluru": "₹6.95L"
+        },
         "finalPriceMumbai": 17750,
+        "validitySessions": 8,
+        "targetUnitsMumbai": 100,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Referral tracking sheet, CRM automation, bonus class allocation",
         "finalPriceBengaluru": 13900,
         "marketingCollateral": "Referral leaderboard, WhatsApp scripts, success testimonials",
-        "targetUnitsMumbai": 100,
-        "targetUnitsBengaluru": 50,
-        "validityPeriod": "30 days",
-        "validitySessions": 8,
-        "freezeAttempts": 0,
-        "revenueForecast": {
-          "mumbai": "₹17.75L",
-          "bengaluru": "₹6.95L",
-          "total": "₹24.7L"
-        },
-        "packages": [
-          {
-            "name": "Studio 8 Class Package",
-            "hostId": 13752,
-            "price": 10200,
-            "validity": 30,
-            "validityUnit": "days",
-            "noOfSessions": 8,
-            "freezeAttempts": 1,
-            "freezeDuration": 30,
-            "tax": 5,
-            "priceAfterTax": 10710,
-            "location": "Mumbai",
-            "studio": "Kwality House & Supreme HQ"
-          },
-          {
-            "name": "Studio 8 Class Package",
-            "hostId": 33905,
-            "price": 8300,
-            "validity": 30,
-            "validityUnit": "days",
-            "noOfSessions": 8,
-            "freezeAttempts": 1,
-            "freezeDuration": 30,
-            "tax": 5,
-            "priceAfterTax": 8715,
-            "location": "Bengaluru",
-            "studio": "Kenkere House"
-          }
-        ]
+        "targetUnitsBengaluru": 50
       },
       {
         "id": "apr_offer_5",
@@ -759,58 +1262,76 @@ export const MONTHS_DATA: MonthData[] = [
         "title": "The 8-Hour Heist",
         "pricing": "April 8th ONLY, 8:00 AM - 4:00 PM: 18% OFF everything",
         "savings": "18% OFF all packs, privates, memberships (no restrictions)",
+        "packages": [
+          {
+            "tax": 5,
+            "name": "Studio 1 Month Unlimited Membership",
+            "price": 17750,
+            "hostId": 13752,
+            "studio": "Kwality House & Supreme HQ",
+            "location": "Mumbai",
+            "validity": 30,
+            "noOfSessions": 999,
+            "validityUnit": "days",
+            "priceAfterTax": 18638,
+            "freezeAttempts": 1,
+            "freezeDuration": 30
+          },
+          {
+            "tax": 5,
+            "name": "Studio 1 Month Unlimited Membership",
+            "price": 13900,
+            "hostId": 33905,
+            "studio": "Kenkere House",
+            "location": "Bengaluru",
+            "validity": 30,
+            "noOfSessions": 999,
+            "validityUnit": "days",
+            "priceAfterTax": 14595,
+            "freezeAttempts": 1,
+            "freezeDuration": 30
+          }
+        ],
         "cancelled": false,
         "whyItWorks": "Your 8th anniversary deserves an 8-hour celebration where every single membership, private, and class pack gets the deepest discount of the month.",
         "description": "April 8th ONLY, 8:00 AM to 4:00 PM (8 hours): ALL packs, memberships, and privates at 18% OFF with NO restrictions. Our biggest discount—plan accordingly.",
         "priceMumbai": 17750,
         "targetUnits": 150,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
+        "freezeAttempts": 1,
         "priceBengaluru": 13900,
+        "validityPeriod": "30 days",
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 18,
+        "revenueForecast": {
+          "total": "₹20.254L",
+          "mumbai": "₹14.555L",
+          "bengaluru": "₹5.699L"
+        },
         "finalPriceMumbai": 14555,
+        "validitySessions": 999,
+        "targetUnitsMumbai": 100,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "All-hands-on-deck staffing, extended hours, conversion optimization",
         "finalPriceBengaluru": 11398,
         "marketingCollateral": "Countdown SMS, hourly revenue updates, all-day Instagram blitz",
-        "targetUnitsMumbai": 100,
-        "targetUnitsBengaluru": 50,
-        "validityPeriod": "30 days",
-        "validitySessions": 999,
-        "freezeAttempts": 1,
-        "revenueForecast": {
-          "mumbai": "₹14.555L",
-          "bengaluru": "₹5.699L",
-          "total": "₹20.254L"
-        },
-        "packages": [
-          {
-            "name": "Studio 1 Month Unlimited Membership",
-            "hostId": 13752,
-            "price": 17750,
-            "validity": 30,
-            "validityUnit": "days",
-            "noOfSessions": 999,
-            "freezeAttempts": 1,
-            "freezeDuration": 30,
-            "tax": 5,
-            "priceAfterTax": 18638,
-            "location": "Mumbai",
-            "studio": "Kwality House & Supreme HQ"
-          },
-          {
-            "name": "Studio 1 Month Unlimited Membership",
-            "hostId": 33905,
-            "price": 13900,
-            "validity": 30,
-            "validityUnit": "days",
-            "noOfSessions": 999,
-            "freezeAttempts": 1,
-            "freezeDuration": 30,
-            "tax": 5,
-            "priceAfterTax": 14595,
-            "location": "Bengaluru",
-            "studio": "Kenkere House"
-          }
-        ]
+        "targetUnitsBengaluru": 50
       },
       {
         "id": "apr_offer_6",
@@ -818,58 +1339,76 @@ export const MONTHS_DATA: MonthData[] = [
         "title": "The Overachiever's Odyssey",
         "pricing": "8-month unlimited pass + ₹8,000 retail credit upon completing 88 classes",
         "savings": "Challenge completion unlocks ₹8,000 retail credit (60-70% complete)",
+        "packages": [
+          {
+            "tax": 5,
+            "name": "Studio 3 Month Unlimited Membership",
+            "price": 50750,
+            "hostId": 13752,
+            "studio": "Kwality House & Supreme HQ",
+            "location": "Mumbai",
+            "validity": 90,
+            "noOfSessions": 999,
+            "validityUnit": "days",
+            "priceAfterTax": 53288,
+            "freezeAttempts": 3,
+            "freezeDuration": 90
+          },
+          {
+            "tax": 5,
+            "name": "Studio 3 Month Unlimited Membership",
+            "price": 40200,
+            "hostId": 33905,
+            "studio": "Kenkere House",
+            "location": "Bengaluru",
+            "validity": 90,
+            "noOfSessions": 999,
+            "validityUnit": "days",
+            "priceAfterTax": 42210,
+            "freezeAttempts": 3,
+            "freezeDuration": 90
+          }
+        ],
         "cancelled": false,
         "whyItWorks": "Transform the math of commitment into motivation—88 classes in 8 months means consistency wins you rewards that fund your next fitness investment.",
         "description": "Purchase 8-month unlimited membership. Complete 88 classes within 8 months → Earn ₹8,000 retail credit. Proof that showing up pays off literally (60-70% completion rate).",
         "priceMumbai": 141990,
         "targetUnits": 30,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
+        "freezeAttempts": 3,
         "priceBengaluru": 111120,
+        "validityPeriod": "8 months",
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 0,
+        "revenueForecast": {
+          "total": "₹39.51L",
+          "mumbai": "₹28.398L",
+          "bengaluru": "₹11.112L"
+        },
         "finalPriceMumbai": 141990,
+        "validitySessions": 999,
+        "targetUnitsMumbai": 20,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Milestone tracking dashboard, monthly check-ins, motivation emails",
         "finalPriceBengaluru": 111120,
         "marketingCollateral": "Challenge tracker infographic, Instagram Stories updates, testimonials",
-        "targetUnitsMumbai": 20,
-        "targetUnitsBengaluru": 10,
-        "validityPeriod": "8 months",
-        "validitySessions": 999,
-        "freezeAttempts": 3,
-        "revenueForecast": {
-          "mumbai": "₹28.398L",
-          "bengaluru": "₹11.112L",
-          "total": "₹39.51L"
-        },
-        "packages": [
-          {
-            "name": "Studio 3 Month Unlimited Membership",
-            "hostId": 13752,
-            "price": 50750,
-            "validity": 90,
-            "validityUnit": "days",
-            "noOfSessions": 999,
-            "freezeAttempts": 3,
-            "freezeDuration": 90,
-            "tax": 5,
-            "priceAfterTax": 53288,
-            "location": "Mumbai",
-            "studio": "Kwality House & Supreme HQ"
-          },
-          {
-            "name": "Studio 3 Month Unlimited Membership",
-            "hostId": 33905,
-            "price": 40200,
-            "validity": 90,
-            "validityUnit": "days",
-            "noOfSessions": 999,
-            "freezeAttempts": 3,
-            "freezeDuration": 90,
-            "tax": 5,
-            "priceAfterTax": 42210,
-            "location": "Bengaluru",
-            "studio": "Kenkere House"
-          }
-        ]
+        "targetUnitsBengaluru": 10
       },
       {
         "id": "apr_offer_7",
@@ -877,86 +1416,104 @@ export const MONTHS_DATA: MonthData[] = [
         "title": "The Karmic Lottery",
         "pricing": "Purchase ANY pack/membership → Get 1 spin on the anniversary wheel (8 prize segments)",
         "savings": "Guaranteed prize value: ₹1,575 to ₹17,750 (Mumbai) / ₹1,260 to ₹13,900 (BLR)",
+        "packages": [
+          {
+            "tax": 5,
+            "name": "Studio 1 Month Unlimited Membership",
+            "price": 17750,
+            "hostId": 13752,
+            "studio": "Kwality House & Supreme HQ",
+            "location": "Mumbai",
+            "validity": 30,
+            "noOfSessions": 999,
+            "validityUnit": "days",
+            "priceAfterTax": 18638,
+            "freezeAttempts": 1,
+            "freezeDuration": 30
+          },
+          {
+            "tax": 5,
+            "name": "Studio 1 Month Unlimited Membership",
+            "price": 13900,
+            "hostId": 33905,
+            "studio": "Kenkere House",
+            "location": "Bengaluru",
+            "validity": 30,
+            "noOfSessions": 999,
+            "validityUnit": "days",
+            "priceAfterTax": 14595,
+            "freezeAttempts": 1,
+            "freezeDuration": 30
+          },
+          {
+            "tax": 5,
+            "name": "Studio 3 Month Unlimited Membership",
+            "price": 50750,
+            "hostId": 13752,
+            "studio": "Kwality House & Supreme HQ",
+            "location": "Mumbai",
+            "validity": 90,
+            "noOfSessions": 999,
+            "validityUnit": "days",
+            "priceAfterTax": 53288,
+            "freezeAttempts": 3,
+            "freezeDuration": 90
+          },
+          {
+            "tax": 5,
+            "name": "Studio 3 Month Unlimited Membership",
+            "price": 40200,
+            "hostId": 33905,
+            "studio": "Kenkere House",
+            "location": "Bengaluru",
+            "validity": 90,
+            "noOfSessions": 999,
+            "validityUnit": "days",
+            "priceAfterTax": 42210,
+            "freezeAttempts": 3,
+            "freezeDuration": 90
+          }
+        ],
         "cancelled": false,
         "whyItWorks": "Every purchase becomes a moment of excitement—spin the wheel, everyone wins something, and the mystery keeps them coming back for more.",
         "description": "Purchase ANY pack or membership in April → Get 1 spin on the anniversary wheel with 8 prize segments. Guaranteed prize from 1 free class to 1 month FREE unlimited—everyone wins something.",
         "priceMumbai": 17750,
         "targetUnits": 300,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
+        "freezeAttempts": 1,
         "priceBengaluru": 13900,
+        "validityPeriod": "30 days",
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 0,
+        "revenueForecast": {
+          "total": "₹48.63L",
+          "mumbai": "₹31.95L",
+          "bengaluru": "₹16.68L"
+        },
         "finalPriceMumbai": 17750,
+        "validitySessions": 999,
+        "targetUnitsMumbai": 180,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Physical wheel at front desk, prize fulfillment, CRM tracking",
         "finalPriceBengaluru": 13900,
         "marketingCollateral": "Wheel winner posts, Instagram Reels, daily celebration graphics",
-        "targetUnitsMumbai": 180,
-        "targetUnitsBengaluru": 120,
-        "validityPeriod": "30 days",
-        "validitySessions": 999,
-        "freezeAttempts": 1,
-        "revenueForecast": {
-          "mumbai": "₹31.95L",
-          "bengaluru": "₹16.68L",
-          "total": "₹48.63L"
-        },
-        "packages": [
-          {
-            "name": "Studio 1 Month Unlimited Membership",
-            "hostId": 13752,
-            "price": 17750,
-            "validity": 30,
-            "validityUnit": "days",
-            "noOfSessions": 999,
-            "freezeAttempts": 1,
-            "freezeDuration": 30,
-            "tax": 5,
-            "priceAfterTax": 18638,
-            "location": "Mumbai",
-            "studio": "Kwality House & Supreme HQ"
-          },
-          {
-            "name": "Studio 1 Month Unlimited Membership",
-            "hostId": 33905,
-            "price": 13900,
-            "validity": 30,
-            "validityUnit": "days",
-            "noOfSessions": 999,
-            "freezeAttempts": 1,
-            "freezeDuration": 30,
-            "tax": 5,
-            "priceAfterTax": 14595,
-            "location": "Bengaluru",
-            "studio": "Kenkere House"
-          },
-          {
-            "name": "Studio 3 Month Unlimited Membership",
-            "hostId": 13752,
-            "price": 50750,
-            "validity": 90,
-            "validityUnit": "days",
-            "noOfSessions": 999,
-            "freezeAttempts": 3,
-            "freezeDuration": 90,
-            "tax": 5,
-            "priceAfterTax": 53288,
-            "location": "Mumbai",
-            "studio": "Kwality House & Supreme HQ"
-          },
-          {
-            "name": "Studio 3 Month Unlimited Membership",
-            "hostId": 33905,
-            "price": 40200,
-            "validity": 90,
-            "validityUnit": "days",
-            "noOfSessions": 999,
-            "freezeAttempts": 3,
-            "freezeDuration": 90,
-            "tax": 5,
-            "priceAfterTax": 42210,
-            "location": "Bengaluru",
-            "studio": "Kenkere House"
-          }
-        ]
+        "targetUnitsBengaluru": 120
       },
       {
         "id": "apr_offer_8",
@@ -964,86 +1521,104 @@ export const MONTHS_DATA: MonthData[] = [
         "title": "The Guilt-Free Escape Clause",
         "pricing": "Included FREE with any purchase: 8 late cancel amnesty credits",
         "savings": "Worth ₹4,000 (8 × ₹500 fee waivers - actually ZERO cost to studio)",
+        "packages": [
+          {
+            "tax": 5,
+            "name": "Studio 4 Class Package",
+            "price": 5350,
+            "hostId": 13752,
+            "studio": "Kwality House & Supreme HQ",
+            "location": "Mumbai",
+            "validity": 14,
+            "noOfSessions": 4,
+            "validityUnit": "days",
+            "priceAfterTax": 5618,
+            "freezeAttempts": 0,
+            "freezeDuration": 14
+          },
+          {
+            "tax": 5,
+            "name": "Studio 4 Class Package",
+            "price": 4450,
+            "hostId": 33905,
+            "studio": "Kenkere House",
+            "location": "Bengaluru",
+            "validity": 14,
+            "noOfSessions": 4,
+            "validityUnit": "days",
+            "priceAfterTax": 4673,
+            "freezeAttempts": 0,
+            "freezeDuration": 14
+          },
+          {
+            "tax": 5,
+            "name": "Studio 8 Class Package",
+            "price": 10200,
+            "hostId": 13752,
+            "studio": "Kwality House & Supreme HQ",
+            "location": "Mumbai",
+            "validity": 30,
+            "noOfSessions": 8,
+            "validityUnit": "days",
+            "priceAfterTax": 10710,
+            "freezeAttempts": 1,
+            "freezeDuration": 30
+          },
+          {
+            "tax": 5,
+            "name": "Studio 8 Class Package",
+            "price": 8300,
+            "hostId": 33905,
+            "studio": "Kenkere House",
+            "location": "Bengaluru",
+            "validity": 30,
+            "noOfSessions": 8,
+            "validityUnit": "days",
+            "priceAfterTax": 8715,
+            "freezeAttempts": 1,
+            "freezeDuration": 30
+          }
+        ],
         "cancelled": false,
         "whyItWorks": "Remove the #1 objection to buying multi-class packs—'What if I can't make it?'—with 8 guilt-free cancellations within 8 minutes of class start.",
         "description": "Purchase any pack in April → Receive 8 'Late Cancel Amnesty' credits FREE. Cancel within 8 minutes of class start without the ₹500 late fee. Credits expire May 31—life happens, we're not monsters.",
         "priceMumbai": 17750,
         "targetUnits": 500,
         "promoteOnAds": false,
+        "freezeAttempts": 0,
         "priceBengaluru": 13900,
+        "validityPeriod": "30 days",
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 0,
+        "revenueForecast": {
+          "total": "₹81.05L",
+          "mumbai": "₹53.25L",
+          "bengaluru": "₹27.8L"
+        },
         "finalPriceMumbai": 17750,
+        "validitySessions": 8,
+        "targetUnitsMumbai": 300,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "CRM tagging system, front desk scripts, auto-decrement on cancellations",
         "finalPriceBengaluru": 13900,
         "marketingCollateral": "Benefit explainer card, email feature, in-studio signage",
-        "targetUnitsMumbai": 300,
-        "targetUnitsBengaluru": 200,
-        "validityPeriod": "30 days",
-        "validitySessions": 8,
-        "freezeAttempts": 0,
-        "revenueForecast": {
-          "mumbai": "₹53.25L",
-          "bengaluru": "₹27.8L",
-          "total": "₹81.05L"
-        },
-        "packages": [
-          {
-            "name": "Studio 4 Class Package",
-            "hostId": 13752,
-            "price": 5350,
-            "validity": 14,
-            "validityUnit": "days",
-            "noOfSessions": 4,
-            "freezeAttempts": 0,
-            "freezeDuration": 14,
-            "tax": 5,
-            "priceAfterTax": 5618,
-            "location": "Mumbai",
-            "studio": "Kwality House & Supreme HQ"
-          },
-          {
-            "name": "Studio 4 Class Package",
-            "hostId": 33905,
-            "price": 4450,
-            "validity": 14,
-            "validityUnit": "days",
-            "noOfSessions": 4,
-            "freezeAttempts": 0,
-            "freezeDuration": 14,
-            "tax": 5,
-            "priceAfterTax": 4673,
-            "location": "Bengaluru",
-            "studio": "Kenkere House"
-          },
-          {
-            "name": "Studio 8 Class Package",
-            "hostId": 13752,
-            "price": 10200,
-            "validity": 30,
-            "validityUnit": "days",
-            "noOfSessions": 8,
-            "freezeAttempts": 1,
-            "freezeDuration": 30,
-            "tax": 5,
-            "priceAfterTax": 10710,
-            "location": "Mumbai",
-            "studio": "Kwality House & Supreme HQ"
-          },
-          {
-            "name": "Studio 8 Class Package",
-            "hostId": 33905,
-            "price": 8300,
-            "validity": 30,
-            "validityUnit": "days",
-            "noOfSessions": 8,
-            "freezeAttempts": 1,
-            "freezeDuration": 30,
-            "tax": 5,
-            "priceAfterTax": 8715,
-            "location": "Bengaluru",
-            "studio": "Kenkere House"
-          }
-        ]
+        "targetUnitsBengaluru": 200
       }
     ],
     "summary": "The 8th Anniversary Month launches with 8 powerful offers: The 8-for-8 Jackpot for committed members (₹123,258 for 8 months unlimited), daily 8:08 Power Drops (20% off, FCFS), The Infinity Pass (annual + lifetime 8% off everything), Double Trouble referrals (both get 8 free classes), the 8-Hour Blitz (April 8, 18% off all), 88-Class Challenge (complete 88 classes = ₹8,000 credit), Spin the 8-Ball Wheel (guaranteed prize with every purchase), and 8-Minute Late Cancel Amnesty (included free). Total revenue target: ₹2,93,76,000 across both locations with 82.4% profit margin.",
@@ -1168,14 +1743,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "2-month unlimited membership at 10% student discount—earn 1 bonus class for every 2 classes completed (unlocks after 30+ total). Your body deserves better than instant ramen.",
         "priceMumbai": 17750,
         "targetUnits": 30,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 13900,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 10,
         "finalPriceMumbai": 15975,
+        "targetUnitsMumbai": 20,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Class completion tracking, bonus class unlock system, student ID verification",
         "finalPriceBengaluru": 12510,
         "marketingCollateral": "Student merit-based campaign, earned unlimited messaging, progress tracking",
-        "targetUnitsMumbai": 20,
         "targetUnitsBengaluru": 10
       },
       {
@@ -1189,14 +1782,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "6-week unlimited pass with challenge: complete 18 classes in 42 days (3x/week) to earn ₹10,000 retail credit + 2 nutrition consultations. Build a body worth photographing for petty purposes.",
         "priceMumbai": 13500,
         "targetUnits": 18,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 13500,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 26,
         "finalPriceMumbai": 10000,
+        "targetUnitsMumbai": 12,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Class tracking system, ₹10K credit vouchers, nutrition consultant scheduling",
         "finalPriceBengaluru": 10000,
         "marketingCollateral": "Savage accountability campaign, revenge body transformation stories, class completion tracker",
-        "targetUnitsMumbai": 12,
         "targetUnitsBengaluru": 6
       },
       {
@@ -1212,12 +1823,30 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnits": 20,
         "promoteOnAds": false,
         "priceBengaluru": 35200,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 44,
         "finalPriceMumbai": 25000,
+        "targetUnitsMumbai": 15,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Dedicated noon private session slots, trainer scheduling",
         "finalPriceBengaluru": 22000,
         "marketingCollateral": "Daytime slot promotion, private session showcase",
-        "targetUnitsMumbai": 15,
         "targetUnitsBengaluru": 5
       }
     ],
@@ -1321,14 +1950,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "Purchase 20-class package and complete all within 30 days to earn ₹2,000 studio credit + exclusive finisher grip socks. No excuses, no extensions—pure desperation-fueled results.",
         "priceMumbai": 30000,
         "targetUnits": 25,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 24000,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 0,
         "finalPriceMumbai": 30000,
+        "targetUnitsMumbai": 15,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Finisher socks inventory, credit tracking system",
         "finalPriceBengaluru": 24000,
         "marketingCollateral": "Monsoon motivation campaign, attendance tracking",
-        "targetUnitsMumbai": 15,
         "targetUnitsBengaluru": 10
       },
       {
@@ -1344,12 +1991,30 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnits": 15,
         "promoteOnAds": false,
         "priceBengaluru": 7090,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 40,
         "finalPriceMumbai": 5500,
+        "targetUnitsMumbai": 10,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Lapsed member list, 30-day validity tracking",
         "finalPriceBengaluru": 5000,
         "marketingCollateral": "Lapsed member email campaign, welcome back messaging",
-        "targetUnitsMumbai": 10,
         "targetUnitsBengaluru": 5
       },
       {
@@ -1363,14 +2028,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "1-month unlimited membership PLUS complimentary 30-minute virtual private training session. Test waters from home before committing to actual human interaction.",
         "priceMumbai": 23363,
         "targetUnits": 30,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 19320,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 20,
         "finalPriceMumbai": 18638,
+        "targetUnitsMumbai": 20,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Virtual private session booking system, trainer availability",
         "finalPriceBengaluru": 14595,
         "marketingCollateral": "Virtual private session showcase, tech-forward messaging",
-        "targetUnitsMumbai": 20,
         "targetUnitsBengaluru": 10
       }
     ],
@@ -1481,14 +2164,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "4-month unlimited membership with 3 private sessions. Bonus tier determined by rainfall on purchase day via digital wheel spin in studio—working out meets Vegas in monsoon.",
         "priceMumbai": 92888,
         "targetUnits": 20,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 72573,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 30,
         "finalPriceMumbai": 65000,
+        "targetUnitsMumbai": 10,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Digital wheel setup, rainfall data API integration, tier tracking system",
         "finalPriceBengaluru": 52000,
         "marketingCollateral": "Weather tracker posts, daily rainfall updates, wheel spinning videos",
-        "targetUnitsMumbai": 10,
         "targetUnitsBengaluru": 10
       },
       {
@@ -1502,14 +2203,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "3-month unlimited PLUS 1 private session with attendance streak challenge (July 10-Aug 10). Top 2 participants win cash prizes: ₹20,000 and ₹10,000. Outlast the rain and excuses.",
         "priceMumbai": 27,
         "targetUnits": 25,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 27,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 26,
         "finalPriceMumbai": 20,
+        "targetUnitsMumbai": 15,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Attendance tracking app, daily leaderboard screens, ₹30K prize pool",
         "finalPriceBengaluru": 20,
         "marketingCollateral": "Daily leaderboard updates, streak survivor stories, countdown posts",
-        "targetUnitsMumbai": 15,
         "targetUnitsBengaluru": 10
       },
       {
@@ -1523,14 +2242,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "Buy 6 months unlimited and receive the 7th month completely FREE (7-for-6 deal). Maximum value—or a second rent payment disguised as self-care.",
         "priceMumbai": 123376,
         "targetUnits": 15,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 96810,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 15,
         "finalPriceMumbai": 104738,
+        "targetUnitsMumbai": 10,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "7-month validity tracking, free month application",
         "finalPriceBengaluru": 82215,
         "marketingCollateral": "Lucky 7 campaign, monsoon retention messaging",
-        "targetUnitsMumbai": 10,
         "targetUnitsBengaluru": 5
       },
       {
@@ -1544,14 +2281,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "3-month unlimited membership including ₹1,000 transport credit discount (Uber/Ola vouchers). Financial incentives to leave your couch—sometimes vouchers speak louder than motivation.",
         "priceMumbai": 1350,
         "targetUnits": 20,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 1350,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 26,
         "finalPriceMumbai": 1000,
+        "targetUnitsMumbai": 10,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Transport credit tracking, Uber/Ola voucher system",
         "finalPriceBengaluru": 1000,
         "marketingCollateral": "Monsoon travel relief messaging, transport credit promotion",
-        "targetUnitsMumbai": 10,
         "targetUnitsBengaluru": 10
       },
       {
@@ -1567,12 +2322,30 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnits": 20,
         "promoteOnAds": false,
         "priceBengaluru": 13125,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 0,
         "finalPriceMumbai": 15803,
+        "targetUnitsMumbai": 10,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Late cancel waiver tracking, member flexibility policy",
         "finalPriceBengaluru": 13125,
         "marketingCollateral": "Flexibility messaging, late cancel policy showcase",
-        "targetUnitsMumbai": 10,
         "targetUnitsBengaluru": 10
       }
     ],
@@ -1641,7 +2414,8 @@ export const MONTHS_DATA: MonthData[] = [
       {
         "id": "fhgqziwm1",
         "type": "Mixed Media",
-        "notes": "Streak mechanic = daily commitment. Only 2 winners from 90 = exclusive. Creates daily studio attendance in monsoon. Dramatic element.","offer": "The Monsoon Survivors Club",
+        "notes": "Streak mechanic = daily commitment. Only 2 winners from 90 = exclusive. Creates daily studio attendance in monsoon. Dramatic element.",
+        "offer": "The Monsoon Survivors Club",
         "medium": "Multi-channel",
         "dueDate": "Jul 7, 2026",
         "messaging": "the storm breaker themed creative highlighting The Monsoon Survivors Club. Focus on benefits, not pricing.",
@@ -1650,7 +2424,8 @@ export const MONTHS_DATA: MonthData[] = [
       {
         "id": "acxl5nn3a",
         "type": "Mixed Media",
-        "notes": "Seven months for six is actually lucky. Gambling/luck reference feels special","offer": "Lucky 7",
+        "notes": "Seven months for six is actually lucky. Gambling/luck reference feels special",
+        "offer": "Lucky 7",
         "medium": "Multi-channel",
         "dueDate": "Jul 7, 2026",
         "messaging": "the storm breaker themed creative highlighting Lucky 7. Focus on benefits, not pricing.",
@@ -1659,18 +2434,22 @@ export const MONTHS_DATA: MonthData[] = [
       {
         "id": "yod1j2v7v",
         "type": "Mixed Media",
-        "notes": "Directly addresses \"too hard to get a cab\" objection.","offer": "Gas Money's On Us",
+        "notes": "Directly addresses \"too hard to get a cab\" objection.",
+        "offer": "Gas Money's On Us",
         "medium": "Multi-channel",
         "dueDate": "Jul 7, 2026",
-        "messaging": "the storm breaker themed creative highlighting Gas Money's On Us. Focus on benefits, not pricing.","collateralNeeded": "Monsoon travel relief messaging"
+        "messaging": "the storm breaker themed creative highlighting Gas Money's On Us. Focus on benefits, not pricing.",
+        "collateralNeeded": "Monsoon travel relief messaging"
       },
       {
         "id": "ujj4huiun",
         "type": "Mixed Media",
-        "notes": "Monopoly reference everyone knows. Removes guilt and anxiety perfectly","offer": "Get Out of Jail Free Card",
+        "notes": "Monopoly reference everyone knows. Removes guilt and anxiety perfectly",
+        "offer": "Get Out of Jail Free Card",
         "medium": "Multi-channel",
         "dueDate": "Jul 7, 2026",
-        "messaging": "the storm breaker themed creative highlighting Get Out of Jail Free Card. Focus on benefits, not pricing.","collateralNeeded": "Flexibility messaging"
+        "messaging": "the storm breaker themed creative highlighting Get Out of Jail Free Card. Focus on benefits, not pricing.",
+        "collateralNeeded": "Flexibility messaging"
       }
     ]
   },
@@ -1690,14 +2469,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "12-month unlimited membership PLUS 1 'bestie month' to gift a friend AND 2 additional freeze periods. Lock in commitment, drag someone into suffering with you—true friendship.",
         "priceMumbai": 220763,
         "targetUnits": 15,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 170835,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 39,
         "finalPriceMumbai": 135000,
+        "targetUnitsMumbai": 10,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Gift month vouchers, 2 freeze credits per member",
         "finalPriceBengaluru": 125000,
         "marketingCollateral": "Annual membership push, bestie gifting campaign",
-        "targetUnitsMumbai": 10,
         "targetUnitsBengaluru": 5
       },
       {
@@ -1711,14 +2508,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "Buy a 3-class trial pass and receive a second 3-class pass to gift to a friend (6 classes total). Share the 6 AM misery—accountability at dawn requires a witness.",
         "priceMumbai": 5514,
         "targetUnits": 20,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 4254,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 18,
         "finalPriceMumbai": 4500,
+        "targetUnitsMumbai": 10,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Friend pass vouchers, 14-day validity tracking",
         "finalPriceBengaluru": 4000,
         "marketingCollateral": "Friend referral campaign, trial pass promotion",
-        "targetUnitsMumbai": 10,
         "targetUnitsBengaluru": 10
       },
       {
@@ -1732,14 +2547,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "Flash sale (Aug 1-3 only): 20% discount on class packs (10 or 20 classes) when purchased as matching pair with a partner. Commit together—even if one quits first.",
         "priceMumbai": 17750,
         "targetUnits": 45,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 13900,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 20,
         "finalPriceMumbai": 14200,
+        "targetUnitsMumbai": 25,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Flash sale tracking Aug 1-3, pair verification",
         "finalPriceBengaluru": 11120,
         "marketingCollateral": "72-hour flash sale countdown, pair purchase incentive",
-        "targetUnitsMumbai": 25,
         "targetUnitsBengaluru": 20
       }
     ],
@@ -1810,14 +2643,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "3-month unlimited membership with 2 form correction private sessions AND 4 travel freeze credits. Designed for frequent business travelers who treat fitness like networking.",
         "priceMumbai": 50750,
         "targetUnits": 20,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 40200,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 0,
         "finalPriceMumbai": 50750,
+        "targetUnitsMumbai": 15,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "4 travel freeze credits, form correction private sessions",
         "finalPriceBengaluru": 40200,
         "marketingCollateral": "Professional's Peak campaign, business traveler messaging",
-        "targetUnitsMumbai": 15,
         "targetUnitsBengaluru": 5
       },
       {
@@ -1831,14 +2682,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "Referral program: trainer provides unique discount code giving friends 20% OFF any pack, while existing member earns masterclass training credits. Turn casual members into devoted disciples.",
         "priceMumbai": 17750,
         "targetUnits": 100,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 13900,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 20,
         "finalPriceMumbai": 14200,
+        "targetUnitsMumbai": 50,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Masterclass credit system, trainer code generation",
         "finalPriceBengaluru": 11120,
         "marketingCollateral": "Trainer unique codes, referral tracking system",
-        "targetUnitsMumbai": 50,
         "targetUnitsBengaluru": 50
       },
       {
@@ -1854,12 +2723,30 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnits": 0,
         "promoteOnAds": false,
         "priceBengaluru": 4450,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 0,
         "finalPriceMumbai": 5350,
+        "targetUnitsMumbai": 0,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Anatomy & Alignment workshop scheduling, instructor allocation",
         "finalPriceBengaluru": 4450,
         "marketingCollateral": "Fundamentals workshop promotion, beginner-friendly messaging",
-        "targetUnitsMumbai": 0,
         "targetUnitsBengaluru": 0
       }
     ],
@@ -1883,7 +2770,8 @@ export const MONTHS_DATA: MonthData[] = [
       {
         "week": "Event",
         "focus": "Pulse-Off Finale",
-        "details": "Winning team gets Masterclass & Mocktails event."}
+        "details": "Winning team gets Masterclass & Mocktails event."
+      }
     ],
     "financialTargets": [
       {
@@ -1929,14 +2817,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "Annual VIP package: 12-month unlimited access with 2 private sessions AND exclusive gold grip socks for premium members. Stockpile workouts for the motivation apocalypse or just winter.",
         "priceMumbai": 212625,
         "targetUnits": 7,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 164482,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 32,
         "finalPriceMumbai": 145000,
+        "targetUnitsMumbai": 5,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Gold socks inventory, 2 private session credits",
         "finalPriceBengaluru": 135000,
         "marketingCollateral": "Exclusive premium membership campaign, golden ticket theme",
-        "targetUnitsMumbai": 5,
         "targetUnitsBengaluru": 2
       },
       {
@@ -1950,14 +2856,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "4-week unlimited sprint membership including personalized style guide AND 2 guest passes for the final week. Perfect for event prep when that outfit deadline looms like a fitness threat.",
         "priceMumbai": 18638,
         "targetUnits": 20,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 14595,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 25,
         "finalPriceMumbai": 13900,
+        "targetUnitsMumbai": 12,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Style guide distribution, 2 guest passes per member",
         "finalPriceBengaluru": 12500,
         "marketingCollateral": "LBD transformation campaign, style guide partnership",
-        "targetUnitsMumbai": 12,
         "targetUnitsBengaluru": 8
       },
       {
@@ -1971,14 +2895,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "5-class taster package with 14-day validity—quick sampling period for commitment-phobic fitness newcomers. Test before investing emotionally.",
         "priceMumbai": 9190,
         "targetUnits": 24,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 7090,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 35,
         "finalPriceMumbai": 6000,
+        "targetUnitsMumbai": 12,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "14-day validity tracking, quick start onboarding",
         "finalPriceBengaluru": 5500,
         "marketingCollateral": "Trial offer campaign, new member acquisition",
-        "targetUnitsMumbai": 12,
         "targetUnitsBengaluru": 12
       }
     ],
@@ -2082,14 +3024,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "Mega 50-class pack with extended 24-month validity (available Nov 24-30 only). Maximum flexibility for long-term planning—or preparing for when motivation dies.",
         "priceMumbai": 78750,
         "targetUnits": 10,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 63000,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 25,
         "finalPriceMumbai": 59063,
+        "targetUnitsMumbai": 5,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "24-month validity tracking, Nov 24-30 flash sale only",
         "finalPriceBengaluru": 47250,
         "marketingCollateral": "Black Friday Vault campaign, limited units countdown",
-        "targetUnitsMumbai": 5,
         "targetUnitsBengaluru": 5
       },
       {
@@ -2103,14 +3063,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "Special comeback offer: 2 weeks unlimited for the price of 1 week—double the value for returning members. No judgment after your ghosting phase, just results.",
         "priceMumbai": 10412,
         "targetUnits": 35,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 7560,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 0,
         "finalPriceMumbai": 10412,
+        "targetUnitsMumbai": 20,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "2-week validity tracking, BOGO offer management",
         "finalPriceBengaluru": 7560,
         "marketingCollateral": "Post-Diwali detox campaign, guilt-relief messaging",
-        "targetUnitsMumbai": 20,
         "targetUnitsBengaluru": 15
       },
       {
@@ -2126,12 +3104,30 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnits": 40,
         "promoteOnAds": false,
         "priceBengaluru": 7560,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 66,
         "finalPriceMumbai": 3500,
+        "targetUnitsMumbai": 20,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Nutrition consult scheduling, 1-week validity tracking",
         "finalPriceBengaluru": 3000,
         "marketingCollateral": "Lapsed member email campaign, guilt-based messaging",
-        "targetUnitsMumbai": 20,
         "targetUnitsBengaluru": 20
       }
     ],
@@ -2202,14 +3198,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "Lock in your annual membership at 2025 pricing with an additional 10% early bird discount. Secure next year's rates before New Year's guilt and inflation hit.",
         "priceMumbai": 202125,
         "targetUnits": 15,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 156240,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 10,
         "finalPriceMumbai": 181913,
+        "targetUnitsMumbai": 10,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "2025 price lock tracking, annual membership onboarding",
         "finalPriceBengaluru": 140616,
         "marketingCollateral": "Price lock campaign, 2026 pricing increase messaging",
-        "targetUnitsMumbai": 10,
         "targetUnitsBengaluru": 5
       },
       {
@@ -2225,12 +3239,30 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnits": 35,
         "promoteOnAds": false,
         "priceBengaluru": 12600,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 0,
         "finalPriceMumbai": 15750,
+        "targetUnitsMumbai": 20,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Double validity tracking, 2 extra freeze credits per pack",
         "finalPriceBengaluru": 12600,
         "marketingCollateral": "Holiday flexibility messaging, travel protection positioning",
-        "targetUnitsMumbai": 20,
         "targetUnitsBengaluru": 15
       },
       {
@@ -2244,14 +3276,32 @@ export const MONTHS_DATA: MonthData[] = [
         "description": "Buy a ₹10,000 gift card and receive 2 complimentary classes for yourself as a thank-you for spreading the fitness love. Generous manipulation rewarded.",
         "priceMumbai": 14,
         "targetUnits": 35,
-        "promoteOnAds": true,
+        "promoteOnAds": false,
         "priceBengaluru": 10,
+        "collateralTypes": {
+          "tentCards": true,
+          "imageCreative": true,
+          "emailTemplate": true,
+          "easelStandee": true,
+          "videoCreative": false,
+          "landingPage": false,
+          "socialPosts": false,
+          "storyTemplate": false
+        },
         "discountPercent": 29,
         "finalPriceMumbai": 10,
+        "targetUnitsMumbai": 20,
+        "collateralChannels": {
+          "whatsapp": true,
+          "email": true,
+          "inStudio": true,
+          "website": false,
+          "socialMedia": false,
+          "metaAds": false
+        },
         "operationalSupport": "Gift card inventory, 2 complimentary class vouchers for purchasers",
         "finalPriceBengaluru": 6,
         "marketingCollateral": "Gift card campaign, holiday gifting promotion",
-        "targetUnitsMumbai": 20,
         "targetUnitsBengaluru": 15
       }
     ],
