@@ -85,7 +85,7 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnitsBengaluru": 5
       }
     ],
-    "summary": "January launches with Resolution Rehab (₹11,999 1-month unlimited) to capture New Year momentum, plus Buy 3 Get 4 quarterly bundles for commitment-seekers. Focus on newcomer conversion with welcome kits and 21-Day Challenges driving habit formation and long-term retention.",
+    "summary": "January launches with New Year, New You (₹11,999 1-month unlimited) to capture New Year momentum, plus The Quarterly Commitment (Pay for 3, Get 4 Months) for commitment-seekers. Focus on newcomer conversion with welcome kits and 21-Day Challenges driving habit formation and long-term retention.",
     "operations": [
       {
         "week": "Week 1",
@@ -347,7 +347,7 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnitsBengaluru": 2
       }
     ],
-    "summary": "February leverages Valentine's psychology with Mutual Accountability duo passes (50% off partner memberships), empowering events like Feminism & Foam Rolling studio bookouts, and Anti-Valentine's Revenge Body programs. Self-love packages with retail credits target singles investing in themselves.",
+    "summary": "February leverages Valentine's psychology with The Partnership Program (50% off partner memberships), empowering events like The Studio Experience studio bookouts (₹35,000 exclusive celebration), and The Self-Investment Package (4 months unlimited + private sessions + ₹2,000 retail credit) for self-love and holistic wellness investment.",
     "operations": [
       {
         "week": "Week 1",
@@ -681,7 +681,7 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnitsBengaluru": 25
       }
     ],
-    "summary": "March celebrates International Women's Day with Corporate Backstabber premium packages, Squad Goals 12-class group packs, and the explosive BIG BITCH ENERGY WEEK flash sale. Main Character Meltdown Marathon on March 8th drives urgency with 8-class packs and private sessions.",
+    "summary": "March celebrates International Women's Day with The Professional's Annual Plan (25% off annual unlimited for busy professionals), The Collective Class Pack (12-class pack + 3 complimentary), The Confidence Collection (15% off all memberships + ₹1,000 gift voucher), and The Empowerment Edition (Women's Day exclusive March 8: 8-class pack with private session and grip socks for ₹13,999).",
     "operations": [
       {
         "week": "All Month",
@@ -1481,7 +1481,7 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnitsBengaluru": 200
       }
     ],
-    "summary": "The 8th Anniversary Month launches with 8 powerful offers: The 8-for-8 Jackpot for committed members (₹123,258 for 8 months unlimited), daily 8:08 Power Drops (20% off, FCFS), The Infinity Pass (annual + lifetime 8% off everything), Double Trouble referrals (both get 8 free classes), the 8-Hour Blitz (April 8, 18% off all), 88-Class Challenge (complete 88 classes = ₹8,000 credit), Spin the 8-Ball Wheel (guaranteed prize with every purchase), and 8-Minute Late Cancel Amnesty (included free). Total revenue target: ₹2,93,76,000 across both locations with 82.4% profit margin.",
+    "summary": "April's 8th Anniversary Month celebrates with 7 powerful offers: The Anniversary Celebration (8 months unlimited, 8th month for ₹8), The 8:08 Exclusive (daily 20% off at 8:08 AM/PM, FCFS), The Lifetime Advantage (annual + lifetime 8% discount), The 8-Hour Anniversary Event (April 8: 18% off everything), The Achievement Program (8-month pass + ₹8,000 credit for 88 classes), The Anniversary Wheel (guaranteed prize with every purchase), and The Guilt-Free Escape Clause (8 late cancel amnesty credits included free). Total revenue target: ₹2,93,76,000 across both locations with 82.4% profit margin.",
     "operations": [
       {
         "week": "Week 1 (Apr 1-7)",
@@ -1720,7 +1720,7 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnitsBengaluru": 5
       }
     ],
-    "summary": "High-liquidity month capitalizing on \"Summer Holiday Prep\" and Student demographic. Target 33% YoY jump.",
+    "summary": "May focuses on summer preparation with The Student Advantage (10% off 2-month unlimited with bonus class rewards), The Transformation Challenge (6-week unlimited with 24-class goal earning ₹5,000 credit + nutrition consultations), and The Executive Session Package (5 private sessions + 1 month unlimited for busy professionals). High-liquidity month capitalizing on student demographic and summer transformation goals.",
     "operations": [
       {
         "week": "Week 1",
@@ -1917,7 +1917,7 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnitsBengaluru": 10
       }
     ],
-    "summary": "Pivoting to \"Indoor Comfort\" and \"Reactive Marketing\" to combat low attendance due to rains.",
+    "summary": "June combats monsoon challenges with The Summer Sprint (20-class 30-day completion challenge with ₹2,000 credit + finisher socks), The Welcome Back Program (5 classes for ₹5,500/₹5,000 lapsed member re-engagement), and The Introductory Experience (1-month unlimited + complimentary virtual private session). Pivoting to indoor motivation and reactive marketing to combat low attendance due to rains.",
     "operations": [
       {
         "week": "Week 1",
@@ -2209,7 +2209,7 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnitsBengaluru": 10
       }
     ],
-    "summary": "Focus on weather-based gamification and attendance challenges during peak monsoon. High-engagement offers with cash prizes and weather-triggered bonuses.",
+    "summary": "July focuses on monsoon motivation with The Monsoon Challenge (3-month unlimited + private session with attendance streak challenge, top winners earn ₹20,000 and ₹10,000), The Seven-Month Value (Buy 6 months, get 7th month free), and The Flexibility Pack (12-class pack with 3 complimentary late cancellation waivers). Weather-based gamification and attendance challenges drive high engagement during peak monsoon.",
     "operations": [
       {
         "week": "Week 1",
@@ -2426,7 +2426,7 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnitsBengaluru": 20
       }
     ],
-    "summary": "Peer-to-peer acquisition and community appreciation. Driving 70% repeat / 30% new revenue mix.",
+    "summary": "August emphasizes peer-to-peer acquisition with The Annual Connection (12-month unlimited + 1 'bestie month' gift + 2 freeze periods for ₹135,000/₹125,000) and The Partnership Flash Sale (Aug 1-3: 20% off class packs when purchased with a companion). Community appreciation drives 70% repeat / 30% new revenue mix with Barre Besties theme.",
     "operations": [
       {
         "week": "Pre-Aug",
@@ -2622,7 +2622,7 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnitsBengaluru": 0
       }
     ],
-    "summary": "Honoring expertise through Trainer-led acquisition, team competition, and high-performance results.",
+    "summary": "September honors professionals with The Professional Traveler Package (3-month unlimited + 3 virtual private sessions + 4 travel freeze credits) and The Ambassador Program (referral initiative: friends get 20% off, members earn masterclass credits). Trainer-led acquisition, team competition, and high-performance results through Professional's Peak theme.",
     "operations": [
       {
         "week": "All Month",
@@ -2828,7 +2828,7 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnitsBengaluru": 12
       }
     ],
-    "summary": "Aesthetic results, high-velocity toning, and premium gifting ahead of the social season.",
+    "summary": "October delivers aesthetic results ahead of festive season with The Premium Annual Experience (12-month unlimited + 12 private sessions + gold grip socks for ₹145,000/₹135,000) and The Event Preparation Sprint (4-week unlimited with nutrition guide + bi-weekly trainer check-ins for ₹13,900/₹12,500). High-velocity toning and premium offerings support pre-festive glow goals.",
     "operations": [
       {
         "week": "Challenge",
@@ -3035,7 +3035,7 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnitsBengaluru": 20
       }
     ],
-    "summary": "Combat post-festive slump by gamifying detox. Black Friday revenue injection.",
+    "summary": "November combats post-festive slump with The Extended Value Pack (57-class pack with 24-month validity, Nov 24-30 Black Friday exclusive) and The Renewal Program (post-festive 2-for-1: 2 weeks unlimited for price of 1). Black Friday Vault revenue injection with gamified detox motivation.",
     "operations": [
       {
         "week": "Week 1",
@@ -3231,7 +3231,7 @@ export const MONTHS_DATA: MonthData[] = [
         "targetUnitsBengaluru": 15
       }
     ],
-    "summary": "Pre-Resolution Capture & Gifting. Lock in 2027 revenue before January rush.",
+    "summary": "December focuses on pre-resolution capture with The 2026 Price Protection (annual membership at 2026 rates + 10% discount before 2027 increase), The Holiday Flexibility Package (10/20-class packs with double validity + 2 freeze credits), and The Gift of Wellness (₹10,000 gift card + 2 complimentary classes for purchaser). Lock in 2027 revenue before January rush through strategic gifting and price protection.",
     "operations": [
       {
         "week": "Sales",

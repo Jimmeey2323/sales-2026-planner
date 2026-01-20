@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MonthData, Offer, MarketingCollateral, CRMTimeline } from '../types';
-import { Target, TrendingUp, Users, DollarSign, Package, Megaphone, ListTodo, Edit2, Save, X, Trash2, Plus, Calendar, Wand2, Palette } from 'lucide-react';
+import { Target, TrendingUp, Users, DollarSign, Package, Megaphone, ListTodo, Edit2, Save, X, Trash2, Plus, Calendar, Wand2, Palette, ChevronDown, ChevronUp } from 'lucide-react';
 import { useSalesData } from '../context/SalesContext';
 import { useAdmin } from '../context/AdminContext';
 import OfferGeneratorModal from './OfferGeneratorModal';
@@ -60,6 +60,7 @@ export const ExecutionPlan: React.FC<ExecutionPlanProps> = ({ month }) => {
   const [newSectionName, setNewSectionName] = useState('');
   const [newSectionData, setNewSectionData] = useState('');
   const [showOfferGenerator, setShowOfferGenerator] = useState(false);
+  const [showCampaignTimeline, setShowCampaignTimeline] = useState(false);
   
   // Filter out cancelled offers
   const activeOffers = month.offers.filter(o => !o.cancelled);
@@ -1546,7 +1547,7 @@ export const ExecutionPlan: React.FC<ExecutionPlanProps> = ({ month }) => {
       <div className="bg-gradient-to-r from-violet-50 to-purple-50 rounded-2xl border border-violet-200 overflow-hidden shadow-lg">
         <div className="bg-white/70 backdrop-blur-sm px-8 py-6 border-b border-violet-200">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 cursor-pointer" onClick={() => setShowCampaignTimeline(!showCampaignTimeline)}>
               <div className="w-12 h-12 bg-violet-600 rounded-xl flex items-center justify-center shadow-lg">
                 <Calendar className="w-6 h-6 text-white" />
               </div>
@@ -1554,6 +1555,13 @@ export const ExecutionPlan: React.FC<ExecutionPlanProps> = ({ month }) => {
                 <h4 className="text-2xl font-bold text-violet-900">Campaign Timeline</h4>
                 <p className="text-violet-700 font-medium">Marketing automation & customer touchpoints</p>
               </div>
+              <button className="ml-2 p-2 hover:bg-violet-100 rounded-lg transition-colors">
+                {showCampaignTimeline ? (
+                  <ChevronUp className="w-5 h-5 text-violet-600" />
+                ) : (
+                  <ChevronDown className="w-5 h-5 text-violet-600" />
+                )}
+              </button>
             </div>
             <div className="flex items-center gap-3">
               {crmTimeline.length > 0 && (
@@ -1612,6 +1620,7 @@ export const ExecutionPlan: React.FC<ExecutionPlanProps> = ({ month }) => {
           </div>
         </div>
         
+        {showCampaignTimeline && (
         <div className="p-8 bg-gradient-to-br from-white to-violet-50/30">
           <div className="relative">
             {/* Modern Timeline line */}
@@ -1865,6 +1874,7 @@ export const ExecutionPlan: React.FC<ExecutionPlanProps> = ({ month }) => {
             </div>
           </div>
         </div>
+        )}
       </div>
       )}
 
