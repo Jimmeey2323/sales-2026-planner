@@ -430,10 +430,68 @@ export const ExecutionPlan: React.FC<ExecutionPlanProps> = ({ month }) => {
     return () => clearTimeout(timeoutId);
   }, [JSON.stringify(activeOffers.map(o => ({ id: o.id, collateralChannels: o.collateralChannels, collateralTypes: o.collateralTypes })))]);
   
-  // Use stored marketing collateral or generate from offers
-  const marketingCollateral: MarketingCollateral[] = month.marketingCollateral || [];
+  // Use stored marketing collateral and consolidate duplicates by offer name
+  const rawMarketingCollateral: MarketingCollateral[] = month.marketingCollateral || [];
   
-  // Group marketing collateral by offer name
+  // Consolidate marketing collateral by unique offer - merge duplicates into single row
+  const consolidatedMarketing = rawMarketingCollateral.reduce((acc: MarketingCollateral[], item) => {
+    const existing = acc.find(m => m.offer === item.offer);
+    
+    if (existing) {
+      // Merge channels
+      const existingChannels = existing.channels || (existing.medium ? [existing.medium] : []);
+      const newChannels = item.channels || (item.medium ? [item.medium] : []);
+      existing.channels = [...new Set([...existingChannels, ...newChannels])];
+      
+      // Merge assets
+      const existingAssets = existing.assets || (existing.collateralNeeded ? [existing.collateralNeeded] : []);
+      const newAssets = item.assets || (item.collateralNeeded ? [item.collateralNeeded] : []);
+      existing.assets = [...new Set([...existingAssets, ...newAssets])];
+      
+      // Keep the higher priority
+      const priorityOrder = { 'Critical': 4, 'High': 3, 'Medium': 2, 'Low': 1 };
+      const existingPriority = priorityOrder[existing.priority as keyof typeof priorityOrder] || 2;
+      const newPriority = priorityOrder[item.priority as keyof typeof priorityOrder] || 2;
+      if (newPriority > existingPriority) {
+        existing.priority = item.priority;
+      }
+      
+      // Use earliest due date
+      if (item.dueDate && (!existing.dueDate || new Date(item.dueDate) < new Date(existing.dueDate))) {
+        existing.dueDate = item.dueDate;
+      }
+      
+      // Merge theme (avoid duplicates)
+      if (item.theme) {
+        if (!existing.theme) {
+          existing.theme = item.theme;
+        } else if (existing.theme !== item.theme && !existing.theme.includes(item.theme)) {
+          existing.theme = `${existing.theme}; ${item.theme}`;
+        }
+      }
+      
+      // Merge notes (avoid duplicates)
+      if (item.notes && item.notes.trim()) {
+        if (!existing.notes) {
+          existing.notes = item.notes;
+        } else if (existing.notes !== item.notes) {
+          const existingNotesList = existing.notes.split(';').map(n => n.trim());
+          const newNoteTrimmed = item.notes.trim();
+          if (!existingNotesList.includes(newNoteTrimmed)) {
+            existing.notes = `${existing.notes}; ${item.notes}`;
+          }
+        }
+      }
+    } else {
+      acc.push({...item});
+    }
+    
+    return acc;
+  }, []);
+  
+  const marketingCollateral = consolidatedMarketing;
+  
+  // Group marketing collateral by offer name for display
   const groupedMarketing = marketingCollateral.reduce((groups: { [key: string]: MarketingCollateral[] }, item) => {
     const offerName = item.offer || 'Unknown Offer';
     if (!groups[offerName]) {
@@ -1189,11 +1247,11 @@ export const ExecutionPlan: React.FC<ExecutionPlanProps> = ({ month }) => {
                   setShowNewMarketing(true);
                   setNewMarketing({
                     offer: activeOffers[0]?.title || '',
-                    type: 'Email Campaign',
-                    collateralNeeded: '',
-                    medium: 'Email Marketing',
+                    channels: ['Email', 'WhatsApp'],
+                    assets: [],
                     dueDate: '',
-                    messaging: '',
+                    priority: 'Medium',
+                    theme: '',
                     notes: ''
                   });
                 })}
@@ -1236,19 +1294,16 @@ export const ExecutionPlan: React.FC<ExecutionPlanProps> = ({ month }) => {
           ) : (
             <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
               <div className="overflow-x-auto">
-                <table className="w-full min-w-[1400px]">
+                <table className="w-full min-w-[1600px] table-fixed">
                   <thead>
                     <tr className="bg-gray-50 border-b border-gray-200">
-                      <th className="w-36 px-5 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Offer</th>
-                      <th className="w-28 px-5 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Type</th>
-                      <th className="w-56 px-5 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Requirements</th>
-                      <th className="w-56 px-5 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Message</th>
-                      <th className="w-40 px-5 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Notes</th>
-                      <th className="w-40 px-5 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">CTA</th>
-                      <th className="w-28 px-5 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Channel</th>
-                      <th className="w-24 px-5 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Due</th>
-                      <th className="w-20 px-5 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                      <th className="w-28 px-5 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                      <th className="w-[200px] px-5 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Offer</th>
+                      <th className="w-[240px] px-5 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Channels</th>
+                      <th className="w-[300px] px-5 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Required Assets</th>
+                      <th className="w-[380px] px-5 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Theme & Notes</th>
+                      <th className="w-[140px] px-5 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Due Date</th>
+                      <th className="w-[120px] px-5 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Priority</th>
+                      <th className="w-[140px] px-5 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
@@ -1258,107 +1313,85 @@ export const ExecutionPlan: React.FC<ExecutionPlanProps> = ({ month }) => {
                       
                       return (
                         <tr key={item.id || index} className="hover:bg-gray-50/50 transition-colors">
-                          <td className="px-5 py-4 align-top">
-                            <div className="flex items-center gap-2">
-                              <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full flex-shrink-0"></div>
+                          <td className="px-5 py-3 align-top">
+                            <div className="flex items-start gap-2">
+                              <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full flex-shrink-0 mt-1.5"></div>
                               <span className="text-sm font-medium text-gray-900">{displayItem.offer}</span>
                             </div>
                           </td>
-                          <td className="px-5 py-4 align-top">
+                          <td className="px-5 py-3 align-top">
                             {isEditing ? (
                               <input
                                 type="text"
-                                value={displayItem.type}
-                                onChange={(e) => setTempMarketing({...tempMarketing, type: e.target.value})}
+                                value={Array.isArray(displayItem.channels) ? displayItem.channels.join(', ') : displayItem.medium || ''}
+                                onChange={(e) => setTempMarketing({...tempMarketing, channels: e.target.value.split(',').map(s => s.trim())})}
                                 className="w-full px-3 py-2 text-sm border border-indigo-300 rounded-lg bg-white text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none"
+                                placeholder="WhatsApp, Email, In-Studio"
                               />
                             ) : (
-                              <span className="inline-flex px-2.5 py-1 bg-gray-100 text-gray-700 rounded-md text-xs font-medium">
-                                {displayItem.type}
-                              </span>
+                              <div className="flex flex-wrap gap-1.5">
+                                {(displayItem.channels || (displayItem.medium ? [displayItem.medium] : [])).map((channel: string, idx: number) => (
+                                  <span key={idx} className="inline-flex px-2.5 py-1 bg-blue-50 text-blue-700 rounded-md text-xs font-medium border border-blue-200 whitespace-nowrap">
+                                    {channel}
+                                  </span>
+                                ))}
+                              </div>
                             )}
                           </td>
-                          <td className="px-5 py-4 align-top">
+                          <td className="px-5 py-3 align-top">
                             {isEditing ? (
                               <textarea
-                                value={displayItem.collateralNeeded}
-                                onChange={(e) => setTempMarketing({...tempMarketing, collateralNeeded: e.target.value})}
-                                className="w-full px-3 py-2 text-sm border border-indigo-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none resize-none"
-                                rows={2}
-                                placeholder="Asset requirements..."
-                              />
-                            ) : (
-                              <p className="text-sm text-gray-700 leading-relaxed">{displayItem.collateralNeeded}</p>
-                            )}
-                          </td>
-                          <td className="px-5 py-4 align-top">
-                            {isEditing ? (
-                              <textarea
-                                value={displayItem.messaging || ''}
-                                onChange={(e) => setTempMarketing({...tempMarketing, messaging: e.target.value})}
+                                value={Array.isArray(displayItem.assets) ? displayItem.assets.join(', ') : displayItem.collateralNeeded || ''}
+                                onChange={(e) => setTempMarketing({...tempMarketing, assets: e.target.value.split(',').map(s => s.trim())})}
                                 className="w-full px-3 py-2 text-sm border border-indigo-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none resize-none"
                                 rows={3}
-                                placeholder="Message for the creative..."
+                                placeholder="Email Template, Graphics, Cards"
                               />
                             ) : (
-                              displayItem.messaging ? (
-                                <div className="bg-violet-50 p-2.5 rounded-lg border border-violet-100">
-                                  <p className="text-sm text-violet-800 italic">"{displayItem.messaging}"</p>
-                                </div>
-                              ) : (
-                                <span className="text-sm text-gray-400">—</span>
-                              )
+                              <div className="flex flex-wrap gap-1.5">
+                                {(displayItem.assets || (displayItem.collateralNeeded ? [displayItem.collateralNeeded] : [])).map((asset: string, idx: number) => (
+                                  <span key={idx} className="inline-flex px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-md text-xs font-medium border border-emerald-200 whitespace-nowrap">
+                                    {asset}
+                                  </span>
+                                ))}
+                              </div>
                             )}
                           </td>
-                          <td className="px-5 py-4 align-top">
+                          <td className="px-5 py-3 align-top">
                             {isEditing ? (
-                              <textarea
-                                value={displayItem.notes || ''}
-                                onChange={(e) => setTempMarketing({...tempMarketing, notes: e.target.value})}
-                                className="w-full px-3 py-2 text-sm border border-indigo-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none resize-none"
-                                rows={2}
-                                placeholder="Additional notes..."
-                              />
+                              <div className="space-y-2">
+                                <input
+                                  type="text"
+                                  value={displayItem.theme || ''}
+                                  onChange={(e) => setTempMarketing({...tempMarketing, theme: e.target.value})}
+                                  className="w-full px-3 py-2 text-sm border border-indigo-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none"
+                                  placeholder="Campaign theme..."
+                                />
+                                <textarea
+                                  value={displayItem.notes || ''}
+                                  onChange={(e) => setTempMarketing({...tempMarketing, notes: e.target.value})}
+                                  className="w-full px-3 py-2 text-sm border border-indigo-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none resize-none"
+                                  rows={2}
+                                  placeholder="Implementation notes..."
+                                />
+                              </div>
                             ) : (
-                              displayItem.notes ? (
-                                <p className="text-sm text-gray-600">{displayItem.notes}</p>
-                              ) : (
-                                <span className="text-sm text-gray-400">—</span>
-                              )
+                              <div className="space-y-2">
+                                {displayItem.theme && (
+                                  <div className="bg-purple-50 px-3 py-1.5 rounded-md border border-purple-100">
+                                    <p className="text-xs font-semibold text-purple-900">{displayItem.theme}</p>
+                                  </div>
+                                )}
+                                {displayItem.notes && (
+                                  <p className="text-sm text-gray-700 leading-relaxed">{displayItem.notes}</p>
+                                )}
+                                {!displayItem.theme && !displayItem.notes && displayItem.messaging && (
+                                  <p className="text-sm text-gray-600 italic leading-relaxed">"{displayItem.messaging}"</p>
+                                )}
+                              </div>
                             )}
                           </td>
-                          <td className="px-5 py-4 align-top">
-                            {isEditing ? (
-                              <textarea
-                                value={displayItem.ctaLinks || ''}
-                                onChange={(e) => setTempMarketing({...tempMarketing, ctaLinks: e.target.value})}
-                                className="w-full px-3 py-2 text-sm border border-indigo-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none resize-none"
-                                rows={2}
-                                placeholder="CTA links..."
-                              />
-                            ) : (
-                              displayItem.ctaLinks ? (
-                                <div className="bg-blue-50 p-2 rounded-lg border border-blue-100">
-                                  <p className="text-xs text-blue-700 break-all">{displayItem.ctaLinks}</p>
-                                </div>
-                              ) : (
-                                <span className="text-sm text-gray-400">—</span>
-                              )
-                            )}
-                          </td>
-                          <td className="px-5 py-4 align-top">
-                            {isEditing ? (
-                              <input
-                                type="text"
-                                value={displayItem.medium}
-                                onChange={(e) => setTempMarketing({...tempMarketing, medium: e.target.value})}
-                                className="w-full px-3 py-2 text-sm border border-indigo-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none"
-                              />
-                            ) : (
-                              <span className="text-sm text-gray-700">{displayItem.medium}</span>
-                            )}
-                          </td>
-                          <td className="px-5 py-4 align-top">
+                          <td className="px-5 py-3 align-top">
                             {isEditing ? (
                               <input
                                 type="text"
@@ -1367,16 +1400,33 @@ export const ExecutionPlan: React.FC<ExecutionPlanProps> = ({ month }) => {
                                 className="w-full px-3 py-2 text-sm border border-indigo-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none"
                               />
                             ) : (
-                              <span className="text-sm text-gray-600">{displayItem.dueDate || '—'}</span>
+                              <span className="text-sm text-gray-900 font-medium">{displayItem.dueDate || '—'}</span>
                             )}
                           </td>
-                          <td className="px-5 py-4 align-top">
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200">
-                              <div className="w-1.5 h-1.5 bg-amber-500 rounded-full"></div>
-                              Pending
-                            </span>
+                          <td className="px-5 py-3 align-top">
+                            {isEditing ? (
+                              <select
+                                value={displayItem.priority || 'Medium'}
+                                onChange={(e) => setTempMarketing({...tempMarketing, priority: e.target.value})}
+                                className="w-full px-3 py-2 text-sm border border-indigo-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none"
+                              >
+                                <option value="Critical">Critical</option>
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                              </select>
+                            ) : (
+                              <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${
+                                displayItem.priority === 'Critical' ? 'bg-red-50 text-red-700 border border-red-200' :
+                                displayItem.priority === 'High' ? 'bg-orange-50 text-orange-700 border border-orange-200' :
+                                displayItem.priority === 'Low' ? 'bg-gray-50 text-gray-700 border border-gray-200' :
+                                'bg-yellow-50 text-yellow-700 border border-yellow-200'
+                              }`}>
+                                {displayItem.priority || 'Medium'}
+                              </span>
+                            )}
                           </td>
-                          <td className="px-5 py-4 text-center align-top">
+                          <td className="px-5 py-3 text-center align-top">
                             <div className="flex justify-center gap-1.5">
                               <button
                                 onClick={() => requireAdmin(() => {
@@ -1981,88 +2031,100 @@ export const ExecutionPlan: React.FC<ExecutionPlanProps> = ({ month }) => {
               </div>
               
               <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Offer Name</label>
                   <input
                     type="text"
                     value={newMarketing.offer || ''}
                     onChange={(e) => setNewMarketing({...newMarketing, offer: e.target.value})}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 outline-none"
-                    placeholder="Offer name"
-                  />
-                  <input
-                    type="text"
-                    value={newMarketing.type || ''}
-                    onChange={(e) => setNewMarketing({...newMarketing, type: e.target.value})}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 outline-none"
-                    placeholder="Asset type"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 outline-none"
+                    placeholder="Which offer is this for?"
                   />
                 </div>
                 
                 <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Channels (comma-separated)</label>
                   <input
                     type="text"
-                    value={newMarketing.collateralNeeded || ''}
-                    onChange={(e) => setNewMarketing({...newMarketing, collateralNeeded: e.target.value})}
+                    value={Array.isArray(newMarketing.channels) ? newMarketing.channels.join(', ') : ''}
+                    onChange={(e) => setNewMarketing({...newMarketing, channels: e.target.value.split(',').map(s => s.trim())})}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 outline-none"
-                    placeholder="Creative requirements"
+                    placeholder="WhatsApp, Email, In-Studio, Social Media"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Required Assets (comma-separated)</label>
+                  <textarea
+                    value={Array.isArray(newMarketing.assets) ? newMarketing.assets.join(', ') : ''}
+                    onChange={(e) => setNewMarketing({...newMarketing, assets: e.target.value.split(',').map(s => s.trim())})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 outline-none resize-none"
+                    rows={2}
+                    placeholder="Image Creative, Email Template, Instagram Graphics"
                   />
                 </div>
                 
                 <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
+                    <input
+                      type="text"
+                      value={newMarketing.dueDate || ''}
+                      onChange={(e) => setNewMarketing({...newMarketing, dueDate: e.target.value})}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 outline-none"
+                      placeholder="Jan 15, 2026"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+                    <select
+                      value={newMarketing.priority || 'Medium'}
+                      onChange={(e) => setNewMarketing({...newMarketing, priority: e.target.value})}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 outline-none"
+                    >
+                      <option value="Critical">Critical</option>
+                      <option value="High">High</option>
+                      <option value="Medium">Medium</option>
+                      <option value="Low">Low</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Campaign Theme</label>
                   <input
                     type="text"
-                    value={newMarketing.medium || ''}
-                    onChange={(e) => setNewMarketing({...newMarketing, medium: e.target.value})}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 outline-none"
-                    placeholder="Channel"
-                  />
-                  <input
-                    type="text"
-                    value={newMarketing.dueDate || ''}
-                    onChange={(e) => setNewMarketing({...newMarketing, dueDate: e.target.value})}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 outline-none"
-                    placeholder="Due date"
+                    value={newMarketing.theme || ''}
+                    onChange={(e) => setNewMarketing({...newMarketing, theme: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 outline-none"
+                    placeholder="Campaign positioning and theme"
                   />
                 </div>
                 
-                <textarea
-                  value={newMarketing.messaging || ''}
-                  onChange={(e) => setNewMarketing({...newMarketing, messaging: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 outline-none resize-none"
-                  rows={3}
-                  placeholder="Design brief..."
-                />
-                
-                <textarea
-                  value={newMarketing.notes || ''}
-                  onChange={(e) => setNewMarketing({...newMarketing, notes: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 outline-none resize-none"
-                  rows={2}
-                  placeholder="Additional notes, specs..."
-                />
-                
-                <textarea
-                  value={newMarketing.ctaLinks || ''}
-                  onChange={(e) => setNewMarketing({...newMarketing, ctaLinks: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 outline-none resize-none"
-                  rows={2}
-                  placeholder="CTA links, URLs..."
-                />
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Implementation Notes</label>
+                  <textarea
+                    value={newMarketing.notes || ''}
+                    onChange={(e) => setNewMarketing({...newMarketing, notes: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 outline-none resize-none"
+                    rows={3}
+                    placeholder="Special instructions, requirements, deadlines..."
+                  />
+                </div>
                 
                 <div className="flex gap-3 pt-4">
                   <button
                     onClick={() => requireAdmin(() => {
-                      if (newMarketing.offer && newMarketing.collateralNeeded) {
+                      if (newMarketing.offer && (newMarketing.channels?.length > 0 || newMarketing.assets?.length > 0)) {
                         addMarketingCollateral(month.id, {
                           id: Math.random().toString(36).substr(2, 9),
                           offer: newMarketing.offer,
-                          type: newMarketing.type || 'Mixed Media',
-                          collateralNeeded: newMarketing.collateralNeeded,
-                          medium: newMarketing.medium || 'Multi-channel',
+                          channels: newMarketing.channels || [],
+                          assets: newMarketing.assets || [],
                           dueDate: newMarketing.dueDate || '',
-                          messaging: newMarketing.messaging || '',
-                          notes: newMarketing.notes || '',
-                          ctaLinks: newMarketing.ctaLinks || 'Mumbai: https://momence.com/u/physique-57-india-fffoSp | Bangalore: https://momence.com/u/physique-57-bengaluru-0MU0AA'
+                          priority: newMarketing.priority || 'Medium',
+                          theme: newMarketing.theme || '',
+                          notes: newMarketing.notes || ''
                         });
                         setShowNewMarketing(false);
                         setNewMarketing({});

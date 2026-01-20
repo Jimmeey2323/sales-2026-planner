@@ -164,64 +164,24 @@ export const MONTHS_DATA: MonthData[] = [
     "revenueTargetTotal": "₹54,30,000",
     "marketingCollateral": [
       {
-        "id": "misjyvqz4",
-        "type": "WhatsApp Campaign",
-        "notes": "Turn your New Year's promises into actual progress with unlimited classes for newcomers who are finally ready to stop lying to themselves.",
-        "offer": "The Clean Slate Conspiracy",
-        "medium": "WhatsApp Broadcast",
-        "dueDate": "Jan 10, 2026",
-        "messaging": "Short, engaging message with the resolution reset theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
-        "collateralNeeded": "WhatsApp Image Creative"
+        "id": "jan_new_year_new_you",
+        "offer": "New Year, New You",
+        "channels": ["WhatsApp", "Email", "In-Studio"],
+        "assets": ["Image Creative", "Email Template", "Tent Cards", "Easel Standee"],
+        "dueDate": "Jan 5, 2026",
+        "priority": "High",
+        "theme": "Resolution Reset - New Year transformation messaging",
+        "notes": "Welcome new members with accessible pricing that removes barriers and supports genuine commitment to their fitness transformation."
       },
       {
-        "id": "xdnxlftkx",
-        "type": "Email Campaign",
-        "notes": "Turn your New Year's promises into actual progress with unlimited classes for newcomers who are finally ready to stop lying to themselves.",
-        "offer": "The Clean Slate Conspiracy",
-        "medium": "Email Marketing",
-        "dueDate": "Jan 10, 2026",
-        "messaging": "Subject line highlighting new offer. Feature the resolution reset theme imagery. Clear CTA button. Include offer details without specific pricing.",
-        "collateralNeeded": "Email Template"
-      },
-      {
-        "id": "v78wzusuu",
-        "type": "In-Studio Materials",
-        "notes": "Turn your New Year's promises into actual progress with unlimited classes for newcomers who are finally ready to stop lying to themselves.",
-        "offer": "The Clean Slate Conspiracy",
-        "medium": "Physical Display",
-        "dueDate": "Jan 10, 2026",
-        "messaging": "Bold headline with the resolution reset visuals. Highlight key benefit of new offer. Large, easy-to-read text. QR code for booking.",
-        "collateralNeeded": "Tent Cards Easel Standee"
-      },
-      {
-        "id": "8a6ko4fn3",
-        "type": "WhatsApp Campaign",
-        "notes": "Commit to three months and get the fourth free—perfect for building consistency even if your actual attendance tells a different story.",
-        "offer": "The Optimist's Math",
-        "medium": "WhatsApp Broadcast",
-        "dueDate": "Jan 10, 2026",
-        "messaging": "Short, engaging message with the resolution reset theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
-        "collateralNeeded": "WhatsApp Image Creative"
-      },
-      {
-        "id": "a695p93hx",
-        "type": "Email Campaign",
-        "notes": "Commit to three months and get the fourth free—perfect for building consistency even if your actual attendance tells a different story.",
-        "offer": "The Optimist's Math",
-        "medium": "Email Marketing",
-        "dueDate": "Jan 10, 2026",
-        "messaging": "Subject line highlighting hero offer. Feature the resolution reset theme imagery. Clear CTA button. Include offer details without specific pricing.",
-        "collateralNeeded": "Email Template"
-      },
-      {
-        "id": "rtk0qv8hg",
-        "type": "In-Studio Materials",
-        "notes": "Commit to three months and get the fourth free—perfect for building consistency even if your actual attendance tells a different story.",
-        "offer": "The Optimist's Math",
-        "medium": "Physical Display",
-        "dueDate": "Jan 10, 2026",
-        "messaging": "Bold headline with the resolution reset visuals. Highlight key benefit of hero offer. Large, easy-to-read text. QR code for booking.",
-        "collateralNeeded": "Tent Cards Easel Standee"
+        "id": "jan_quarterly_commitment",
+        "offer": "The Quarterly Commitment",
+        "channels": ["WhatsApp", "Email", "In-Studio", "Meta Ads"],
+        "assets": ["Image Creative", "Email Template", "Landing Page", "Tent Cards"],
+        "dueDate": "Jan 3, 2026",
+        "priority": "High",
+        "theme": "Habit Formation - 4-month commitment value proposition",
+        "notes": "Build lasting consistency with a structured approach that rewards commitment while acknowledging the journey of habit formation."
       }
     ]
   },
@@ -489,124 +449,34 @@ export const MONTHS_DATA: MonthData[] = [
     "revenueTargetTotal": "₹1,12,29,860",
     "marketingCollateral": [
       {
-        "id": "yo78d8xxr",
-        "offer": "The Peer Pressure Pact",
-        "collateralNeeded": "WhatsApp Image Creative",
-        "type": "WhatsApp Campaign",
-        "medium": "WhatsApp Broadcast",
-        "messaging": "Short, engaging message with heart-health & self love theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
-        "dueDate": "Feb 5, 2026",
-        "notes": "Drag a friend into fitness hell with you where neither of you can bail without disappointing the other—misery loves company, and so does accountability."
+        "id": "feb_partnership_program",
+        "offer": "The Partnership Program",
+        "channels": ["WhatsApp", "Email", "In-Studio"],
+        "assets": ["Image Creative", "Email Template", "Tent Cards", "Partner Welcome Kits"],
+        "dueDate": "Jan 28, 2026",
+        "priority": "High",
+        "theme": "Partnership & Accountability - Valentine's duo fitness messaging",
+        "notes": "Cultivate accountability through partnership, creating a foundation of mutual encouragement and shared wellness goals."
       },
       {
-        "id": "9owe5jggb",
-        "offer": "The Peer Pressure Pact",
-        "collateralNeeded": "Email Template",
-        "type": "Email Campaign",
-        "medium": "Email Marketing",
-        "messaging": "Subject line highlighting hero offer. Feature heart-health & self love theme imagery. Clear CTA button. Include offer details without specific pricing.",
-        "dueDate": "Feb 5, 2026",
-        "notes": "Drag a friend into fitness hell with you where neither of you can bail without disappointing the other—misery loves company, and so does accountability."
+        "id": "feb_studio_experience",
+        "offer": "The Studio Experience",
+        "channels": ["WhatsApp", "Email", "In-Studio", "Social Media"],
+        "assets": ["Event Invitations", "Social Media Graphics", "Email Template"],
+        "dueDate": "Feb 1, 2026",
+        "priority": "Medium",
+        "theme": "Community Celebration - Exclusive studio event experience",
+        "notes": "Create memorable experiences that strengthen community bonds and celebrate the power of women supporting women in wellness."
       },
       {
-        "id": "3w5f70fnz",
-        "offer": "The Peer Pressure Pact",
-        "collateralNeeded": "Tent Cards Easel Standee",
-        "type": "In-Studio Materials",
-        "medium": "Physical Display",
-        "messaging": "Bold headline with heart-health & self love visuals. Highlight key benefit of hero offer. Large, easy-to-read text. QR code for booking.",
-        "dueDate": "Feb 5, 2026",
-        "notes": "Drag a friend into fitness hell with you where neither of you can bail without disappointing the other—misery loves company, and so does accountability."
-      },
-      {
-        "id": "ozd70l0mq",
-        "offer": "The Suffragette Sweat Session",
-        "collateralNeeded": "WhatsApp Image Creative",
-        "type": "WhatsApp Campaign",
-        "medium": "WhatsApp Broadcast",
-        "messaging": "Short, engaging message with heart-health & self love theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
-        "dueDate": "Feb 5, 2026",
-        "notes": "Where empowerment meets endorphins in a curated studio takeover proving that strong women don't need permission to take up space."
-      },
-      {
-        "id": "0nvi8h9w8",
-        "offer": "The Suffragette Sweat Session",
-        "collateralNeeded": "Email Template",
-        "type": "Email Campaign",
-        "medium": "Email Marketing",
-        "messaging": "Subject line highlighting event offer. Feature heart-health & self love theme imagery. Clear CTA button. Include offer details without specific pricing.",
-        "dueDate": "Feb 5, 2026",
-        "notes": "Where empowerment meets endorphins in a curated studio takeover proving that strong women don't need permission to take up space."
-      },
-      {
-        "id": "pqcvvx8vy",
-        "offer": "The Suffragette Sweat Session",
-        "collateralNeeded": "Tent Cards Easel Standee",
-        "type": "In-Studio Materials",
-        "medium": "Physical Display",
-        "messaging": "Bold headline with heart-health & self love visuals. Highlight key benefit of event offer. Large, easy-to-read text. QR code for booking.",
-        "dueDate": "Feb 5, 2026",
-        "notes": "Where empowerment meets endorphins in a curated studio takeover proving that strong women don't need permission to take up space."
-      },
-      {
-        "id": "fg1kcxkom",
-        "offer": "The Breakup Blueprint",
-        "collateralNeeded": "WhatsApp Image Creative",
-        "type": "WhatsApp Campaign",
-        "medium": "WhatsApp Broadcast",
-        "messaging": "Short, engaging message with heart-health & self love theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
-        "dueDate": "Feb 5, 2026",
-        "notes": "Six weeks of unlimited torture designed to make your ex regret everything while you regret nothing except maybe that last burpee."
-      },
-      {
-        "id": "mc0fp9toe",
-        "offer": "The Breakup Blueprint",
-        "collateralNeeded": "Email Template",
-        "type": "Email Campaign",
-        "medium": "Email Marketing",
-        "messaging": "Subject line highlighting flash offer. Feature heart-health & self love theme imagery. Clear CTA button. Include offer details without specific pricing.",
-        "dueDate": "Feb 5, 2026",
-        "notes": "Six weeks of unlimited torture designed to make your ex regret everything while you regret nothing except maybe that last burpee."
-      },
-      {
-        "id": "hwrjs4m6o",
-        "offer": "The Breakup Blueprint",
-        "collateralNeeded": "Tent Cards Easel Standee",
-        "type": "In-Studio Materials",
-        "medium": "Physical Display",
-        "messaging": "Bold headline with heart-health & self love visuals. Highlight key benefit of flash offer. Large, easy-to-read text. QR code for booking.",
-        "dueDate": "Feb 5, 2026",
-        "notes": "Six weeks of unlimited torture designed to make your ex regret everything while you regret nothing except maybe that last burpee."
-      },
-      {
-        "id": "b8qcy0ktm",
-        "offer": "The Self-Love Syndicate",
-        "collateralNeeded": "WhatsApp Image Creative",
-        "type": "WhatsApp Campaign",
-        "medium": "WhatsApp Broadcast",
-        "messaging": "Short, engaging message with heart-health & self love theme. Include offer highlight and booking link. Max 2-3 lines. Friendly, conversational tone.",
-        "dueDate": "Feb 5, 2026",
-        "notes": "For those investing in themselves instead of disappointing dating apps—because self-love includes deadlifts and your cat's unconditional support."
-      },
-      {
-        "id": "qkp5qrmu1",
-        "offer": "The Self-Love Syndicate",
-        "collateralNeeded": "Email Template",
-        "type": "Email Campaign",
-        "medium": "Email Marketing",
-        "messaging": "Subject line highlighting hero offer. Feature heart-health & self love theme imagery. Clear CTA button. Include offer details without specific pricing.",
-        "dueDate": "Feb 5, 2026",
-        "notes": "For those investing in themselves instead of disappointing dating apps—because self-love includes deadlifts and your cat's unconditional support."
-      },
-      {
-        "id": "hdr0l0qet",
-        "offer": "The Self-Love Syndicate",
-        "collateralNeeded": "Tent Cards Easel Standee",
-        "type": "In-Studio Materials",
-        "medium": "Physical Display",
-        "messaging": "Bold headline with heart-health & self love visuals. Highlight key benefit of hero offer. Large, easy-to-read text. QR code for booking.",
-        "dueDate": "Feb 5, 2026",
-        "notes": "For those investing in themselves instead of disappointing dating apps—because self-love includes deadlifts and your cat's unconditional support."
+        "id": "feb_self_investment",
+        "offer": "The Self-Investment Package",
+        "channels": ["WhatsApp", "Email", "In-Studio", "Social Media"],
+        "assets": ["Image Creative", "Email Template", "Tent Cards", "Self-Care Series"],
+        "dueDate": "Jan 30, 2026",
+        "priority": "High",
+        "theme": "Self-Love & Investment - Premium wellness package for self-care",
+        "notes": "Support members who value holistic self-care with personalized attention and resources to enhance their wellness journey."
       }
     ]
   },
@@ -864,54 +734,44 @@ export const MONTHS_DATA: MonthData[] = [
     "revenueTargetTotal": "₹69,63,200",
     "marketingCollateral": [
       {
-        "id": "7ylzh0t6t",
-        "type": "Email Campaign",
-        "notes": "Double meaning: serious about fitness + Women's Month empowerment. Confident and assertive",
-        "offer": "She Means Business",
-        "medium": "Email Marketing",
-        "dueDate": "Mar 7, 2026",
-        "messaging": "Subject line highlighting lapsed offer. Feature the power of her theme imagery. Clear CTA button. Include offer details without specific pricing.",
-        "collateralNeeded": "Email design with HTML template"
+        "id": "mar_collective_class_pack",
+        "offer": "The Collective Class Pack",
+        "channels": ["WhatsApp", "Email", "In-Studio", "Social Media"],
+        "assets": ["Image Creative", "Email Template", "Instagram Challenge Graphics", "Squad Tracking Cards"],
+        "dueDate": "Feb 25, 2026",
+        "priority": "Medium",
+        "theme": "Community Power - Group fitness accountability",
+        "notes": "Foster collective motivation where community support enhances individual commitment and progress."
       },
       {
-        "id": "8afeyjdps",
-        "type": "Social Media Ads",
-        "notes": "Social media language that makes fitness social and achievement-oriented",
-        "offer": "Squad Goals Unlocked",
-        "medium": "Meta Ads Platform",
-        "dueDate": "Mar 7, 2026",
-        "messaging": "Eye-catching the power of her themed imagery. Carousel or single image. Emphasize transformation/results. CTA: Book Now. Target: fitness enthusiasts aged 25-45.",
-        "collateralNeeded": "Square (1080x1080) and Story (1080x1920) formats"
+        "id": "mar_professional_annual",
+        "offer": "The Professional's Annual Plan",
+        "channels": ["Email", "LinkedIn", "In-Studio"],
+        "assets": ["Email Template", "LinkedIn Posts", "Corporate Onboarding Kits"],
+        "dueDate": "Feb 20, 2026",
+        "priority": "High",
+        "theme": "Professional Excellence - Annual wellness investment for busy professionals",
+        "notes": "Support busy professionals who prioritize self-care with premium annual access that aligns with their commitment to excellence."
       },
       {
-        "id": "f6lfgfdd9",
-        "type": "Email Campaign",
-        "notes": "Alliterative and links career success with physical strength. Aspirational",
-        "offer": "Corner Office Conditioning",
-        "medium": "Email Marketing",
-        "dueDate": "Mar 7, 2026",
-        "messaging": "Subject line highlighting corporate offer. Feature the power of her theme imagery. Clear CTA button. Include offer details without specific pricing.",
-        "collateralNeeded": "Email design with HTML template"
+        "id": "mar_confidence_collection",
+        "offer": "The Confidence Collection",
+        "channels": ["WhatsApp", "Email", "In-Studio", "Social Media"],
+        "assets": ["Image Creative", "Email Template", "Gift Vouchers", "Bold Empowerment Graphics"],
+        "dueDate": "Feb 28, 2026",
+        "priority": "High",
+        "theme": "Flash Sale - Confidence & empowerment messaging",
+        "notes": "Empower members with accessible pricing and additional resources to support their complete wellness transformation."
       },
       {
-        "id": "fj5ks5ra4",
-        "type": "Mixed Media",
-        "notes": "Because confidence deserves perks.",
-        "offer": "BIG BITCH ENERGY WEEK",
-        "medium": "Multi-channel",
-        "dueDate": "Mar 7, 2026",
-        "messaging": "the power of her themed creative highlighting BIG BITCH ENERGY WEEK. Focus on benefits, not pricing.",
-        "collateralNeeded": "Bold"
-      },
-      {
-        "id": "nqptasbhv",
-        "type": "Mixed Media",
-        "notes": "Entry-level commitment gets new members in door. One-day flash creates urgency. High volume play (150 units). Gateway to longer memberships.",
-        "offer": "Power Hour Reset",
-        "medium": "Multi-channel",
-        "dueDate": "Mar 7, 2026",
-        "messaging": "the power of her themed creative highlighting Power Hour Reset. Focus on benefits, not pricing.",
-        "collateralNeeded": "Women's Day flash campaign"
+        "id": "mar_empowerment_edition",
+        "offer": "The Empowerment Edition",
+        "channels": ["WhatsApp", "Email", "In-Studio", "Social Media"],
+        "assets": ["Women's Day Graphics", "Email Template", "24-Hour Countdown", "Grip Socks Promo"],
+        "dueDate": "March 5, 2026",
+        "priority": "Critical",
+        "theme": "Women's Day Special - March 8 exclusive celebration",
+        "notes": "Honor International Women's Day with a special offering that celebrates feminine strength and supports personal transformation."
       }
     ]
   },
@@ -1521,7 +1381,6 @@ export const MONTHS_DATA: MonthData[] = [
         "title": "The Guilt-Free Escape Clause",
         "pricing": "Included FREE with any purchase: 8 late cancel amnesty credits",
         "savings": "Worth ₹4,000 (8 × ₹500 fee waivers - actually ZERO cost to studio)",
-        "cancelled": true,
         "packages": [
           {
             "tax": 5,
@@ -1667,64 +1526,74 @@ export const MONTHS_DATA: MonthData[] = [
     "revenueTargetTotal": "₹29.3L (Net: ₹24.1L after ₹5.1L in direct costs. Margin: 82.4%)",
     "marketingCollateral": [
       {
-        "id": "3bbumx2lh",
-        "type": "Social Media Ads",
-        "notes": "Advertise Spin the 8-Ball Wheel and all 8 offers. Higher price = higher revenue. Creates FOMO and viral social content.",
-        "offer": "Spin the 8-Ball Wheel",
-        "medium": "Meta Ads Platform",
-        "dueDate": "Apr 5, 2026",
-        "messaging": "Eye-catching 8th anniversary themed imagery. Carousel or single image. Emphasize transformation/results. CTA: Shop Now. Target: fitness enthusiasts aged 25-45.",
-        "collateralNeeded": "Square (1080x1080) and Story (1080x1920) formats"
+        "id": "apr_anniversary_wheel",
+        "offer": "The Anniversary Wheel",
+        "channels": ["WhatsApp", "Email", "In-Studio", "Social Media"],
+        "assets": ["Physical Spin Wheel", "Prize Vouchers", "Instagram Winner Posts", "Front Desk Displays"],
+        "dueDate": "March 25, 2026",
+        "priority": "Critical",
+        "theme": "8th Anniversary - Interactive gamification with guaranteed wins",
+        "notes": "Physical wheel setup required 1 week before launch. Train staff on prize fulfillment, winner celebrations, and social content capture."
       },
       {
-        "id": "6mdzw1h1g",
-        "type": "Mixed Media",
-        "notes": "Promote Double Trouble Deal referrals and 8:08 Power Drops. Drives intense daily engagement. Creates viral referral loops and FOMO with flash sales.",
-        "offer": "8:08 Power Drop + Double Trouble Deal",
-        "medium": "Multi-channel",
-        "dueDate": "Apr 5, 2026",
-        "messaging": "8th anniversary themed creative highlighting referrals and daily power drops. Focus on community and urgency.",
-        "collateralNeeded": "Daily power drop alerts, referral testimonials"
+        "id": "apr_power_drops",
+        "offer": "The 8:08 Exclusive",
+        "channels": ["WhatsApp", "Email", "Social Media", "Push Notifications"],
+        "assets": ["Daily Countdown Graphics", "8:08 Alert Templates", "Flash Sale Graphics"],
+        "dueDate": "March 28, 2026",
+        "priority": "High",
+        "theme": "Daily Flash Sale - Precision timing creates urgency",
+        "notes": "Automated push notification system required. Prepare 30 days of countdown content in advance for consistency."
       },
       {
-        "id": "idrh2a9oq",
-        "type": "Email Campaign",
-        "notes": "Promote 8-for-8 Jackpot, Infinity Pass, and 88-Class Challenge. Email series highlighting transformation and commitment value.",
-        "offer": "The 8-for-8 Jackpot",
-        "medium": "Email Marketing",
-        "dueDate": "Apr 5, 2026",
-        "messaging": "Subject line highlighting 8 months commitment. Feature 8th anniversary theme imagery. Clear CTA button. Include offer details with pricing.",
-        "collateralNeeded": "Email design with HTML template, multi-email sequence"
+        "id": "apr_jackpot_infinity",
+        "offer": "The 8-for-8 Jackpot + The Infinity Pass",
+        "channels": ["Email", "WhatsApp", "In-Studio"],
+        "assets": ["Email Multi-Sequence Campaign", "Lifetime Member Cards", "Success Stories"],
+        "dueDate": "March 30, 2026",
+        "priority": "High",
+        "theme": "Premium Long-Term Commitment - Annual & lifetime value propositions",
+        "notes": "Target existing loyal members and high-engagement prospects. Focus messaging on lifetime value and transformation journey."
       },
       {
-        "id": "p5dgfnz1i",
-        "type": "Social Media Ads",
-        "notes": "Advertise 8-Hour Anniversary Blitz (April 8). Create countdown content. Target lookalike audiences from existing members.",
-        "offer": "8-Hour Anniversary Blitz",
-        "medium": "Meta Ads Platform",
-        "dueDate": "Apr 5, 2026",
-        "messaging": "Countdown urgency: April 8 only! 8-hour celebration with 18% off. Carousel showing different offer types. Target: existing members + lookalikes.",
-        "collateralNeeded": "Square (1080x1080) and Story (1080x1920) formats, countdown assets"
+        "id": "apr_blitz_day",
+        "offer": "The 8-Hour Anniversary Blitz",
+        "channels": ["Social Media", "Email", "WhatsApp", "In-Studio"],
+        "assets": ["Countdown Timers", "Hourly Update Graphics", "Meta Ads Carousel", "In-Studio Celebration Decor"],
+        "dueDate": "April 5, 2026",
+        "priority": "Critical",
+        "theme": "April 8 One-Day Event - Maximum urgency and celebration",
+        "notes": "All-hands event requiring extended hours, real-time social updates, and coordinated multi-channel countdown campaign."
       },
       {
-        "id": "my13chunh8a",
-        "type": "In-Studio Collateral",
-        "notes": "8-Ball Wheel setup, prize fulfillment, daily winner celebrations, amnesty credit tracking.",
-        "offer": "Spin the 8-Ball Wheel + 8-Minute Amnesty",
-        "medium": "Front Desk & Studio",
-        "dueDate": "Mar 25, 2026",
-        "messaging": "Physical spin wheel at front desk, branded prize vouchers, CRM system setup for amnesty credits.",
-        "collateralNeeded": "Professional wheel, prize cards, staff training manual, CRM templates"
+        "id": "apr_accomplice_advantage",
+        "offer": "The Accomplice Advantage",
+        "channels": ["Email", "WhatsApp", "In-Studio", "Social Media"],
+        "assets": ["Referral Testimonials", "Leaderboard Graphics", "Friend Pass Cards"],
+        "dueDate": "April 1, 2026",
+        "priority": "Medium",
+        "theme": "Referral Program - Community growth through member advocacy",
+        "notes": "Create viral referral loop with both parties receiving 8 classes. Track leaderboard and celebrate top referrers publicly."
       },
       {
-        "id": "my13chunh9b",
-        "type": "Mixed Media",
-        "notes": "Promote 88 Classes Challenge with progress tracking. Creates accountability and sustained engagement.",
-        "offer": "88 Classes in 8 Months",
-        "medium": "Multi-channel",
-        "dueDate": "Apr 5, 2026",
-        "messaging": "8th anniversary themed creative highlighting the challenge. Focus on community support and milestone celebrations.",
-        "collateralNeeded": "Challenge tracker graphics, weekly milestone content"
+        "id": "apr_challenge_88",
+        "offer": "The 88 Challenge",
+        "channels": ["Email", "WhatsApp", "In-Studio", "Social Media"],
+        "assets": ["Challenge Tracker Infographic", "Milestone Celebration Graphics", "Progress Email Series"],
+        "dueDate": "March 30, 2026",
+        "priority": "Medium",
+        "theme": "Long-Term Achievement Challenge - Consistency rewards",
+        "notes": "Requires challenge tracking dashboard, monthly check-ins, and automated motivation emails to support 8-month journey."
+      },
+      {
+        "id": "apr_amnesty",
+        "offer": "The 8-Minute Amnesty",
+        "channels": ["Email", "In-Studio", "WhatsApp"],
+        "assets": ["Benefit Explainer Cards", "CRM Tag System", "Front Desk Scripts"],
+        "dueDate": "March 28, 2026",
+        "priority": "Low",
+        "theme": "Purchase Incentive - Removes cancellation objection",
+        "notes": "CRM auto-decrement system required. Include as free bonus with all April purchases to reduce friction and increase conversions."
       }
     ]
   },
@@ -1904,34 +1773,24 @@ export const MONTHS_DATA: MonthData[] = [
     "revenueTargetTotal": "₹71,40,000",
     "marketingCollateral": [
       {
-        "id": "wlwxlli35",
-        "type": "Mixed Media",
-        "notes": "Unlimited isn't given. It's earned. Reframes bonuses as merit-based. Appeals to high-effort students. Discourages casual sign-ups.",
-        "offer": "The Earned Unlimited",
-        "medium": "Multi-channel",
-        "dueDate": "May 7, 2026",
-        "messaging": "the summer sprint themed creative highlighting The Earned Unlimited. Focus on benefits, not pricing.",
-        "collateralNeeded": "Student merit-based campaign"
+        "id": "may_student_exec",
+        "offer": "The Student Advantage + The Executive Session Package",
+        "channels": ["Email", "WhatsApp", "In-Studio"],
+        "assets": ["Student Merit Campaign", "Daytime Slot Promotions", "Executive Onboarding Kits"],
+        "dueDate": "April 25, 2026",
+        "priority": "Medium",
+        "theme": "The Summer Sprint - Student & executive daytime focus",
+        "notes": "Target students with merit-based unlimited and busy executives with lunch-hour class banking. Emphasize daytime slot availability."
       },
       {
-        "id": "nkvhrd0sr",
-        "type": "Mixed Media",
-        "notes": "Taps into petty revenge motivation. No upfront discount = higher revenue. Earned benefit ensures LTV and frequency commitment. Mission-based psychology.",
-        "offer": "Your Ex Is Looking Good",
-        "medium": "Multi-channel",
-        "dueDate": "May 7, 2026",
-        "messaging": "the summer sprint themed creative highlighting Your Ex Is Looking Good. Focus on benefits, not pricing.",
-        "collateralNeeded": "Savage accountability campaign"
-      },
-      {
-        "id": "7b2gth4sj",
-        "type": "Mixed Media",
-        "notes": "Double meaning: banking classes + getting value. Perfect for daytime slots",
-        "offer": "Lunch Break, Make Bank",
-        "medium": "Multi-channel",
-        "dueDate": "May 7, 2026",
-        "messaging": "the summer sprint themed creative highlighting Lunch Break, Make Bank. Focus on benefits, not pricing.",
-        "collateralNeeded": "Daytime slot promotion"
+        "id": "may_transformation",
+        "offer": "The Transformation Challenge",
+        "channels": ["WhatsApp", "Email", "In-Studio", "Social Media"],
+        "assets": ["Accountability Campaign Graphics", "Class Completion Tracker", "Success Story Videos"],
+        "dueDate": "April 28, 2026",
+        "priority": "High",
+        "theme": "6-Week Transformation - Accountability & revenge body motivation",
+        "notes": "Create motivational campaign around structured transformation journeys with nutrition consultation rewards for completing 24 classes in 42 days."
       }
     ]
   },
@@ -2118,34 +1977,34 @@ export const MONTHS_DATA: MonthData[] = [
     "revenueTargetTotal": "₹71,60,000",
     "marketingCollateral": [
       {
-        "id": "np4gir2tw",
-        "type": "Mixed Media",
-        "notes": "Flips the excuse phrase on its head. Empowering and defiant",
-        "offer": "Rain Check Rejected",
-        "medium": "Multi-channel",
-        "dueDate": "Jun 5, 2026",
-        "messaging": "the monsoon motivation themed creative highlighting Rain Check Rejected. Focus on benefits, not pricing.",
-        "collateralNeeded": "Monsoon motivation campaign"
+        "id": "jun_summer_sprint",
+        "offer": "The Summer Sprint",
+        "channels": ["WhatsApp", "Email", "In-Studio", "Social Media"],
+        "assets": ["Monsoon Motivation Campaign", "Attendance Tracker", "Finisher Sock Promo Graphics"],
+        "dueDate": "May 25, 2026",
+        "priority": "High",
+        "theme": "The Monsoon Motivation - 30-day completion challenge",
+        "notes": "20-class sprint challenge with studio credit and exclusive grip socks for finishers. Track completion daily and celebrate publicly."
       },
       {
-        "id": "4gex6uaqg",
-        "type": "Email Campaign",
-        "notes": "One word that perfectly captures coming back. Simple and visual",
-        "offer": "The Boomerang",
-        "medium": "Email Marketing",
-        "dueDate": "Jun 5, 2026",
-        "messaging": "Subject line highlighting lapsed offer. Feature the monsoon motivation theme imagery. Clear CTA button. Include offer details without specific pricing.",
-        "collateralNeeded": "Email design with HTML template"
+        "id": "jun_welcome_back",
+        "offer": "The Welcome Back Program",
+        "channels": ["Email", "WhatsApp", "In-Studio"],
+        "assets": ["Re-engagement Email Template", "Comeback Campaign Graphics"],
+        "dueDate": "May 28, 2026",
+        "priority": "Medium",
+        "theme": "Lapsed Member Reactivation - Simple restart offer",
+        "notes": "Target lapsed members with low-barrier 5-class re-entry package. Emphasize no-judgment return and easy first step."
       },
       {
-        "id": "jbxai282g",
-        "type": "Mixed Media",
-        "notes": "Puns on VR + the reality of hybrid fitness. Tech-forward and clever",
-        "offer": "Virtual Reality Check",
-        "medium": "Multi-channel",
-        "dueDate": "Jun 5, 2026",
-        "messaging": "the monsoon motivation themed creative highlighting Virtual Reality Check. Focus on benefits, not pricing.",
-        "collateralNeeded": "Virtual private session showcase"
+        "id": "jun_virtual_private",
+        "offer": "The Virtual Private Experience",
+        "channels": ["Email", "Social Media", "WhatsApp"],
+        "assets": ["Virtual Session Showcase", "Private Training Graphics", "Instructor Introduction Videos"],
+        "dueDate": "May 30, 2026",
+        "priority": "Low",
+        "theme": "Hybrid Fitness - Virtual private session upgrade",
+        "notes": "Promote virtual private sessions for monsoon convenience. Highlight tech platform and personalized attention benefits."
       }
     ]
   },
@@ -2403,54 +2262,44 @@ export const MONTHS_DATA: MonthData[] = [
     "revenueTargetTotal": "₹1,61,35,000",
     "marketingCollateral": [
       {
-        "id": "06p6cidla",
-        "type": "Mixed Media",
-        "notes": "Gamification tied to actual weather. Creates daily checking (\"Is it raining enough?\"). Heavy rain day = better odds. Transparent, verifiable.",
-        "offer": "Rain or Shine Roulette",
-        "medium": "Multi-channel",
-        "dueDate": "Jul 7, 2026",
-        "messaging": "the storm breaker themed creative highlighting Rain or Shine Roulette. Focus on benefits, not pricing.",
-        "collateralNeeded": "Weather tracker posts"
+        "id": "jul_monsoon_challenge",
+        "offer": "The Monsoon Challenge",
+        "channels": ["WhatsApp", "Email", "In-Studio", "Social Media"],
+        "assets": ["Daily Leaderboard Updates", "Weather Tracker Posts", "Prize Announcement Graphics"],
+        "dueDate": "June 25, 2026",
+        "priority": "Critical",
+        "theme": "The Storm Breaker - July 10-Aug 10 attendance contest",
+        "notes": "Major attendance streak competition with ₹20K and ₹10K prizes. Requires daily tracking, social celebration of leaders, and dramatic finale."
       },
       {
-        "id": "fhgqziwm1",
-        "type": "Mixed Media",
-        "notes": "Streak mechanic = daily commitment. Only 2 winners from 90 = exclusive. Creates daily studio attendance in monsoon. Dramatic element.",
-        "offer": "The Monsoon Survivors Club",
-        "medium": "Multi-channel",
-        "dueDate": "Jul 7, 2026",
-        "messaging": "the storm breaker themed creative highlighting The Monsoon Survivors Club. Focus on benefits, not pricing.",
-        "collateralNeeded": "Daily leaderboard updates"
+        "id": "jul_rain_roulette",
+        "offer": "The Weather Wheel",
+        "channels": ["WhatsApp", "Email", "Social Media", "In-Studio"],
+        "assets": ["Digital Wheel Setup", "Rainfall Data API Integration", "Daily Spin Videos"],
+        "dueDate": "June 28, 2026",
+        "priority": "High",
+        "theme": "Gamification - Weather-based discount roulette",
+        "notes": "Tie discount tiers to actual rainfall data. Higher rain = better odds. Create daily check-in habit with transparent, verifiable results."
       },
       {
-        "id": "acxl5nn3a",
-        "type": "Mixed Media",
-        "notes": "Seven months for six is actually lucky. Gambling/luck reference feels special",
-        "offer": "Lucky 7",
-        "medium": "Multi-channel",
-        "dueDate": "Jul 7, 2026",
-        "messaging": "the storm breaker themed creative highlighting Lucky 7. Focus on benefits, not pricing.",
-        "collateralNeeded": "Lucky 7 campaign"
+        "id": "jul_lucky_seven",
+        "offer": "The Lucky Seven",
+        "channels": ["Email", "WhatsApp", "In-Studio"],
+        "assets": ["Lucky 7 Campaign Graphics", "Email Template"],
+        "dueDate": "June 30, 2026",
+        "priority": "Medium",
+        "theme": "7-Month Commitment - Premium long-term value",
+        "notes": "Position as exclusive luck-themed offer (7 months for 6 pricing). Target committed members seeking long-term value."
       },
       {
-        "id": "yod1j2v7v",
-        "type": "Mixed Media",
-        "notes": "Directly addresses \"too hard to get a cab\" objection.",
-        "offer": "Gas Money's On Us",
-        "medium": "Multi-channel",
-        "dueDate": "Jul 7, 2026",
-        "messaging": "the storm breaker themed creative highlighting Gas Money's On Us. Focus on benefits, not pricing.",
-        "collateralNeeded": "Monsoon travel relief messaging"
-      },
-      {
-        "id": "ujj4huiun",
-        "type": "Mixed Media",
-        "notes": "Monopoly reference everyone knows. Removes guilt and anxiety perfectly",
-        "offer": "Get Out of Jail Free Card",
-        "medium": "Multi-channel",
-        "dueDate": "Jul 7, 2026",
-        "messaging": "the storm breaker themed creative highlighting Get Out of Jail Free Card. Focus on benefits, not pricing.",
-        "collateralNeeded": "Flexibility messaging"
+        "id": "jul_monsoon_relief",
+        "offer": "The Monsoon Travel Credit + The Flexibility Add-On",
+        "channels": ["Email", "WhatsApp", "In-Studio"],
+        "assets": ["Travel Relief Messaging", "Flexibility Explainer Cards", "Get Out of Jail Free Graphics"],
+        "dueDate": "July 1, 2026",
+        "priority": "Low",
+        "theme": "Convenience Incentives - Remove monsoon objections",
+        "notes": "Address rain-related barriers: ₹1,000 Uber credit removes 'cab difficulty' objection, unlimited freezes remove 'what if I can't make it' anxiety."
       }
     ]
   },
@@ -2629,24 +2478,24 @@ export const MONTHS_DATA: MonthData[] = [
     "revenueTargetTotal": "₹72,40,000",
     "marketingCollateral": [
       {
-        "id": "aug_bestie_1",
-        "type": "Mixed Media",
-        "notes": "Annual membership with bestie gifting feature",
+        "id": "aug_annual_connection",
         "offer": "The Annual Connection",
-        "medium": "Multi-channel",
-        "dueDate": "Aug 5, 2026",
-        "messaging": "barre besties & vitality themed creative highlighting The Annual Connection. Focus on benefits, not pricing.",
-        "collateralNeeded": "Annual membership push, bestie gifting campaign"
+        "channels": ["Email", "WhatsApp", "In-Studio"],
+        "assets": ["Annual Membership Campaign", "Bestie Gift Vouchers", "Email Multi-Sequence"],
+        "dueDate": "July 28, 2026",
+        "priority": "High",
+        "theme": "Barre Besties & Vitality - 12-month commitment with gifting feature",
+        "notes": "Annual membership with complimentary 'bestie month' gift voucher. Emphasize community connection and long-term value proposition."
       },
       {
-        "id": "aug_flash_1",
-        "type": "Mixed Media",
-        "notes": "Flash sale partnership discount for 3 days only",
+        "id": "aug_partnership_flash",
         "offer": "The Partnership Flash Sale",
-        "medium": "Multi-channel",
-        "dueDate": "Aug 1, 2026",
-        "messaging": "barre besties & vitality themed creative highlighting The Partnership Flash Sale. Focus on benefits, not pricing.",
-        "collateralNeeded": "72-hour flash sale countdown, pair purchase incentive"
+        "channels": ["WhatsApp", "Email", "Social Media", "In-Studio"],
+        "assets": ["72-Hour Countdown Graphics", "Pair Purchase Incentive Graphics", "Flash Sale Templates"],
+        "dueDate": "July 30, 2026",
+        "priority": "Critical",
+        "theme": "August 1-3 Flash Event - Partner purchase discount",
+        "notes": "Limited 3-day flash sale requiring coordinated countdown campaign across all channels. Create urgency with hourly social updates."
       }
     ]
   },
@@ -2822,7 +2671,39 @@ export const MONTHS_DATA: MonthData[] = [
         "revenueTarget": "₹10.6 L"
       }
     ],
-    "revenueTargetTotal": "₹73,10,000"
+    "revenueTargetTotal": "₹73,10,000",
+    "marketingCollateral": [
+      {
+        "id": "sep_professional_traveler",
+        "offer": "The Professional Traveler Package",
+        "channels": ["Email", "LinkedIn", "WhatsApp", "In-Studio"],
+        "assets": ["Business Traveler Campaign", "Virtual Session Showcase", "Travel Freeze Explainer Cards"],
+        "dueDate": "August 25, 2026",
+        "priority": "High",
+        "theme": "Professional's Peak - Flexibility for traveling professionals",
+        "notes": "Target corporate professionals and frequent travelers. Emphasize virtual private sessions and travel freeze credits for consistency across schedules."
+      },
+      {
+        "id": "sep_ambassador",
+        "offer": "The Ambassador Program",
+        "channels": ["Email", "WhatsApp", "In-Studio", "Social Media"],
+        "assets": ["Trainer Trading Cards", "Unique Referral Codes", "Masterclass Credit System Graphics"],
+        "dueDate": "August 28, 2026",
+        "priority": "Medium",
+        "theme": "Referral Initiative - Member-to-advocate conversion",
+        "notes": "Generate unique trainer codes for members to share. Track referrals and reward with masterclass training credits. Create social 'trading cards' for trainers."
+      },
+      {
+        "id": "sep_team_pulse_off",
+        "offer": "Team Pulse-Off Challenge",
+        "channels": ["In-Studio", "Social Media", "WhatsApp"],
+        "assets": ["Live Leaderboard Display", "Team Points Tracker", "Winning Team Event Graphics"],
+        "dueDate": "September 1, 2026",
+        "priority": "High",
+        "theme": "Month-Long Competition - Team-based motivation",
+        "notes": "All-month team competition with live lobby leaderboard. Finale event with masterclass and mocktails for winning team. Creates daily engagement."
+      }
+    ]
   },
   {
     "id": "oct",
@@ -3000,34 +2881,34 @@ export const MONTHS_DATA: MonthData[] = [
     "revenueTargetTotal": "₹59,80,000",
     "marketingCollateral": [
       {
-        "id": "597afuz33",
-        "type": "Mixed Media",
-        "notes": "Chocolate factory reference = rare, magical, exclusive. Fun premium positioning",
-        "offer": "Willy Wonka Wellness",
-        "medium": "Multi-channel",
-        "dueDate": "Oct 7, 2026",
-        "messaging": "pre-festive glow themed creative highlighting Willy Wonka Wellness. Focus on benefits, not pricing.",
-        "collateralNeeded": "Exclusive premium membership campaign"
+        "id": "oct_premium_annual",
+        "offer": "The Premium Annual Experience",
+        "channels": ["Email", "WhatsApp", "In-Studio"],
+        "assets": ["Golden Ticket Campaign", "Premium Membership Brochure", "12 Private Session Vouchers"],
+        "dueDate": "September 25, 2026",
+        "priority": "High",
+        "theme": "Pre-Festive Glow - Ultra-premium annual membership",
+        "notes": "Exclusive premium membership with 12 private sessions and gold grip socks. Position as 'golden ticket' for maximum personalization."
       },
       {
-        "id": "7j54z22t0",
-        "type": "Mixed Media",
-        "notes": "Little Black Dress + project transformation = aspirational and specific",
-        "offer": "The LBD Project",
-        "medium": "Multi-channel",
-        "dueDate": "Oct 7, 2026",
-        "messaging": "pre-festive glow themed creative highlighting The LBD Project. Focus on benefits, not pricing.",
-        "collateralNeeded": "LBD transformation campaign"
+        "id": "oct_lbd_project",
+        "offer": "The Event Preparation Sprint",
+        "channels": ["WhatsApp", "Email", "In-Studio", "Social Media"],
+        "assets": ["LBD Transformation Campaign", "Nutrition Guide Graphics", "Trainer Check-In Templates"],
+        "dueDate": "September 28, 2026",
+        "priority": "High",
+        "theme": "4-Week Sprint - Event preparation & transformation",
+        "notes": "Target members with specific festive event goals. 4-week concentrated program with bi-weekly trainer check-ins and personalized nutrition."
       },
       {
-        "id": "vvx1bzy3w",
-        "type": "Mixed Media",
-        "notes": "Dating metaphor for trying fitness fast. Low commitment, high energy",
-        "offer": "The Speed Date",
-        "medium": "Multi-channel",
-        "dueDate": "Oct 7, 2026",
-        "messaging": "pre-festive glow themed creative highlighting The Speed Date. Focus on benefits, not pricing.",
-        "collateralNeeded": "Trial offer campaign"
+        "id": "oct_trial_speed_date",
+        "offer": "The Trial Experience",
+        "channels": ["Social Media", "WhatsApp", "Email"],
+        "assets": ["Trial Offer Campaign", "Speed Dating Metaphor Graphics", "Low Commitment Messaging"],
+        "dueDate": "October 1, 2026",
+        "priority": "Low",
+        "theme": "New Member Acquisition - Low barrier trial",
+        "notes": "Use 'speed date' fitness metaphor for trial offers. Focus on low commitment and high energy to attract new members before festive season."
       }
     ]
   },
@@ -3203,7 +3084,29 @@ export const MONTHS_DATA: MonthData[] = [
         "revenueTarget": "₹10.6 L"
       }
     ],
-    "revenueTargetTotal": "₹62,70,000"
+    "revenueTargetTotal": "₹62,70,000",
+    "marketingCollateral": [
+      {
+        "id": "nov_extended_value",
+        "offer": "The Extended Value Pack",
+        "channels": ["Email", "WhatsApp", "In-Studio"],
+        "assets": ["Black Friday Campaign", "24-Month Validity Graphics", "Limited-Time Countdown"],
+        "dueDate": "November 20, 2026",
+        "priority": "Critical",
+        "theme": "Detox & Deal - Black Friday Nov 24-30 exclusive",
+        "notes": "57-class pack with exceptional 24-month validity. Position as Black Friday exclusive with strict 7-day window. Limited to 25 units total to maintain brand value."
+      },
+      {
+        "id": "nov_post_diwali",
+        "offer": "The Fresh Start Package",
+        "channels": ["WhatsApp", "Email", "In-Studio", "Social Media"],
+        "assets": ["Post-Diwali Detox Campaign", "Guilt-Relief Messaging", "Burn the Barfi Graphics"],
+        "dueDate": "November 5, 2026",
+        "priority": "High",
+        "theme": "Post-Festive Detox - Guilt-relief & restart",
+        "notes": "Target post-Diwali guilt with 14-day unlimited plus BOGO. Gamify with 'Burn the Barfi' 15-min class finishers. Emphasis on fresh start, not shame."
+      }
+    ]
   },
   {
     "id": "dec",
@@ -3379,6 +3282,37 @@ export const MONTHS_DATA: MonthData[] = [
       }
     ],
     "revenueTargetTotal": "₹52,50,000",
-    "marketingCollateral": []
+    "marketingCollateral": [
+      {
+        "id": "dec_price_protection",
+        "offer": "The 2026 Price Protection",
+        "channels": ["Email", "WhatsApp", "In-Studio"],
+        "assets": ["2026 Price Lock Campaign", "2027 Pricing Increase Announcements", "Early Commitment Discount Graphics"],
+        "dueDate": "November 25, 2026",
+        "priority": "Critical",
+        "theme": "Finish Strong - Annual price lock before 2027 increase",
+        "notes": "Lock in 2027 revenue before January rush. Emphasize 10% early commitment discount and price protection. Target high-churn risk members."
+      },
+      {
+        "id": "dec_holiday_flexibility",
+        "offer": "The Holiday Flexibility Package",
+        "channels": ["Email", "WhatsApp", "In-Studio"],
+        "assets": ["Holiday Schedule Graphics", "Double Validity Explainer Cards", "Freeze Credit Vouchers"],
+        "dueDate": "December 1, 2026",
+        "priority": "Medium",
+        "theme": "Holiday Retention - Extended validity and flexibility",
+        "notes": "Support holiday schedules with double validity and extra freeze credits. Reduce holiday churn by accommodating festive commitments."
+      },
+      {
+        "id": "dec_gift_cards",
+        "offer": "The Gift of Wellness",
+        "channels": ["In-Studio", "Email", "WhatsApp", "Social Media"],
+        "assets": ["Physical Gift Cards", "Holiday Gifting Campaign", "Purchaser Bonus Vouchers"],
+        "dueDate": "December 5, 2026",
+        "priority": "High",
+        "theme": "Holiday Gifting - Gift card sales drive",
+        "notes": "Display physical gift cards at reception. Incentivize with 2 complimentary classes for purchasers. Emphasize gifting wellness to loved ones."
+      }
+    ]
   }
 ];

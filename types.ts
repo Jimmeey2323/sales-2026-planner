@@ -93,12 +93,18 @@ export interface ExecutionWeek {
 export interface MarketingCollateral {
   id?: string;
   offer: string;
-  collateralNeeded: string;
-  type: string;
-  medium: string;
-  messaging: string;
+  // New consolidated format
+  channels?: string[]; // ["WhatsApp", "Email", "In-Studio", "Social Media", etc.]
+  assets?: string[]; // ["Image Creative", "Email Template", "Tent Cards", etc.]
   dueDate: string;
+  priority?: string; // "Critical", "High", "Medium", "Low"
+  theme?: string; // Campaign theme description
   notes?: string;
+  // Legacy format (still supported for backward compatibility)
+  collateralNeeded?: string;
+  type?: string;
+  medium?: string;
+  messaging?: string;
   ctaLinks?: string;
 }
 
