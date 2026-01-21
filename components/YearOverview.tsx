@@ -5,6 +5,7 @@ import { Calendar, TrendingUp, DollarSign, Package, CalendarDays, Target, Users,
 import { OfferCard } from './OfferCard';
 import { SimplePDFExporter } from './SimplePDFExporter';
 import { ProfessionalPDFExporter } from './ReactPDFExporter';
+import { ClientJourney } from './ClientJourney';
 
 interface YearOverviewProps {
   data: MonthData[];
@@ -86,6 +87,7 @@ const getMonthStrategy = (monthId: string, type: 'focus' | 'offers'): string[] =
 
 export const YearOverview: React.FC<YearOverviewProps> = ({ data, hideCancelled = false }) => {
   const [locationFilter, setLocationFilter] = useState<'both' | 'mumbai' | 'bengaluru'>('both');
+  const [showClientJourney, setShowClientJourney] = useState(false);
   
   const container = {
     hidden: { opacity: 0 },
@@ -501,6 +503,35 @@ export const YearOverview: React.FC<YearOverviewProps> = ({ data, hideCancelled 
           </button>
         </div>
       </motion.div>
+
+      {/* Floating Button */}
+      <button
+        onClick={() => setShowClientJourney(true)}
+        className="fixed top-4 right-4 z-50 flex items-center gap-2 px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all font-semibold no-print"
+      >
+        <Users className="w-5 h-5" />
+        New Client Sequence
+      </button>
+
+      {/* Client Journey Modal */}
+      {showClientJourney && (
+        <div className="fixed inset-0 z-50 overflow-y-auto no-print">
+          <div className="flex items-start justify-center min-h-screen pt-4 px-4 pb-20">
+            <div className="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity" onClick={() => setShowClientJourney(false)} />
+            <div className="relative bg-white rounded-2xl shadow-2xl max-w-6xl w-full my-8 overflow-hidden">
+              <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between z-10">
+                <h2 className="text-2xl font-bold text-gray-900">New Client Sequence</h2>
+                <button onClick={() => setShowClientJourney(false)} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                  <X className="w-6 h-6 text-gray-500" />
+                </button>
+              </div>
+              <div className="p-6 max-h-[80vh] overflow-y-auto">
+                <ClientJourney />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Content Wrapper for PDF Export */}
       <div id="yearly-content-wrapper">

@@ -4,6 +4,7 @@ import { Target, TrendingUp, Users, DollarSign, Package, Megaphone, ListTodo, Ed
 import { useSalesData } from '../context/SalesContext';
 import { useAdmin } from '../context/AdminContext';
 import OfferGeneratorModal from './OfferGeneratorModal';
+import { ClientJourney } from './ClientJourney';
 
 // Indian currency formatter
 const formatIndianCurrency = (amount: number): string => {
@@ -61,6 +62,7 @@ export const ExecutionPlan: React.FC<ExecutionPlanProps> = ({ month }) => {
   const [newSectionData, setNewSectionData] = useState('');
   const [showOfferGenerator, setShowOfferGenerator] = useState(false);
   const [showCampaignTimeline, setShowCampaignTimeline] = useState(false);
+  const [showClientJourney, setShowClientJourney] = useState(false);
   
   // Filter out cancelled offers
   const activeOffers = month.offers.filter(o => !o.cancelled);
@@ -934,6 +936,35 @@ export const ExecutionPlan: React.FC<ExecutionPlanProps> = ({ month }) => {
 
   return (
     <div className="space-y-6">
+      {/* Floating Button */}
+      <button
+        onClick={() => setShowClientJourney(true)}
+        className="fixed top-4 right-4 z-50 flex items-center gap-2 px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
+      >
+        <Users className="w-5 h-5" />
+        New Client Sequence
+      </button>
+
+      {/* Client Journey Modal */}
+      {showClientJourney && (
+        <div className="fixed inset-0 z-50 overflow-y-auto">
+          <div className="flex items-start justify-center min-h-screen pt-4 px-4 pb-20">
+            <div className="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity" onClick={() => setShowClientJourney(false)} />
+            <div className="relative bg-white rounded-2xl shadow-2xl max-w-6xl w-full my-8 overflow-hidden">
+              <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between z-10">
+                <h2 className="text-2xl font-bold text-gray-900">New Client Sequence</h2>
+                <button onClick={() => setShowClientJourney(false)} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                  <X className="w-6 h-6 text-gray-500" />
+                </button>
+              </div>
+              <div className="p-6 max-h-[80vh] overflow-y-auto">
+                <ClientJourney />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex items-center gap-3 mb-6">
         <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
           <Target className="w-5 h-5 text-gray-700" />
